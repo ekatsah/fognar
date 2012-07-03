@@ -13,7 +13,7 @@ applications.profile = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("rendering");
         if (this.me.get('realname'))
