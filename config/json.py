@@ -4,14 +4,17 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.core import serializers
 
+
 def json_seriz(request, queryset):
     data = serializers.serialize('json', queryset)
     return HttpResponse(data, 'application/javascript')
+
 
 def json_string(value):
     table = {'\\': '\\u005C', '"': '\\u0022', '/': '\\u002F', '\b': '\\u0008',
              '\f': '\\u000C', '\n': '\\u000A', '\r': '\\u000D', '\t': '\\u009'}
     return ''.join([ table.get(v, v) for v in value ])
+
 
 def json_sublist(value, depth=0):
     if depth > 10:
@@ -20,6 +23,7 @@ def json_sublist(value, depth=0):
         return '[' + ','.join(json_sublist(v, depth + 1) for v in value) + ']'
     else:
         return str(value)
+
 
 def json_object(request, obj, fields, **kwargs):
     def get_recur_attr(obj, attrs):
@@ -59,7 +63,7 @@ def json_object(request, obj, fields, **kwargs):
 
         elif type(value) == int:
             object_str.append('"%s": "%d"' % (field_name, value))
-        
+
         elif type(value) == tuple or type(value) == list:
             object_str.append('"%s": %s' % (field_name, json_sublist(value)))
 
@@ -73,10 +77,12 @@ def json_object(request, obj, fields, **kwargs):
 
     return "{" + ",".join(object_str) + "}"
 
+
 def json_list(request, queryset, fields, **kwargs):
     queryset = queryset() if callable(queryset) else queryset
     objects = [ json_object(request, obj, fields) for obj in queryset ]
     return "[" + ",".join(objects) + "]"
+
 
 def json_select(request, queryset, fields, **kwargs):
     queryset = queryset() if callable(queryset) else queryset
@@ -89,6 +95,7 @@ def json_select(request, queryset, fields, **kwargs):
         return json_object(request, queryset[0], fields)
     else:
         return json_sublist(request, queryset, fields)
+
 
 def json_send(function):
     def send(*args, **kwargs):

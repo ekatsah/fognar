@@ -1,10 +1,9 @@
 # Copyright 2012, RespLab. All rights reserved.
 
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.template import RequestContext
 from django.contrib.auth import login
 from django.utils.html import escape
 from xml.dom.minidom import parseString
@@ -15,14 +14,16 @@ from settings import ULB_AUTH, ULB_LOGIN
 from urllib2 import urlopen
 from base64 import b64encode
 
+
 # redirect user to ulb intranet auth in respect of the url
 def ulb_redirection(request, **kwargs):
-    return render_to_response('redirection.html', {'url': ULB_LOGIN},
-                              context_instance=RequestContext(request))
+    return render(request, 'redirection.html', {'url': ULB_LOGIN})
+
 
 # redirect user to internal/his profile
 def app_redirection(request, **kwargs):
     return HttpResponseRedirect(reverse('application'))
+
 
 # decorator whom stop anonymous user and give them a 403
 def stop_anon(function):
@@ -33,6 +34,7 @@ def stop_anon(function):
             return HttpResponseForbidden('not authorized')
     return stop
 
+
 # decorator whom stop non post request and give them a 403
 def uniq_post(function):
     def stop(request, *args, **kwargs):
@@ -42,9 +44,11 @@ def uniq_post(function):
             return HttpResponseForbidden('not authorized')
     return stop
 
+
 def get_text(nodelist):
     rc = [ node.data for node in nodelist if node.nodeType == node.TEXT_NODE ]
     return ''.join(rc)
+
 
 def get_value(dom, name):
     nodes = dom.getElementsByTagName(name)
@@ -65,6 +69,7 @@ def get_value(dom, name):
         real_node = nodes[0]
     return escape(get_text(real_node.childNodes))
 
+
 def parse_user(raw):
     dom = parseString(raw)
     return {
@@ -78,6 +83,7 @@ def parse_user(raw):
         'anac': get_value(dom, "anac"),
         'facid': get_value(dom, "facid"),
     }
+
 
 def create_user(values):
     try:
@@ -93,7 +99,7 @@ def create_user(values):
     profile = user.get_profile()
     profile.registration = values['registration']
     profile.save()
-    
+
     try:
         Inscription.objects.create(user=user, year=values['anac'],
                             section=values['facid'] + ':' + values['anet'])
@@ -102,11 +108,12 @@ def create_user(values):
 
     return user
 
+
 def throw_b64error(request, raw):
     msg = b64encode(raw)
     msg = [ msg[y * 78:(y+1)*78] for y in xrange((len(msg)/78) +1) ]
-    return render_to_response('error.html', {'msg': "\n".join(msg)},
-                              context_instance=RequestContext(request))
+    return render(request, 'error.html', {'msg': "\n".join(msg)})
+
 
 def intranet_auth(request, next_url):
     sid, uid = request.GET.get("_sid", False), request.GET.get("_uid", False)
@@ -116,9 +123,7 @@ def intranet_auth(request, next_url):
             verifier = urlopen(ULB_AUTH % (sid, uid))
             infos = verifier.read()
         except Exception as e:
-            return render_to_response('error.html',
-                                      {'msg': "ulb timeout " + str(e)},
-                                      context_instance=RequestContext(request))
+            return render(request, 'error.html', {'msg': "ulb timeout " + str(e)})
 
         try:
             values = parse_user(infos)
@@ -130,5 +135,4 @@ def intranet_auth(request, next_url):
         login(request, user)
         return HttpResponseRedirect(reverse('application') + '#' + next_url)
     else:
-        return render_to_response('error.html', {'msg': 'url discarded'},
-                                  context_instance=RequestContext(request))
+        return render(request, 'error.html', {'msg': 'url discarded'})
