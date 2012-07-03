@@ -42,4 +42,4 @@ It is build using Django 1.4 and a series of javascript library : jquery, backbo
     python manage.py runserver
     ```
 
-6. Go to (http://localhost:8000/syslogin) and login !
+6. Go to [http://localhost:8000/syslogin](http://localhost:8000/syslogin) and login !
