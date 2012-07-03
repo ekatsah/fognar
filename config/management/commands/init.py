@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
-from application.models import User
+from django.contrib.auth.models import User
+from application.models import AppUsing
 from getpass import getpass, getuser
 
 
@@ -17,3 +18,5 @@ class Command(BaseCommand):
             raise CommandError("You must provide a password")
         user.set_password(password)
         user.save()
+
+        AppUsing.objects.create(user=user, name="profile")
