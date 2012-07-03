@@ -29,7 +29,7 @@ It is build using Django 1.4 and a series of javascript library : jquery, backbo
 
     ```
     python manage.py shell
-    from application.models import User
+    from django.contrib.auth.models import User
     user = User()
     user.username = "your_username"
     user.set_password("your_password")
