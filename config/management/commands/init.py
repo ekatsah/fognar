@@ -13,6 +13,7 @@ class Command(BaseCommand):
         username = raw_input("Username (default: %s): " % getuser())
         if not username:
             username = getuser()
+        user.username = username
         password = getpass("Password (default: 'test'): ")
         if not password:
             password = 'test'
