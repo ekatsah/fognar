@@ -12,6 +12,8 @@ sorted([
 
 urls = {
     'application': 'zoidberg',
+    'application_me': 'application/me',
+    'profile_me': 'profile/me',
     'auth_entry': function(a) { return 'auth/' + a; },
     'index': '',
     'logout': 'logout',
