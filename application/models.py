@@ -8,14 +8,7 @@ class AppUsing(models.Model):
     name = models.CharField(max_length=80)
     last_visit = models.DateTimeField(auto_now_add=True)
     visited = models.IntegerField(default=0)
+    config = models.TextField(null=True)
 
     class Meta:
         unique_together = ('user', 'name')
-
-class AppConfig(models.Model):
-    application = models.ForeignKey(AppUsing)
-    param = models.CharField(max_length=80)
-    value = models.TextField()
-
-    class Meta:
-        unique_together = ('application', 'param')
