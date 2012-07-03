@@ -13,9 +13,9 @@ class Command(BaseCommand):
         username = raw_input("Username (default: %s): " % getuser())
         if not username:
             username = getuser()
-        password = getpass("Password: ")
+        password = getpass("Password (default: 'test'): ")
         if not password:
-            raise CommandError("You must provide a password")
+            password = 'test'
         user.set_password(password)
         user.save()
 
