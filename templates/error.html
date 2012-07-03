@@ -1,0 +1,29 @@
+<!-- Copyright 2012, RespLab. All rights reserved. -->
+
+{% load i18n %}
+
+<html>
+    <head>
+        <title>FOGNAR</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <link href="/static/style/index.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+	<h1>{% trans "A wild error appears!" %}</h1>
+
+	{% blocktrans %}
+        <p>We are sorry for the inconvenience. Please send an email to
+           <a href="mailto:p402@cerkinfo.be">p402@cerkinfo.be</a> describing
+           your error. <br>
+           Don't forget to add your broswer information, the url of the
+           error page and all useful informations. Thx!<br><br>
+        </p>
+        {% endblocktrans %}
+
+        {% if msg %}
+            {% trans "Would you be kind and append this text to your email?" %}<br>
+            <pre>{{msg}}</pre>
+        {% endif %}
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!-- Copyright 2012, RespLab. All rights reserved. -->
+
+{% load i18n %}
+{% load ssi from future %}
+
+<html>
+    <head>
+        <link href="/static/style/fognar.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>FOGNAR</title>
+        <script src="/static/third_party/jquery-1.7.min.js"></script>
+        <script src="/static/third_party/underscore-min.js"></script>
+        <script src="/static/third_party/backbone-min.js"></script>
+        <script src="/static/third_party/handlebars-1.0.0.beta.6.js"></script>
+        <script type=text/javascript>
+            {% include "urls.js" %}
+        </script>
+        {% ssi objects %}
+        <script src="/static/scripts/fognar.js"></script>
+        <script src="/static/scripts/helpers.js"></script>
+    </head>
+
+    <body id="body">
+	Suddenly, Application!
+    </body>
+</html>

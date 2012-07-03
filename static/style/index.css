@@ -1,0 +1,8 @@
+/* used only by index, error and syslogin */
+
+body {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    padding: 20px;
+    margin: 20px;
+    font-size: 14px;
+}
