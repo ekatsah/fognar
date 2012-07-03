@@ -28,12 +28,7 @@ It is build using Django 1.4 and a series of javascript library : jquery, backbo
 4. Install a new user (because the netid system probably won't work) :
 
     ```
-    python manage.py shell
-    from django.contrib.auth.models import User
-    user = User()
-    user.username = "your_username"
-    user.set_password("your_password")
-    user.save()
+    python manage.py init
     ```
 
 5. Launch the server using :
