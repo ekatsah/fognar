@@ -7,7 +7,7 @@ from os import path
 from re import sub
 
 # Absolute path to the directory that hold the manage.py file
-PROJECT_PATH = sub('/www$', '', path.abspath(path.split(__file__)[0]))
+PROJECT_PATH = sub('/config$', '', path.abspath(path.split(__file__)[0]))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -54,7 +54,7 @@ LANGUAGES = (
 
 USE_L10N = True
 
-ROOT_URLCONF = 'www.urls'
+ROOT_URLCONF = 'config.urls'
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
 STATICFILES_DIRS = ('%s/static/' % PROJECT_PATH,)

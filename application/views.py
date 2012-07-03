@@ -1,6 +1,6 @@
 # Copyright 2012, RespLab. All rights reserved.
 
-from www.json import json_object, json_send
+from config.json import json_object, json_send
 from application.models import AppUsing
 
 @json_send
