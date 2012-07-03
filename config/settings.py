@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'south',
     'application',
     'profile',
+    'config',
 )
 
 SECRET_KEY = 'v_g654gxfo#38*ju5*@bqbxg60a95dw*vpc+t&^(q*tjzazx1%'
