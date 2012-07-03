@@ -1,10 +1,9 @@
 # Copyright 2012, RespLab. All rights reserved.
 
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.template import RequestContext
 from django.contrib.auth import login
 from django.utils.html import escape
 from xml.dom.minidom import parseString
@@ -17,8 +16,7 @@ from base64 import b64encode
 
 # redirect user to ulb intranet auth in respect of the url
 def ulb_redirection(request, **kwargs):
-    return render_to_response('redirection.html', {'url': ULB_LOGIN},
-                              context_instance=RequestContext(request))
+    return render(request, 'redirection.html', {'url': ULB_LOGIN})
 
 # redirect user to internal/his profile
 def app_redirection(request, **kwargs):
@@ -105,8 +103,7 @@ def create_user(values):
 def throw_b64error(request, raw):
     msg = b64encode(raw)
     msg = [ msg[y * 78:(y+1)*78] for y in xrange((len(msg)/78) +1) ]
-    return render_to_response('error.html', {'msg': "\n".join(msg)},
-                              context_instance=RequestContext(request))
+    return render(request, 'error.html', {'msg': "\n".join(msg)})
 
 def intranet_auth(request, next_url):
     sid, uid = request.GET.get("_sid", False), request.GET.get("_uid", False)
@@ -116,9 +113,7 @@ def intranet_auth(request, next_url):
             verifier = urlopen(ULB_AUTH % (sid, uid))
             infos = verifier.read()
         except Exception as e:
-            return render_to_response('error.html',
-                                      {'msg': "ulb timeout " + str(e)},
-                                      context_instance=RequestContext(request))
+            return render(request, 'error.html', {'msg': "ulb timeout " + str(e)})
 
         try:
             values = parse_user(infos)
@@ -130,5 +125,4 @@ def intranet_auth(request, next_url):
         login(request, user)
         return HttpResponseRedirect(reverse('application') + '#' + next_url)
     else:
-        return render_to_response('error.html', {'msg': 'url discarded'},
-                                  context_instance=RequestContext(request))
+        return render(request, 'error.html', {'msg': 'url discarded'})
