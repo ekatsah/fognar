@@ -4,9 +4,9 @@
 from django.core.urlresolvers import get_resolver
 
 sorted([
-	(key, value[0][0][0])
-	for key, value in get_resolver(None).reverse_dict.items()
-	if isinstance(key, basestring)
+        (key, value[0][0][0])
+        for key, value in get_resolver(None).reverse_dict.items()
+        if isinstance(key, basestring)
 ])
 {% endcomment %} */
 
