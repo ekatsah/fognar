@@ -1,0 +1,4 @@
+*.pyc
+*.sw[op]
+db.sql
+ve/
