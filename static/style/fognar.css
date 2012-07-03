@@ -1,0 +1,25 @@
+body {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+#content {
+    margin: 45px 0px 0px 0px;
+}
+
+#content h1 {
+    margin: 5px 0px 10px 0px;
+}
+
+#upload_frame {
+    width: 0px;
+    height: 0px;
+    border: none;
+}
