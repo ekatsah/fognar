@@ -18,6 +18,8 @@ class Command(BaseCommand):
         if not password:
             password = 'test'
         user.set_password(password)
+        user.first_name = "John"
+        user.last_name = "Smith"
         user.save()
 
         AppUsing.objects.create(user=user, name="profile")
