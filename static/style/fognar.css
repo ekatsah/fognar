@@ -11,7 +11,8 @@ a {
 }
 
 #content {
-    margin: 45px 0px 0px 0px;
+    margin: 20px;
+    border: 1px red solid;
 }
 
 #content h1 {
