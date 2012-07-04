@@ -82,6 +82,11 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'south',
     'application',
+    'category',
+    'course',
+    'document',
+    'group',
+    'permission',
     'profile',
     'config',
 )
