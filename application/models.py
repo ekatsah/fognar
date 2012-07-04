@@ -9,6 +9,3 @@ class AppUsing(models.Model):
     last_visit = models.DateTimeField(auto_now_add=True)
     visited = models.IntegerField(default=0)
     config = models.TextField(null=True)
-
-    class Meta:
-        unique_together = ('user', 'name')
