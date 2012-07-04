@@ -14,6 +14,12 @@
         <script src="/static/third_party/handlebars-1.0.0.beta.6.js"></script>
         <script type=text/javascript>
             {% include "urls.js" %}
+            
+            autostart = {
+                navbar: 'p1',
+                profile: 'p2',
+                
+            };
         </script>
         {% ssi objects %}
         <script src="/static/scripts/fognar.js"></script>
@@ -21,6 +27,8 @@
     </head>
 
     <body id="body">
-        Suddenly, Application!
+        <div id="application">
+            Suddenly, Application!
+        </div>
     </body>
 </html>

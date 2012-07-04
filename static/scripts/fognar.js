@@ -67,6 +67,7 @@ $(document).ready(function() {
         Handlebars.registerPartial(t.id, $(t).html());
     });
 
+    console.log('auto : ' + autostart.navbar);
     // start application
     console.log("starting...")
     var router = new ZoidRouter;
