@@ -45,6 +45,66 @@ applications.market = Backbone.View.extend({
     },
 });
 
+applications.course = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("course render");
+        $(this.el).html(templates['tpl-course']());
+        return this;
+    },
+});
+
+applications.viewer = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("viewer render");
+        $(this.el).html(templates['tpl-viewer']());
+        return this;
+    },
+});
+
+applications.group = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("group render");
+        $(this.el).html(templates['tpl-group']());
+        return this;
+    },
+});
+
+applications.navbar = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("navbar render");
+        $(this.el).html(templates['tpl-navbar']());
+        return this;
+    },
+});
+
 var ZoidRouter = Backbone.Router.extend({
     routes: {
         '*url': 'parser',
