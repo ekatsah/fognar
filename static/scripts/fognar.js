@@ -3,8 +3,9 @@
 var applications = {};
 
 applications.profile = Backbone.View.extend({
-    initialize: function() {
+    initialize: function(params) {
         _.bindAll(this, 'render');
+        this.router = params.router;
         this.me = new Backbone.Model();
         this.me.url = urls.profile_me;
         this.me.on("change", this.render);
@@ -12,7 +13,12 @@ applications.profile = Backbone.View.extend({
         this.render();
     },
 
-    events: {},
+    events: {
+        'click #market': function() {
+            this.router.navigate('/market', {trigger: true}); 
+            return false;
+        },
+    },
     
     render: function() {
         console.log("rendering");
@@ -20,6 +26,21 @@ applications.profile = Backbone.View.extend({
             $(this.el).html(templates['tpl-profile'](this.me.toJSON()));
         else
             $(this.el).html(templates['tpl-loading']());
+        return this;
+    },
+});
+
+applications.market = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("market render");
+        $(this.el).html(templates['tpl-market']());
         return this;
     },
 });
@@ -33,7 +54,8 @@ var ZoidRouter = Backbone.Router.extend({
         if (applications[url] == undefined)
             this.navigate('/profile', {trigger: true});
         else
-            window.current_app = new applications.profile({el: $('#body')});
+            window.current_app = new applications[url]({el: $('#body'), 
+                                                           router: this});
     },
 });
 
