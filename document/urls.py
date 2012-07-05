@@ -12,7 +12,7 @@ urlpatterns = patterns('',
          'fields': ['name', 'uploader.get_full_name', 'description']},
         name='document_all'),
 
-    url(r'^d$', document_bone.as_view(), name="document_bone"),
+    url(r'^d/$', document_bone.as_view(), name="document_bone"),
     url(r'^d/(?P<id>\d+)', document_bone.as_view(), name="document_bone_id"),
 
     url(r'^upload_file', stop_anon(uniq_post(upload_file)),
