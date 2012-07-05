@@ -14,6 +14,7 @@ class Permission(models.Model):
     class Meta:
         unique_together = ('name', 'user', 'object_id')
 
+    # seem to be broken.. FIXME
     @classmethod
     def new(user, name, oid=0):
         if name in PERM_LIST:

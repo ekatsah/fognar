@@ -31,7 +31,7 @@ FORCE_SCRIPT_NAME = ''
 
 # Upload settings
 UPLOAD_LOG = '/tmp/upload_log'
-UPLOAD_DIR = '%s/static/r' % PROJECT_PATH
+UPLOAD_DIR = '%s/document/r' % PROJECT_PATH
 PARSING_WORKERS = 7
 
 # ULB login, need to add the url to redirect at the end

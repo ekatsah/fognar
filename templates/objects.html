@@ -32,7 +32,35 @@
     <div id="description">
         {{this.description}}
     </div>
-    {{/each}}
+    {{/each}}<hr>
+    <form id="upload_form">
+        <table>
+            <tr><td>Filename : </td>
+                <td><input name="filename"/></td></tr>
+            <tr><td>Description : </td>
+                <td><textarea name="description"></textarea></td></tr>
+            <tr><td>File : </td>
+                <td><input name="file" type="file"></td></tr>
+        </table>
+        <input name="ctype" type="hidden" value="{{ type }}"/>
+        <input name="context" type="hidden" value="{{ context }}"/>
+        <input id="upload_form_submit" type="submit" value="upload">
+    </form>
+    <hr>
+    <form id="upload_http_form">
+        <table>
+            <tr><td>Filename : </td>
+                <td><input name="filename" value="slidix"/></td></tr>
+            <tr><td>Description : </td>
+                <td><textarea name="description">description youpla boom</textarea></td></tr>
+            <tr><td>URL : </td>
+                <td><input name="url" value="http://cerkinfo.be/~hastake/test.pdf"></td></tr>
+        </table>
+        <input name="ctype" type="hidden" value="{{ type }}"/>
+        <input name="context" type="hidden" value="{{ context }}"/>
+        <input id="upload_http_submit" type="submit" value="upload">
+    </form>
+    <iframe id="upload_frame"></iframe>
 </script>
 
 <script id="tpl-navbar" type="text/x-handlebars-template">

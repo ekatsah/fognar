@@ -6,12 +6,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from re import sub
 
-class Page(models.Model):
-    num = models.IntegerField()
-    width = models.IntegerField()
-    height = models.IntegerField()
-
-
 class Document(models.Model):
     name = models.TextField()
     description = models.TextField()
@@ -31,6 +25,13 @@ class Document(models.Model):
         if not name.endswith('.pdf'):
             name += '.pdf'
         return name
+
+
+class Page(models.Model):
+    num = models.IntegerField()
+    width = models.IntegerField()
+    height = models.IntegerField()
+    doc = models.ForeignKey(Document)
 
 
 class PendingDocument(models.Model):

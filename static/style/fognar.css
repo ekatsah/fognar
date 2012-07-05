@@ -14,6 +14,7 @@ a {
     margin: 40px 10px 20px 10px;
     border: 1px #eee solid;
     overflow: auto;
+    border-radius: 5px;
 }
 
 #application h1 {
@@ -74,4 +75,11 @@ a {
 
 #desktop {
     overflow: auto;
+}
+
+hr {
+    height: 1px;
+    background-color: #eee;
+    margin: 10px 0px 10px 0px;
+    border: none;
 }
