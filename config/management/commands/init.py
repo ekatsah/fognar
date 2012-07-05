@@ -41,7 +41,7 @@ class Command(BaseCommand):
         c2 = Course.objects.create(slug='info-f-777', name='Over Math',
                                    description='New math course based on fuzzy axiomes')
         c3 = Course.objects.create(slug='info-f-888', name='AlgoSimplex',
-                                   description='Les simplex dans tout leurs états')
+                                   description='Les simplex dans tout leurs etats')
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
 
