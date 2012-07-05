@@ -82,7 +82,13 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'south',
     'application',
+    'category',
+    'course',
+    'document',
+    'group',
+    'permission',
     'profile',
+    'config',
 )
 
 SECRET_KEY = 'v_g654gxfo#38*ju5*@bqbxg60a95dw*vpc+t&^(q*tjzazx1%'

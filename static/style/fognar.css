@@ -10,11 +10,12 @@ a {
     text-decoration: none;
 }
 
-#content {
-    margin: 45px 0px 0px 0px;
+#application {
+    margin: 40px 10px 20px 10px;
+    border: 1px red solid;
 }
 
-#content h1 {
+#application h1 {
     margin: 5px 0px 10px 0px;
 }
 
@@ -22,4 +23,20 @@ a {
     width: 0px;
     height: 0px;
     border: none;
+}
+
+#navbar {
+    position: absolute;
+    height: 30px;
+    background-color: #ddd;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+#navbar div {
+    float: left;
+    border: 1px green solid;
+    padding: 2px;
+    margin: 5px;
 }
