@@ -9,7 +9,8 @@ from application.models import AppUsing
 @json_send
 def my_apps(request):
     apps = AppUsing.objects.filter(user=request.user)
-    return json_list(request, apps, ['name', 'config'])
+    return json_list(request, apps, ['name', 'id', 'config'])
+
 
 
 def get_config(request, app_id):
