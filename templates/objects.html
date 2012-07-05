@@ -1,15 +1,16 @@
 <!-- Copyright 2012, RespLab. All rights reserved. -->
 
 <script id="tpl-desktop" type="text/x-handlebars-template">
-    <div id="content">
-        <h1>{{ profil.realname }}</h1>
-        <div id="market">Market</div>
+    <div id="desktop">
+        <h1>Hello, {{ profil.realname }}</h1>
         {{#each shortcuts}}
-        <div class="shortcut" data-type="{{this.app}}" data-target="{{this.slug}}">
+        <div class="shortcut light_blue big_button" data-type="{{this.app}}"
+                    data-target="{{this.slug}}">
             {{ this.app }}<br>
             {{ this.slug}}
         </div>
         {{/each}}
+        <div id="market" class="big_button">Market</div>
     </div>
 </script>
 
@@ -36,11 +37,16 @@
 
 <script id="tpl-navbar" type="text/x-handlebars-template">
     <div id="navbar">
-        <div id="brand">Fognar!1</div>
+        <div id="brand">Fognar!1 - Logo/titre</div>
         <div id="desk_button">Desktop</div>
     </div>
 </script>
 
-<script id="tpl-course" type="text/x-handlebars-template">
-    course!
+<script id="tpl-desk-course" type="text/x-handlebars-template">
+    <div id="course_popup">
+        <div id="infos" class="light_red big_button">Infos</div>
+        <div id="document" class="light_red big_button">Documents</div>
+        <div id="podcast" class="light_red big_button">Podcast</div>
+        <div id="discussion" class="light_red big_button">Discussions</div>
+    </div>
 </script>

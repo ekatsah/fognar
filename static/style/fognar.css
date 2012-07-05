@@ -12,12 +12,12 @@ a {
 
 #application {
     margin: 40px 10px 20px 10px;
-    border: 1px red solid;
+    border: 1px #eee solid;
     overflow: auto;
 }
 
 #application h1 {
-    margin: 5px 0px 10px 0px;
+    margin: 5px 0px 10px 10px;
 }
 
 #upload_frame {
@@ -42,13 +42,34 @@ a {
     margin: 5px;
 }
 
-.shortcut {
+.big_button {
     float: left;
     margin: 10px;
     padding: 5px;
     border-radius: 10px;
     height: 90px;
     width: 90px;
-    background-color: #adf;
     cursor: pointer;
+}
+
+.light_blue {
+    background-color: #adf;
+}
+
+.light_red {
+    background-color: #fda;
+}
+
+#market {
+    background-color: #eee;
+}
+
+#course_popup {
+    position: absolute;
+    overflow: auto;
+    border: 1px black solid;
+}
+
+#desktop {
+    overflow: auto;
 }

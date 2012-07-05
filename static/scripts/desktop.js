@@ -1,5 +1,25 @@
 // Copyright 2012, RespLab. All rights reserved.
 
+applications.course = Backbone.View.extend({
+    initialize: function(params) {
+        _.bindAll(this, 'render');
+        this.slug = params.slug;
+        $(this.el).html(templates['tpl-desk-course']());
+        $('#desktop').append(this.el);
+        this.x = Math.max(5, params.position.left / 2 - $(this.el).width() / 2);
+        this.y = params.position.top + 40;
+        $(this.el).css('margin-left', this.x + 'px');
+        $(this.el).css('margin-top', this.y + 'px');        
+    },
+
+    events: {
+        'click #document': function() {
+            console.log("load document course");
+            return false;
+        }
+    },
+});
+
 applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
@@ -18,14 +38,28 @@ applications.desktop = Backbone.View.extend({
             return false;
         },
         'click .shortcut': function(e) {
-            this.router.navigate('/' + e.target.getAttribute('data-type') + '/' + 
-                e.target.getAttribute('data-target'), {trigger: true});
+            if (this.popup) {
+                $(this.popup.el).remove();
+                delete this.popup;
+            }
+            var app = e.target.getAttribute('data-type');
+            if (app == "course")
+                this.popup = new applications.course({
+                    slug: e.target.getAttribute('data-target'),
+                    position: $(e.target).position(),
+                });
             return false;
         },
+        'click': function() {
+            if (this.popup) {
+                $(this.popup.el).remove();
+                delete this.popup;
+            }
+            return false;
+        }
     },
 
     render: function() {
-        console.log("desktop rendering");
         if (this.me.get('realname')) {
             $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), 
                 shortcuts: this.config.shortcuts}));
