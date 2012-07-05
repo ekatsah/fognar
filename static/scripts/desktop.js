@@ -4,9 +4,12 @@ applications.course = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.slug = params.slug;
+        this.router = params.router;
         $(this.el).html(templates['tpl-desk-course']());
+        $(this.el).addClass('course_popup');
         $('#desktop').append(this.el);
-        this.x = Math.max(5, params.position.left / 2 - $(this.el).width() / 2);
+        console.log('left: ' + params.position.left + ' && width : ' + $(this.el).width())
+        this.x = Math.max(5, params.position.left - $(this.el).width() / 2);
         this.y = params.position.top + 40;
         $(this.el).css('margin-left', this.x + 'px');
         $(this.el).css('margin-top', this.y + 'px');        
@@ -14,7 +17,8 @@ applications.course = Backbone.View.extend({
 
     events: {
         'click #document': function() {
-            console.log("load document course");
+            this.router.navigate('/document/course/' + this.slug, 
+                                 {trigger: true});
             return false;
         }
     },
@@ -47,6 +51,7 @@ applications.desktop = Backbone.View.extend({
                 this.popup = new applications.course({
                     slug: e.target.getAttribute('data-target'),
                     position: $(e.target).position(),
+                    router: this.router,
                 });
             return false;
         },

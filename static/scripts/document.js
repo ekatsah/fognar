@@ -1,11 +1,12 @@
 applications.document = Backbone.View.extend({
-    initialize: function() {
+    initialize: function(params) {
+        console.log("params : " + dump(params));
         _.bindAll(this, 'render');
         this.documents = new Backbone.Collection();
         this.documents.url = urls.document_all;
         this.documents.on("change", this.render);
         this.documents.fetch();
-        setTimeout(this.render, 1000);
+        this.render();
     },
 
     events: {},
