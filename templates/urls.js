@@ -18,4 +18,5 @@ urls = {
     'index': '',
     'logout': '{% url logout %}',
     'syslogin': '{% url syslogin %}',
+    'document_all': '{% url document_all %}',
 };

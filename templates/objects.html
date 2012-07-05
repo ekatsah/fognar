@@ -21,6 +21,19 @@
     loading..
 </script>
 
+<script id="tpl-document" type="text/x-handlebars-template">
+    <div id="title">
+        <h2>Document list</h2>
+    </div>
+    <div id="list">
+    {{#each documents}}
+    <h3>{{this.name}} by {{this.uploader_get_full_name}} </h3>
+    <div id="description">
+        {{this.description}}
+    </div>
+    {{/each}}
+</script>
+
 <script id="tpl-navbar" type="text/x-handlebars-template">
     <div id="navbar">
         <div id="brand">Fognar!1</div>
