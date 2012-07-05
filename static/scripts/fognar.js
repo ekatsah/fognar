@@ -107,15 +107,17 @@ applications.navbar = Backbone.View.extend({
 
 var ZoidRouter = Backbone.Router.extend({
     routes: {
-        '*url': 'parser',
+        '*args': 'parser',
     },
 
     parser: function(url) {
-        if (applications[url] == undefined)
+        url = url.split('/');
+        if (applications[url[0]] == undefined)
             this.navigate('/profile', {trigger: true});
         else
-            window.current_app = new applications[url]({el: $('#body'), 
-                                                           router: this});
+            window.current_app = new applications[url[0]]({el: $('#body'), 
+                                                           router: this,
+                                                           args: url});
     },
 });
 
