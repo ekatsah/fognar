@@ -91,17 +91,16 @@ applications.group = Backbone.View.extend({
 });
 
 applications.navbar = Backbone.View.extend({
-    initialize: function() {
-        _.bindAll(this, 'render');
-        this.render();
+    initialize: function(params) {
+        $(this.el).prepend(templates['tpl-navbar']());
+        this.router = params.router;        
+        this.el = $('#navbar');
     },
 
-    events: {},
-    
-    render: function() {
-        console.log("navbar render");
-        $(this.el).html(templates['tpl-navbar']());
-        return this;
+    events: {
+        'click #desk_button': function() {
+            this.router.navigate('/desktop', {trigger: true});
+        },
     },
 });
 
@@ -115,7 +114,7 @@ var ZoidRouter = Backbone.Router.extend({
         if (applications[url[0]] == undefined)
             this.navigate('/desktop', {trigger: true});
         else
-            window.current_app = new applications[url[0]]({el: $('#body'), 
+            window.current_app = new applications[url[0]]({el: $('#application'), 
                                                            router: this,
                                                            args: url});
     },
@@ -130,7 +129,12 @@ $(document).ready(function() {
     });
 
     // start application
+
     console.log("starting...")
+
     var router = new ZoidRouter;
+    _.each(autostart, function(k, el) {
+        new applications[el]({router: router, el: $('#body')});
+    });
     Backbone.history.start();
 });
