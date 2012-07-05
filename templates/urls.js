@@ -14,6 +14,7 @@ urls = {
     'application': 'zoidberg',
     'application_me': 'application/me',
     'profile_me': 'profile/me',
+    'document_all': 'document/all',
     'auth_entry': function(a) { return 'auth/' + a; },
     'index': '',
     'logout': 'logout',
