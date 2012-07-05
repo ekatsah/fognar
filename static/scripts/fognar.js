@@ -15,11 +15,11 @@ applications.desktop = Backbone.View.extend({
 
     events: {
         'click #market': function() {
-            this.router.navigate('/market', {trigger: true}); 
+            this.router.navigate('/market', {trigger: true});
             return false;
         },
     },
-    
+
     render: function() {
         console.log("desktop rendering");
         if (this.me.get('realname'))
@@ -37,7 +37,7 @@ applications.market = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("market render");
         $(this.el).html(templates['tpl-market']());
@@ -52,7 +52,7 @@ applications.course = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("course render");
         $(this.el).html(templates['tpl-course']());
@@ -67,7 +67,7 @@ applications.viewer = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("viewer render");
         $(this.el).html(templates['tpl-viewer']());
@@ -82,7 +82,7 @@ applications.group = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("group render");
         $(this.el).html(templates['tpl-group']());
