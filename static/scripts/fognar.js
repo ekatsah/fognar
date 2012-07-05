@@ -1,45 +1,5 @@
 // Copyright 2012, RespLab. All rights reserved.
 
-
-// magic django function to handle csrf, don't bother with it
-$(document).ajaxSend(function(event, xhr, settings) {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    function sameOrigin(url) {
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-    function safeMethod(method) {
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    }
-});
-// end of magic function
-
 var applications = {};
 
 var ShortCut = Backbone.Model.extend({
@@ -51,7 +11,7 @@ var ShortCut = Backbone.Model.extend({
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
         $(this.el).prepend(templates['tpl-navbar']());
-        this.router = params.router;        
+        this.router = params.router;
         this.el = $('#navbar');
     },
 
@@ -93,9 +53,9 @@ $(document).ready(function() {
         templates[t.id] = Handlebars.compile($(t).html());
         Handlebars.registerPartial(t.id, $(t).html());
     });
-    
+
     // make ajax synchronous for config fetch. TODO : bootstraping
-    $.ajaxSetup({ async: false });   
+    $.ajaxSetup({ async: false });
     var config = new Backbone.Collection();
     config.url = urls.application_me;
     config.fetch();
