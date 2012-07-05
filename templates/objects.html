@@ -1,8 +1,14 @@
 <!-- Copyright 2012, RespLab. All rights reserved. -->
 
 <script id="tpl-desktop" type="text/x-handlebars-template">
-    <h1>{{ realname }}</h1>
-    <div id="market">Market</div>
+    <div id="content">
+        <h1>{{ profil.realname }}</h1>
+        <div id="market">Market</div>
+        <p>Debug: {{ applications }}</p>
+        {{#each applications}}
+        <div>Prout: {{ this.name }}</div>
+        {{/each}}
+    </div>
 </script>
 
 <script id="tpl-market" type="text/x-handlebars-template">

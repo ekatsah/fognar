@@ -2,6 +2,12 @@
 
 var applications = {};
 
+var Application = Backbone.Model.extend({
+    url: function() {
+        return urls.application_me;
+    }
+});
+
 applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
@@ -9,7 +15,8 @@ applications.desktop = Backbone.View.extend({
         this.me = new Backbone.Model();
         this.me.url = urls.profile_me;
         this.me.on("change", this.render);
-        this.me.fetch()
+        this.me.fetch();
+        this.applications = new Application;
         this.render();
     },
 
@@ -23,7 +30,7 @@ applications.desktop = Backbone.View.extend({
     render: function() {
         console.log("desktop rendering");
         if (this.me.get('realname'))
-            $(this.el).html(templates['tpl-desktop'](this.me.toJSON()));
+            $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), applications: this.applications.toJSON()}));
         else
             $(this.el).html(templates['tpl-loading']());
         return this;
@@ -111,12 +118,16 @@ var ZoidRouter = Backbone.Router.extend({
 
     parser: function(url) {
         url = url.split('/');
-        if (applications[url[0]] == undefined)
+        if (applications[url[0]] == undefined) {
+            console.log("DEBUG: no url, got to desktop")
             this.navigate('/desktop', {trigger: true});
-        else
+        }
+        else {
+            console.log("DEBUG: go to application " + url[0])
             window.current_app = new applications[url[0]]({el: $('#application'), 
                                                            router: this,
                                                            args: url});
+        }
     },
 });
 
