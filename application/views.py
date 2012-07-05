@@ -1,10 +1,11 @@
 # Copyright 2012, RespLab. All rights reserved.
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from djangbone.views import BackboneAPIView
 
 from config.json import json_list, json_send
-from application.models import AppUsing
+from models import AppUsing
+from forms import AppConfigForm
+
 
 @json_send
 def my_apps(request):
@@ -12,7 +13,9 @@ def my_apps(request):
     return json_list(request, apps, ['name', 'id', 'config'])
 
 
+class ConfigView(BackboneAPIView):
+    base_queryset = AppUsing.objects.all()
+    serialize_fields = ('id', 'name', 'config', 'visited', 'last_visit', 'user')
 
-def get_config(request, app_id):
-    app = get_object_or_404(AppUsing, pk=app_id)
-    return HttpResponse(app.config if app.config else "{}")
+    edit_form_class = AppConfigForm
+    add_form_class = AppConfigForm
