@@ -70,7 +70,7 @@ var ZoidRouter = Backbone.Router.extend({
     parser: function(url) {
         url = url.split('/');
         if (applications[url[0]] == undefined) {
-            console.log("DEBUG: no url, got to desktop")
+            console.log("DEBUG: no url, go to desktop")
             this.navigate('/desktop', {trigger: true});
         }
         else {
