@@ -5,6 +5,7 @@ from django.utils.html import escape
 from django.shortcuts import get_object_or_404
 from document.models import Document, PendingDocument
 from document.forms import UploadHttpForm, UploadFileForm
+from djangbone.views import BackboneAPIView
 from permission.models import Permission
 from course.models import Course
 from group.models import Group
@@ -18,6 +19,10 @@ def get_context(ctype, context):
     else:
         # Force 404
         return get_object_or_404(Group, slug="-1")
+
+class document_bone(BackboneAPIView):
+    base_queryset = Document.objects.all()
+    serialize_fields = ('id', 'name', 'description', 'uploader.real_name')
 
 @json_send
 def upload_file(request):
@@ -49,7 +54,8 @@ def upload_http(request):
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
                                       uploader=request.user, referer=thing)
-        Permission.new(request.user, 'document_edit', doc.id)
+        # seem to be broken, FIXME
+        # Permission.new(request.user, 'document_edit', doc.id)
         PendingDocument.objects.create(doc=doc, state="queued", url=data['url'])
         return '{"message": "ok"}'
     else:

@@ -1,15 +1,16 @@
 <!-- Copyright 2012, RespLab. All rights reserved. -->
 
 <script id="tpl-desktop" type="text/x-handlebars-template">
-    <div id="content">
-        <h1>{{ profil.realname }}</h1>
-        <div id="market">Market</div>
+    <div id="desktop">
+        <h1>Hello, {{ profil.realname }}</h1>
         {{#each shortcuts}}
-        <div class="shortcut" xtype="{{this.app}}" xtarget="{{this.slug}}">
+        <div class="shortcut light_blue big_button" data-type="{{this.app}}"
+                    data-target="{{this.slug}}">
             {{ this.app }}<br>
             {{ this.slug}}
         </div>
         {{/each}}
+        <div id="market" class="big_button">Market</div>
     </div>
 </script>
 
@@ -23,7 +24,7 @@
 
 <script id="tpl-document" type="text/x-handlebars-template">
     <div id="title">
-        <h2>Document list</h2>
+        <h1>Document list</h1>
     </div>
     <div id="list">
     {{#each documents}}
@@ -31,12 +32,47 @@
     <div id="description">
         {{this.description}}
     </div>
-    {{/each}}
+    {{/each}}<hr>
+    <form id="upload_form">
+        <table>
+            <tr><td>Filename : </td>
+                <td><input name="filename"/></td></tr>
+            <tr><td>Description : </td>
+                <td><textarea name="description"></textarea></td></tr>
+            <tr><td>File : </td>
+                <td><input name="file" type="file"></td></tr>
+        </table>
+        <input name="ctype" type="hidden" value="{{ type }}"/>
+        <input name="context" type="hidden" value="{{ context }}"/>
+        <input id="upload_form_submit" type="submit" value="upload">
+    </form>
+    <hr>
+    <form id="upload_http_form">
+        <table>
+            <tr><td>Filename : </td>
+                <td><input name="filename" value="slidix"/></td></tr>
+            <tr><td>Description : </td>
+                <td><textarea name="description">description youpla boom</textarea></td></tr>
+            <tr><td>URL : </td>
+                <td><input name="url" value="http://cerkinfo.be/~hastake/test.pdf"></td></tr>
+        </table>
+        <input name="ctype" type="hidden" value="{{ type }}"/>
+        <input name="context" type="hidden" value="{{ context }}"/>
+        <input id="upload_http_submit" type="submit" value="upload">
+    </form>
+    <iframe id="upload_frame"></iframe>
 </script>
 
 <script id="tpl-navbar" type="text/x-handlebars-template">
     <div id="navbar">
-        <div id="brand">Fognar!1</div>
+        <div id="brand">Fognar!1 - Logo/titre</div>
         <div id="desk_button">Desktop</div>
     </div>
+</script>
+
+<script id="tpl-desk-course" type="text/x-handlebars-template">
+    <div id="infos" class="light_red big_button">Infos</div>
+    <div id="document" class="light_red big_button">Documents</div>
+    <div id="podcast" class="light_red big_button">Podcast</div>
+    <div id="discussion" class="light_red big_button">Discussions</div>
 </script>
