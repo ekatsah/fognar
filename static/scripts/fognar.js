@@ -19,6 +19,11 @@ applications.desktop = Backbone.View.extend({
             this.router.navigate('/market', {trigger: true});
             return false;
         },
+        'click .shortcut': function(e) {
+            this.router.navigate('/' + e.target.getAttribute('data-type') + '/' + 
+                e.target.getAttribute('data-target'), {trigger: true});
+            return false;
+        },
     },
 
     render: function() {
@@ -120,7 +125,11 @@ var ZoidRouter = Backbone.Router.extend({
         }
         else {
             console.log("DEBUG: go to application " + url[0])
-            var config = eval('(' + this.config.where({name: url[0]})[0].get('config') + ')');
+            var config = this.config.where({name: url[0]})
+            if (config.length != 0)
+                config = eval('(' + config[0].get('config') + ')');
+            else
+                config = {};
             window.current_app = new applications[url[0]]({el: $('#application'),
                 router: this, args: url, config: config});
         }

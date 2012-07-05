@@ -5,7 +5,7 @@
         <h1>{{ profil.realname }}</h1>
         <div id="market">Market</div>
         {{#each shortcuts}}
-        <div class="shortcut" xtype="{{this.app}}" xtarget="{{this.slug}}">
+        <div class="shortcut" data-type="{{this.app}}" data-target="{{this.slug}}">
             {{ this.app }}<br>
             {{ this.slug}}
         </div>
@@ -26,4 +26,8 @@
         <div id="brand">Fognar!1</div>
         <div id="desk_button">Desktop</div>
     </div>
+</script>
+
+<script id="tpl-course" type="text/x-handlebars-template">
+    course!
 </script>
