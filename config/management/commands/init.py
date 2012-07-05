@@ -22,4 +22,10 @@ class Command(BaseCommand):
         user.last_name = "Smith"
         user.save()
 
-        AppUsing.objects.create(user=user, name="desktop")
+        AppUsing.objects.create(user=user, name="desktop", config=""" {
+            shortcuts: [ 
+                {app: 'course', slug: 'info-f-666'},
+                {app: 'course', slug: 'info-f-777'},
+            ],
+            size: 32,
+        }""")

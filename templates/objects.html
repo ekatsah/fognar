@@ -4,8 +4,11 @@
     <div id="content">
         <h1>{{ profil.realname }}</h1>
         <div id="market">Market</div>
-        {{#each applications}}
-        <div id="{{ this.name }}">{{ this.name }}</div>
+        {{#each shortcuts}}
+        <div class="shortcut" xtype="{{this.app}}" xtarget="{{this.slug}}">
+            {{ this.app }}<br>
+            {{ this.slug}}
+        </div>
         {{/each}}
     </div>
 </script>

@@ -10,12 +10,7 @@ applications.desktop = Backbone.View.extend({
         this.me.url = urls.profile_me;
         this.me.on("change", this.render);
         this.me.fetch();
-        this.shortcuts = new Backbone.Collection();
-        this.shortcuts.url = function() {
-           return urls.application_me;
-        }
-        this.shortcuts.fetch();
-        this.shortcuts.bind("all", this.render);
+        this.config = params.config;
         this.render();
     },
 
@@ -28,9 +23,10 @@ applications.desktop = Backbone.View.extend({
 
     render: function() {
         console.log("desktop rendering");
-        if (this.me.get('realname'))
+        if (this.me.get('realname')) {
             $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), 
-                applications: this.shortcuts.toJSON()}));
+                shortcuts: this.config.shortcuts}));
+            }
         else
             $(this.el).html(templates['tpl-loading']());
         return this;
@@ -124,9 +120,9 @@ var ZoidRouter = Backbone.Router.extend({
         }
         else {
             console.log("DEBUG: go to application " + url[0])
-            window.current_app = new applications[url[0]]({el: $('#application'), 
-                                                           router: this,
-                                                           args: url});
+            var config = eval('(' + this.config.where({name: url[0]})[0].get('config') + ')');
+            window.current_app = new applications[url[0]]({el: $('#application'),
+                router: this, args: url, config: config});
         }
     },
 });
@@ -138,12 +134,19 @@ $(document).ready(function() {
         templates[t.id] = Handlebars.compile($(t).html());
         Handlebars.registerPartial(t.id, $(t).html());
     });
+    
+    // make ajax synchronous for config fetch. TODO : bootstraping
+    $.ajaxSetup({ async: false });   
+    var config = new Backbone.Collection();
+    config.url = urls.application_me;
+    config.fetch();
+    $.ajaxSetup({ async: true });
 
     // start application
-
     console.log("starting...")
 
     var router = new ZoidRouter;
+    router.config = config;
     _.each(autostart, function(k, el) {
         new applications[el]({router: router, el: $('#body')});
     });
