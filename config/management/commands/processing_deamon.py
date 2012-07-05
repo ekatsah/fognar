@@ -33,7 +33,6 @@ class Command(BaseCommand):
                (w, h, ' -density 350', filename, num, pname))
         system('gm convert -resize 118x1000 %s "%s[%d]" %s' % 
                ('-quality 90 -density 100', filename, num, mname))
-        print "create page => " + str(num)
         Page.objects.create(num=num + 1, width=w, height=h, doc=doc)
 
     def parse_file(self, doc, upfile):
@@ -41,19 +40,15 @@ class Command(BaseCommand):
                     (doc.id, doc.uploader.username, doc.name))
         filename = "%s/%s/%04d.pdf" % (UPLOAD_DIR, doc.referer.slug, doc.id)
     
-        print "fname : " + filename
         # check if course subdirectory exist
         if not path.exists(UPLOAD_DIR + '/' + doc.referer.slug):
-            print "need to subdir"
             makedirs(UPLOAD_DIR + '/' + doc.referer.slug)
 
-        print "parsing step1"
         # original file saving
         fd = open(filename, 'w')
         fd.write(upfile.read())
         fd.close()
     
-        print "parsing step2"
         # sauvegarde du nombre de page
         pdf = PdfFileReader(file(filename, 'r'))
         doc.pages = pdf.numPages
@@ -82,7 +77,6 @@ class Command(BaseCommand):
             pending.save()
             raw = self.download_file(pending.doc, pending.url)
             pending.state = 'process'
-            print "process file state ->"
             pending.save()
             self.parse_file(pending.doc, raw)
             pending.state = 'done'
@@ -129,7 +123,6 @@ class Command(BaseCommand):
             pendings = list(Task.objects.filter(state='queued').order_by('id'))
             while len(self.workers) < PARSING_WORKERS and len(pendings) > 0:
                 pending = pendings.pop(0)
-                print "start process " + str(pending.id)
                 process = Process(target=self.process_file, args=(pending.id,))
                 process.start()
                 self.workers.append((process, pending))

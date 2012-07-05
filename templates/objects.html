@@ -26,13 +26,11 @@
     <div id="title">
         <h1>Document list</h1>
     </div>
-    <div id="list">
+    <ul>
     {{#each documents}}
-    <h3>{{this.name}} by {{this.uploader_get_full_name}} </h3>
-    <div id="description">
-        {{this.description}}
-    </div>
-    {{/each}}<hr>
+    <li>{{this.name}} by {{this.uploader}} : {{ this.description }}</li>
+    {{/each}}
+    </ul><hr>
     <form id="upload_form">
         <table>
             <tr><td>Filename : </td>

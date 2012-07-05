@@ -22,7 +22,7 @@ def get_context(ctype, context):
 
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
-    serialize_fields = ('id', 'name', 'description', 'uploader.real_name')
+    serialize_fields = ('id', 'name', 'description', 'uploader')
 
 @json_send
 def upload_file(request):
@@ -34,7 +34,6 @@ def upload_file(request):
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
                                       uploader=request.user, referer=thing)
-
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
         tmp_doc.write(request.FILES['file'].read())
