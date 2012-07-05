@@ -42,6 +42,12 @@ $(document).ajaxSend(function(event, xhr, settings) {
 
 var applications = {};
 
+var ShortCut = Backbone.Model.extend({
+    url: function() {
+        return "/application/config/" + this.id + "/";
+    }
+})
+
 applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
@@ -51,6 +57,7 @@ applications.desktop = Backbone.View.extend({
         this.me.on("change", this.render);
         this.me.fetch();
         this.shortcuts = new Backbone.Collection();
+        this.shortcuts.model = ShortCut;
         this.shortcuts.url = function() {
            return urls.application_me;
         }
