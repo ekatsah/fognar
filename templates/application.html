@@ -16,9 +16,18 @@
             {% include "urls.js" %}
             
             autostart = {
-                navbar: 'p1',
-                profile: 'p2',
-                
+                navbar: {},
+            };
+            
+            // bootstrap config
+            config = {
+                desktop: {
+                    shortcuts: [ 
+                        {app: 'course', slug: 'info-f-666'},
+                        {app: 'course', slug: 'info-f-'}
+                    ],
+                    size: 32,
+                },
             };
         </script>
         {% ssi objects %}

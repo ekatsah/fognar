@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from application.models import AppUsing
 from getpass import getpass, getuser
@@ -22,4 +22,4 @@ class Command(BaseCommand):
         user.last_name = "Smith"
         user.save()
 
-        AppUsing.objects.create(user=user, name="profile")
+        AppUsing.objects.create(user=user, name="desktop")
