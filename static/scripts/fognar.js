@@ -51,7 +51,7 @@ var ShortCut = Backbone.Model.extend({
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
         $(this.el).prepend(templates['tpl-navbar']());
-        this.router = params.router;        
+        this.router = params.router;
         this.el = $('#navbar');
     },
 
@@ -93,9 +93,9 @@ $(document).ready(function() {
         templates[t.id] = Handlebars.compile($(t).html());
         Handlebars.registerPartial(t.id, $(t).html());
     });
-    
+
     // make ajax synchronous for config fetch. TODO : bootstraping
-    $.ajaxSetup({ async: false });   
+    $.ajaxSetup({ async: false });
     var config = new Backbone.Collection();
     config.url = urls.application_me;
     config.fetch();
