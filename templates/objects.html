@@ -4,9 +4,8 @@
     <div id="content">
         <h1>{{ profil.realname }}</h1>
         <div id="market">Market</div>
-        <p>Debug: {{ applications }}</p>
         {{#each applications}}
-        <div>Prout: {{ this.name }}</div>
+        <div id="{{ this.name }}">{{ this.name }}</div>
         {{/each}}
     </div>
 </script>
