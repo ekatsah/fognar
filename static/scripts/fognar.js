@@ -10,12 +10,12 @@ applications.desktop = Backbone.View.extend({
         this.me.url = urls.profile_me;
         this.me.on("change", this.render);
         this.me.fetch();
-        this.applications = new Backbone.Collection();
-        this.applications.url = function() {
+        this.shortcuts = new Backbone.Collection();
+        this.shortcuts.url = function() {
            return urls.application_me;
         }
-        this.applications.fetch();
-        this.applications.bind("all", this.render);
+        this.shortcuts.fetch();
+        this.shortcuts.bind("all", this.render);
         this.render();
     },
 
@@ -29,7 +29,8 @@ applications.desktop = Backbone.View.extend({
     render: function() {
         console.log("desktop rendering");
         if (this.me.get('realname'))
-            $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), applications: this.applications.toJSON()}));
+            $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), 
+                applications: this.shortcuts.toJSON()}));
         else
             $(this.el).html(templates['tpl-loading']());
         return this;
