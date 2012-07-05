@@ -2,15 +2,6 @@
 
 var applications = {};
 
-var Application = Backbone.Model.extend({
-});
-
-var Applications = Backbone.Collection.extend({
-    url: function() {
-        return urls.application_me;
-    }
-});
-
 applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
@@ -19,7 +10,10 @@ applications.desktop = Backbone.View.extend({
         this.me.url = urls.profile_me;
         this.me.on("change", this.render);
         this.me.fetch();
-        this.applications = new Applications;
+        this.applications = new Backbone.Collection();
+        this.applications.url = function() {
+           return urls.application_me;
+        }
         this.applications.fetch();
         this.applications.bind("all", this.render);
         this.render();
