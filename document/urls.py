@@ -9,7 +9,7 @@ from document.views import upload_file, upload_http
 urlpatterns = patterns('',
     url(r'^all$', stop_anon(json_send(json_list)), 
         {'queryset': Document.objects.all,
-         'fields': ['id', 'name', 'description']},
+         'fields': ['name', 'uploader.get_full_name', 'description']},
         name='document_all'),
 
     url(r'^upload_file', stop_anon(uniq_post(upload_file)),
