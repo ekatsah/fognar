@@ -2,7 +2,7 @@
 
 var applications = {};
 
-applications.profile = Backbone.View.extend({
+applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.router = params.router;
@@ -23,7 +23,7 @@ applications.profile = Backbone.View.extend({
     render: function() {
         console.log("rendering");
         if (this.me.get('realname'))
-            $(this.el).html(templates['tpl-profile'](this.me.toJSON()));
+            $(this.el).html(templates['tpl-desktop'](this.me.toJSON()));
         else
             $(this.el).html(templates['tpl-loading']());
         return this;
@@ -113,7 +113,7 @@ var ZoidRouter = Backbone.Router.extend({
     parser: function(url) {
         url = url.split('/');
         if (applications[url[0]] == undefined)
-            this.navigate('/profile', {trigger: true});
+            this.navigate('/desktop', {trigger: true});
         else
             window.current_app = new applications[url[0]]({el: $('#body'), 
                                                            router: this,
