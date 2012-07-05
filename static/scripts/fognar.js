@@ -2,9 +2,10 @@
 
 var applications = {};
 
-applications.profile = Backbone.View.extend({
-    initialize: function() {
+applications.desktop = Backbone.View.extend({
+    initialize: function(params) {
         _.bindAll(this, 'render');
+        this.router = params.router;
         this.me = new Backbone.Model();
         this.me.url = urls.profile_me;
         this.me.on("change", this.render);
@@ -12,28 +13,111 @@ applications.profile = Backbone.View.extend({
         this.render();
     },
 
-    events: {},
+    events: {
+        'click #market': function() {
+            this.router.navigate('/market', {trigger: true}); 
+            return false;
+        },
+    },
 
     render: function() {
         console.log("rendering");
         if (this.me.get('realname'))
-            $(this.el).html(templates['tpl-profile'](this.me.toJSON()));
+            $(this.el).html(templates['tpl-desktop'](this.me.toJSON()));
         else
             $(this.el).html(templates['tpl-loading']());
         return this;
     },
 });
 
+applications.market = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("market render");
+        $(this.el).html(templates['tpl-market']());
+        return this;
+    },
+});
+
+applications.course = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("course render");
+        $(this.el).html(templates['tpl-course']());
+        return this;
+    },
+});
+
+applications.viewer = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("viewer render");
+        $(this.el).html(templates['tpl-viewer']());
+        return this;
+    },
+});
+
+applications.group = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("group render");
+        $(this.el).html(templates['tpl-group']());
+        return this;
+    },
+});
+
+applications.navbar = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'render');
+        this.render();
+    },
+
+    events: {},
+    
+    render: function() {
+        console.log("navbar render");
+        $(this.el).html(templates['tpl-navbar']());
+        return this;
+    },
+});
+
 var ZoidRouter = Backbone.Router.extend({
     routes: {
-        '*url': 'parser',
+        '*args': 'parser',
     },
 
     parser: function(url) {
-        if (applications[url] == undefined)
-            this.navigate('/profile', {trigger: true});
+        url = url.split('/');
+        if (applications[url[0]] == undefined)
+            this.navigate('/desktop', {trigger: true});
         else
-            window.current_app = new applications.profile({el: $('#body')});
+            window.current_app = new applications[url[0]]({el: $('#body'), 
+                                                           router: this,
+                                                           args: url});
     },
 });
 
