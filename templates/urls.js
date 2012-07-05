@@ -11,12 +11,12 @@ sorted([
 {% endcomment %} */
 
 urls = {
-    'application': 'zoidberg',
-    'application_me': 'application/me',
-    'profile_me': 'profile/me',
-    'document_all': 'document/all',
+    'application': '{% url application %}',
+    'application_me': '{% url application_me %}',
+    'profile_me': '{% url profile_me %}',
     'auth_entry': function(a) { return 'auth/' + a; },
     'index': '',
-    'logout': 'logout',
-    'syslogin': 'syslogin',
+    'logout': '{% url logout %}',
+    'syslogin': '{% url syslogin %}',
+    'document_all': '{% url document_all %}',
 };
