@@ -21,7 +21,7 @@ applications.desktop = Backbone.View.extend({
     },
     
     render: function() {
-        console.log("rendering");
+        console.log("desktop rendering");
         if (this.me.get('realname'))
             $(this.el).html(templates['tpl-desktop'](this.me.toJSON()));
         else
