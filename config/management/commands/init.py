@@ -22,4 +22,4 @@ class Command(BaseCommand):
         user.last_name = "Smith"
         user.save()
 
-        AppUsing.objects.create(user=user, name="profile")
+        AppUsing.objects.create(user=user, name="desktop")

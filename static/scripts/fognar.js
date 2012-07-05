@@ -2,15 +2,6 @@
 
 var applications = {};
 
-var Application = Backbone.Model.extend({
-});
-
-var Applications = Backbone.Collection.extend({
-    url: function() {
-        return urls.application_me;
-    }
-});
-
 applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
@@ -19,9 +10,12 @@ applications.desktop = Backbone.View.extend({
         this.me.url = urls.profile_me;
         this.me.on("change", this.render);
         this.me.fetch();
-        this.applications = new Applications;
-        this.applications.fetch();
-        this.applications.bind("all", this.render);
+        this.shortcuts = new Backbone.Collection();
+        this.shortcuts.url = function() {
+           return urls.application_me;
+        }
+        this.shortcuts.fetch();
+        this.shortcuts.bind("all", this.render);
         this.render();
     },
 
@@ -33,9 +27,10 @@ applications.desktop = Backbone.View.extend({
     },
 
     render: function() {
-        console.log("rendering");
+        console.log("desktop rendering");
         if (this.me.get('realname'))
-            $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), applications: this.applications.toJSON()}));
+            $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), 
+                applications: this.shortcuts.toJSON()}));
         else
             $(this.el).html(templates['tpl-loading']());
         return this;
@@ -103,17 +98,16 @@ applications.group = Backbone.View.extend({
 });
 
 applications.navbar = Backbone.View.extend({
-    initialize: function() {
-        _.bindAll(this, 'render');
-        this.render();
+    initialize: function(params) {
+        $(this.el).prepend(templates['tpl-navbar']());
+        this.router = params.router;        
+        this.el = $('#navbar');
     },
 
-    events: {},
-
-    render: function() {
-        console.log("navbar render");
-        $(this.el).html(templates['tpl-navbar']());
-        return this;
+    events: {
+        'click #desk_button': function() {
+            this.router.navigate('/desktop', {trigger: true});
+        },
     },
 });
 
@@ -130,7 +124,7 @@ var ZoidRouter = Backbone.Router.extend({
         }
         else {
             console.log("DEBUG: go to application " + url[0])
-            window.current_app = new applications[url[0]]({el: $('#body'),
+            window.current_app = new applications[url[0]]({el: $('#application'), 
                                                            router: this,
                                                            args: url});
         }
@@ -146,7 +140,12 @@ $(document).ready(function() {
     });
 
     // start application
+
     console.log("starting...")
+
     var router = new ZoidRouter;
+    _.each(autostart, function(k, el) {
+        new applications[el]({router: router, el: $('#body')});
+    });
     Backbone.history.start();
 });
