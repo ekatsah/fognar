@@ -15,7 +15,7 @@ applications.desktop = Backbone.View.extend({
 
     events: {
         'click #market': function() {
-            this.router.navigate('/market', {trigger: true}); 
+            this.router.navigate('/market', {trigger: true});
             return false;
         },
     },
@@ -37,7 +37,7 @@ applications.market = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("market render");
         $(this.el).html(templates['tpl-market']());
@@ -52,7 +52,7 @@ applications.course = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("course render");
         $(this.el).html(templates['tpl-course']());
@@ -67,7 +67,7 @@ applications.viewer = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("viewer render");
         $(this.el).html(templates['tpl-viewer']());
@@ -82,7 +82,7 @@ applications.group = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("group render");
         $(this.el).html(templates['tpl-group']());
@@ -97,7 +97,7 @@ applications.navbar = Backbone.View.extend({
     },
 
     events: {},
-    
+
     render: function() {
         console.log("navbar render");
         $(this.el).html(templates['tpl-navbar']());
@@ -115,7 +115,7 @@ var ZoidRouter = Backbone.Router.extend({
         if (applications[url[0]] == undefined)
             this.navigate('/desktop', {trigger: true});
         else
-            window.current_app = new applications[url[0]]({el: $('#body'), 
+            window.current_app = new applications[url[0]]({el: $('#body'),
                                                            router: this,
                                                            args: url});
     },
