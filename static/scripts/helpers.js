@@ -1,4 +1,4 @@
-// Copyright 2012, RespLab. All rights reserved.
+// Copyright 2012, Cercle Informatique. All rights reserved.
 
 // magic django function to handle csrf, don't bother with it
 $(document).ajaxSend(function(event, xhr, settings) {

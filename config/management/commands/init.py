@@ -1,3 +1,5 @@
+# Copyright 2012, Cercle Informatique. All rights reserved.
+
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from application.models import AppUsing

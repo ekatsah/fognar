@@ -1,4 +1,4 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render

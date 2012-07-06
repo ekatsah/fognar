@@ -1,4 +1,4 @@
-// Copyright 2012, RespLab. All rights reserved.
+// Copyright 2012, Cercle Informatique. All rights reserved.
 
 applications.document = Backbone.View.extend({
     initialize: function(params) {
@@ -19,12 +19,16 @@ applications.document = Backbone.View.extend({
         
         'submit #upload_http_form': function() {
             var self = this;
-            console.log('post..');
-            $.post(urls['document_upload_http'],
-                $('#upload_http_form').serialize(),
-                function(d) {
-                    alert('success!, resp = ' + d); 
-                });
+            // use ajax because $.post didn't seem to work
+            $.ajax({
+                type: 'POST',
+                url: urls['document_upload_http'],
+                data: $('#upload_http_form').serialize(),
+                success: function(d) {
+                    self.documents.fetch();
+                },
+                dataType: 'json',
+            });
             return false;
         },
     },

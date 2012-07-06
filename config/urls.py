@@ -1,4 +1,4 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
 from django.conf.urls import patterns, url, include
 from django.views.generic.simple import direct_to_template

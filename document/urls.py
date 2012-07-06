@@ -1,4 +1,4 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
 from django.conf.urls.defaults import patterns, url
 from config.authentification import stop_anon, uniq_post
