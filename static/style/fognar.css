@@ -65,10 +65,9 @@ a {
     background-color: #eee;
 }
 
-#course_popupx {
+#course_popup {
     position: absolute;
-    display: inline;
-    width: 30px;
+    display: none;
     overflow: auto;
     border: 1px black solid;
 }

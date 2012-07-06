@@ -23,18 +23,19 @@ applications.navbar = Backbone.View.extend({
 });
 
 var ZoidRouter = Backbone.Router.extend({
+    initialize: function() {
+        console.log("router initialize");
+        _.bindAll(this, 'parser');
+        this.current_app = null;
+    },
+
     routes: {
         '*args': 'parser',
     },
 
     parser: function(url) {
-        if(this.current_app) {
-            $(this.current_app.el).remove();
-            this.current_app.unbind();
-            this.current_app = undefined;
-        }
         url = url.split('/');
-        if (applications[url[0]] == undefined) {
+        if (typeof applications[url[0]] == "undefined") {
             console.log("DEBUG: no url, go to desktop")
             this.navigate('/desktop', {trigger: true});
         }
