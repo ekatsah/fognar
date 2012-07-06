@@ -22,14 +22,14 @@ class Command(BaseCommand):
         password = getpass("Password (default: 'test'): ")
         if not password:
             password = 'test'
-        firstname = raw_input("Firstname (default: John): ")
-        if not firstname:
-            firstname = "John"
-        lastname = raw_input("Lastname (default: Smith): ")
-        if not lastname:
-            lastname = "Smith"
-        user.firstname = firstname
-        user.lastname = lastname
+        first_name = raw_input("Firstname (default: John): ")
+        if not first_name:
+            first_name = "John"
+        last_name = raw_input("Lastname (default: Smith): ")
+        if not last_name:
+            last_name = "Smith"
+        user.first_name = first_name
+        user.last_name = last_name
         user.set_password(password)
         user.save()
 
@@ -74,7 +74,3 @@ class Command(BaseCommand):
         CategoryItem.objects.create(category=cat3, thing=g1, priority=3)
         CategoryItem.objects.create(category=cat0, thing=g2, priority=1)
         CategoryItem.objects.create(category=cat2, thing=c3, priority=1)
-
-        Document.objects.create(name='US missile launch code', uploader_id= 1, description='Launch code for the us military nuclear missiles.', refer_oid = 1, refer_content_id = 1)
-        Document.objects.create(name='List of CIA spy', uploader_id = 1, description='This is the complete list of all CIA spy.', refer_oid = 1, refer_content_id = 1)
-
