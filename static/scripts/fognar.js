@@ -40,6 +40,8 @@ var ZoidRouter = Backbone.Router.extend({
             this.navigate('/desktop', {trigger: true});
         }
         else {
+            if (this.current_app != null)
+                this.current_app.undelegateEvents();
             console.log("DEBUG: go to application " + url[0])
             var config = this.config.where({name: url[0]})
             if (config.length != 0)
