@@ -20,10 +20,10 @@ applications.document = Backbone.View.extend({
         'submit #upload_http_form': function() {
             var self = this;
             console.log('post..');
-            $.post(urls['document_upload_http'], $('#upload_http_form').serialize(),
-                function(data) {
-                    console.log('success!'); 
-                    self.documents.fetch();
+            $.post(urls['document_upload_http'],
+                $('#upload_http_form').serialize(),
+                function(d) {
+                    alert('success!, resp = ' + d); 
                 });
             return false;
         },
