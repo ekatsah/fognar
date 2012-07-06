@@ -16,7 +16,7 @@ applications.document = Backbone.View.extend({
         'submit #upload_form': function() {
             return false;
         },
-        
+
         'submit #upload_http_form': function() {
             var self = this;
             console.log('post..');
