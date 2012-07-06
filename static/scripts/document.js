@@ -13,10 +13,16 @@ applications.document = Backbone.View.extend({
     },
 
     events: {
-        'submit #upload_form': function() {
+        'click #upload_form_submit': function() {
+            $('#upload_form').attr('action', urls['document_upload_file']);
+            $('#upload_frame').load(function() {
+                $('up_message').html('upload fini');
+            })
+            $('up_message').html('upload...');
+            $('#upload_form').submit();
             return false;
         },
-        
+
         'submit #upload_http_form': function() {
             var self = this;
             // use ajax because $.post didn't seem to work
@@ -37,7 +43,8 @@ applications.document = Backbone.View.extend({
         console.log("document render");
         $(this.el).html(templates['tpl-document']({documents: this.documents.toJSON(),
                                                    type: this.type,
-                                                   context: this.context}));
+                                                   context: this.context,
+                                                   token: get_cookie('csrftoken')}));
         return this;
     },
 });

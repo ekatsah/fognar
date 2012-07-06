@@ -21,4 +21,5 @@ urls = {
     'syslogin': '{% url syslogin %}',
     'document_all': '{% url document_all %}',
     'document_upload_http': '{% url document_upload_http %}',
+    'document_upload_file': '{% url document_upload_file %}',
 };
