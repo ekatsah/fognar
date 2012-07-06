@@ -82,3 +82,10 @@ hr {
     margin: 10px 0px 10px 0px;
     border: none;
 }
+
+#upload_frame {
+    width: 0px;
+    height: 0px;
+    border: none;
+    display: none;
+}

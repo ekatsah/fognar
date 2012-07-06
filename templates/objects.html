@@ -32,7 +32,9 @@
     <li>{{this.name}} by {{this.uploader}} : {{ this.description }}</li>
     {{/each}}
     </ul><hr>
-    <form id="upload_form">
+    <div id="up_message"></div>
+    <form id="upload_form" target="upload_frame" method="post" 
+            encoding="multipart/form-data", enctype="multipart/form-data">
         <table>
             <tr><td>Filename : </td>
                 <td><input name="filename"/></td></tr>
@@ -43,7 +45,9 @@
         </table>
         <input name="ctype" type="hidden" value="{{ type }}"/>
         <input name="context" type="hidden" value="{{ context }}"/>
+        <input name='csrfmiddlewaretoken' type='hidden' id='csrf_token' value='{{ token }}' />
         <input id="upload_form_submit" type="submit" value="upload">
+        <iframe id="upload_frame" name="upload_frame" src=""></iframe>
     </form>
     <hr>
     <form id="upload_http_form">
@@ -59,7 +63,6 @@
         <input name="context" type="hidden" value="{{ context }}"/>
         <input id="upload_http_submit" type="submit" value="upload">
     </form>
-    <iframe id="upload_frame"></iframe>
 </script>
 
 <script id="tpl-navbar" type="text/x-handlebars-template">

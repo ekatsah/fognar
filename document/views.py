@@ -38,7 +38,7 @@ def upload_file(request):
         tmp_doc = open(url, 'w')
         tmp_doc.write(request.FILES['file'].read())
         tmp_doc.close()
-        Permission.new(request.user, 'document_edit', doc.id)
+        #Permission.new(request.user, 'document_edit', doc.id)
         PendingDocument.objects.create(doc=doc, state="queued", url='file://' + url)
         return '{"message": "ok"}'
     else:
