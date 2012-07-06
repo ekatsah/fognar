@@ -28,6 +28,11 @@ var ZoidRouter = Backbone.Router.extend({
     },
 
     parser: function(url) {
+        if(this.current_app) {
+            $(this.current_app.el).remove();
+            this.current_app.unbind();
+            this.current_app = undefined;
+        }
         url = url.split('/');
         if (applications[url[0]] == undefined) {
             console.log("DEBUG: no url, go to desktop")
@@ -40,7 +45,7 @@ var ZoidRouter = Backbone.Router.extend({
                 config = eval('(' + config[0].get('config') + ')');
             else
                 config = {};
-            window.current_app = new applications[url[0]]({el: $('#application'),
+            this.current_app = new applications[url[0]]({el: $('#application'),
                 router: this, args: url, config: config});
         }
     },
