@@ -36,8 +36,4 @@ applications.document = Backbone.View.extend({
                                                    context: this.context}));
         return this;
     },
-    
-    unbind : function() {
-        this.document.off();
-    }
 });
