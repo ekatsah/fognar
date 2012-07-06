@@ -38,6 +38,6 @@ applications.document = Backbone.View.extend({
     },
     
     unbind : function() {
-        this.document.off();
+        this.documents.off();
     }
 });
