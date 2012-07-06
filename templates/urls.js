@@ -1,4 +1,5 @@
-/* {% comment %} Copyright 2012, RespLab. All rights reserved. {% endcomment %} */
+/* {% comment %} Copyright 2012, Cercle Informatique. All rights reserved. 
+ * {% endcomment %} */
 
 /* {% comment %}
 from django.core.urlresolvers import get_resolver

@@ -1,4 +1,4 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType

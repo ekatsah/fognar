@@ -1,3 +1,5 @@
+# Copyright 2012, Cercle Informatique. All rights reserved.
+
 # hack to prevent ./manage syncdb to ask for a superusers
 from django.db.models.signals import post_syncdb
 from django.contrib.auth.management import create_superuser
