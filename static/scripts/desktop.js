@@ -34,6 +34,7 @@ applications.desktop = Backbone.View.extend({
         this.me.fetch();
         this.config = params.config;
         this.render();
+        console.log('Initialize desktop');
     },
 
     events: {
@@ -42,6 +43,7 @@ applications.desktop = Backbone.View.extend({
             return false;
         },
         'click .shortcut': function(e) {
+            
             if (this.popup) {
                 $(this.popup.el).remove();
                 delete this.popup;
@@ -55,13 +57,6 @@ applications.desktop = Backbone.View.extend({
                 });
             return false;
         },
-        'click': function() {
-            if (this.popup) {
-                $(this.popup.el).remove();
-                delete this.popup;
-            }
-            return false;
-        }
     },
 
     render: function() {
@@ -73,4 +68,8 @@ applications.desktop = Backbone.View.extend({
             $(this.el).html(templates['tpl-loading']());
         return this;
     },
+    
+    unbind : function() {
+        this.me.off();
+    }
 });

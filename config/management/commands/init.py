@@ -5,6 +5,7 @@ from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
 from course.models import Course
+from document.models import Document
 
 class Command(BaseCommand):
     help = 'Initialize fognar for developpment'
@@ -19,9 +20,15 @@ class Command(BaseCommand):
         password = getpass("Password (default: 'test'): ")
         if not password:
             password = 'test'
+        firstname = raw_input("Firstname (default: John): ")
+        if not firstname:
+            firstname = "John"
+        lastname = raw_input("Lastname (default: Smith): ")
+        if not lastname:
+            lastname = "Smith"
+        user.firstname = firstname
+        user.lastname = lastname
         user.set_password(password)
-        user.first_name = "John"
-        user.last_name = "Smith"
         user.save()
 
         AppUsing.objects.create(user=user, name="desktop", config=""" {
@@ -65,3 +72,7 @@ class Command(BaseCommand):
         CategoryItem.objects.create(category=cat3, thing=g1, priority=3)
         CategoryItem.objects.create(category=cat0, thing=g2, priority=1)
         CategoryItem.objects.create(category=cat2, thing=c3, priority=1)
+
+        Document.objects.create(name='US missile launch code', uploader_id= 1, description='Launch code for the us military nuclear missiles.', refer_oid = 1, refer_content_id = 1)
+        Document.objects.create(name='List of CIA spy', uploader_id = 1, description='This is the complete list of all CIA spy.', refer_oid = 1, refer_content_id = 1)
+

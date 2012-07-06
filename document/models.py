@@ -29,8 +29,9 @@ class Document(models.Model):
 
 class Page(models.Model):
     num = models.IntegerField()
-    width = models.IntegerField()
-    height = models.IntegerField()
+    height_120 = models.IntegerField()
+    height_600 = models.IntegerField()
+    height_900 = models.IntegerField()
     doc = models.ForeignKey(Document)
 
 
