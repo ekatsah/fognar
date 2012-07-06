@@ -3,6 +3,7 @@
 from config.json import json_send
 from django.utils.html import escape
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from document.models import Document, PendingDocument
 from document.forms import UploadHttpForm, UploadFileForm
 from djangbone.views import BackboneAPIView
@@ -23,6 +24,22 @@ def get_context(ctype, context):
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
     serialize_fields = ('id', 'name', 'description', 'uploader')
+    
+    def dispatch(self, request, *args, **kwargs):
+        if kwargs['type'] == 'course':
+            try:
+                c = Course.objects.get(slug = kwargs['slug']);
+                self.base_queryset = document_bone.base_queryset.filter(refer_oid = c.id);
+            except ObjectDoesNotExist:
+                self.base_queryset = document_bone.base_queryset.none();
+        elif kwargs['type'] == 'group':
+            try:
+                g = Group.objects.get(slug = kwargs['slug']);
+                self.base_queryset = document_bone.base_queryset.filter(refer_oid = g.id);
+            except ObjectDoesNotExist:
+                self.base_queryset = document_bone.base_queryset.none();
+                
+        return super(document_bone, self).dispatch(request,*args, **kwargs)
 
 @json_send
 def upload_file(request):

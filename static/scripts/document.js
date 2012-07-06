@@ -6,7 +6,7 @@ applications.document = Backbone.View.extend({
         this.type = params.args[1];
         this.context = params.args[2];
         this.documents = new Backbone.Collection();
-        this.documents.url = urls.document_d;
+        this.documents.url = '/document/'+this.type+'/'+this.context;
         this.documents.on("all", this.render);
         this.documents.fetch();
         this.render();
