@@ -65,10 +65,7 @@ applications.document = Backbone.View.extend({
         return this;
     },
 
-<<<<<<< HEAD
-=======
     close: function() {
         cache.users.off("fetched", this.render);
     },
->>>>>>> haxe/master
 });
