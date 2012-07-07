@@ -1,6 +1,6 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
-from django.contrib.auth.models import User
+from profile.models import Profile
 from django.db import models
 
 META_ROLE = ['Leader', 'Accounting', 'Administrator', 'Party', 'Academique', 
@@ -12,7 +12,7 @@ class Group(models.Model):
     description = models.TextField(null=True)
 
 class GroupMember(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(Profile)
     title = models.TextField()
     meta = models.TextField()
 
@@ -28,4 +28,4 @@ class Publication(models.Model):
     subject = models.TextField()
     text = models.TextField()
     date = models.DateTimeField(auto_now=True)
-    added_by = models.ForeignKey(User)
+    added_by = models.ForeignKey(Profile)

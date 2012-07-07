@@ -1,0 +1,216 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+		<link rel="stylesheet" type="text/css" href="http://css.olivierkaisin.be/reset.css" /> 
+		<link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+		<style type="text/css">
+			body {
+				background: #F6F6F6;
+				font: normal 13px "Helvetica", "Arial", "Tahoma", "Verdana", sans-serif;
+				color: #333;
+			}
+
+			header {
+				background: #b22;
+				width: 100%; height: 40px;
+			}
+
+			#navbar {
+				width: 960px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+
+			#logo {
+				float: left;
+				color: #fff;
+				font: normal 20px "Signika", sans-serif;
+				padding: 12px 0;
+				line-height: 14px;
+				display: block;
+				text-decoration: none;
+				width: 104px;
+				text-align: center;
+			}
+
+			#logo:hover {
+				text-decoration: underline;
+			}
+
+			#search-wrapper {
+				float: left;
+				width: 490px;
+				margin-left: 68px;
+			}
+
+			#search-wrapper input {
+				width: 490px;
+				border: none;
+				height: 20px;
+				margin-top: 10px;
+				border-radius: 2px;
+				background: #fff url("img/search-icon.png") left no-repeat;
+				padding-left: 20px;
+			}
+
+			#account-wrapper {
+				float: right;
+				margin-left: 100px;
+				line-height: 40px;
+				color: #fff;
+				font-weight: bold;
+				text-align: right;
+			}
+
+			i.person-icon {
+				background: url("img/person-icon.png");
+				width: 11px; height: 11px;
+				display: inline-block;
+				margin-right: 4px;
+			}
+
+			i.ticker-icon {
+				background: url("img/ticker-icon.png");
+				width: 9px; height: 6px;
+				display: inline-block;
+			}
+
+			i.dashboard-icon {
+				background: url("img/dashboard-icon.png");
+				width: 24px; height: 20px;
+				display: inline-block;
+				margin-right: 10px;
+			}
+
+			#main-sided-wrapper {
+				float: left;
+				width: 660px;
+			}
+
+			#large-sidebar-wrapper {
+				float: left;
+				width: 260px;
+				margin-left: 40px;
+			}
+
+			#content-wrapper {
+				width: 960px;
+				margin: 40px auto 0 auto;
+				overflow: hidden;
+			}
+
+			h1 {
+				font-size: 20px;
+				font-weight: bold;
+			}
+
+			#dashboard {
+				margin-top: 20px;
+			}
+
+			#dashboard li {
+				font-size: 16px;
+				font-weight: bold;
+				background: #eee;
+				width: 130px; height: 100px;
+				display: block;
+				padding: 10px;
+				box-shadow: inset 0px 0px 0px 1px #d6d6d6;
+				border-radius: 2px;
+				margin: 20px 0 0 20px;
+				position: relative;
+				float: left;
+			}
+
+			#dashboard li p {
+				position: absolute;
+				bottom: 10px;
+			}
+
+			#dashboard li:nth-child(4n+1) {
+				margin-left: 0;
+			}
+
+			#dashboard li.dashboard-course {
+				background: #eee url("img/course-icon.png") top left no-repeat;
+			}
+
+			#dashboard li.dashboard-folder {
+				background: #eee url("img/folder-icon.png") top left no-repeat;
+			}
+
+			#dashboard li.dashboard-preference {
+				background: #eee url("img/prefs-icon.png") top left no-repeat;
+			}
+
+			#dashboard li.dashboard-add {
+				background: #eee url("img/add-icon.png") top left no-repeat;
+			}
+
+			.dashboard-notif {
+				position: absolute;
+				top: -5px; right: -5px;
+				border-radius: 10px;
+				background: #b22;
+				padding: 2px 6px;
+				color: #fff;
+				font-size: 14px;
+				line-height: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<section id="navbar">
+				<a id="logo" href="#">Respublicae</a>
+				<div id="search-wrapper">
+					<form action="#">
+						<input type="text" name="search" />
+					</form>
+				</div>
+				<div id="account-wrapper">
+					<i class="person-icon"></i>
+					Olivier Kaisin
+					<i class="ticker-icon"></i>
+				</div>
+			</section>
+		</header>
+		<section id="content-wrapper">
+			<div id="main-sided-wrapper">
+				<h1>
+					<i class="dashboard-icon"></i>
+					Mon Bureau
+				</h1>
+				<ul id="dashboard">
+					<li class="dashboard-course">
+						<div class="dashboard-notif">6</div>
+						<p>Droit Public</p>
+					</li>
+					<li class="dashboard-course">
+						<p>Contrats Spéciaux</p>
+					</li>
+					<li class="dashboard-course">
+						<p>Droit Constitutionnel</p>
+					</li>
+					<li class="dashboard-course">
+						<div class="dashboard-notif">16</div>
+						<p>Droit Public</p>
+					</li>
+					<li class="dashboard-folder">
+						<p>Bea</p>
+					</li>
+					<li class="dashboard-preference">
+						<p>Préférences</p>
+					</li>
+					<li class="dashboard-add">
+						<p>Ajouter une App</p>
+					</li>
+				</ul>
+			</div>
+			<div id="large-sidebar-wrapper">
+				<!-- Place here the sidebar contents -->
+			</div>
+		</section>
+	</body>
+</html>

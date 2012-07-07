@@ -1,10 +1,9 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
-from config.json import json_object, json_send
+from djangbone.views import BackboneAPIView
+from profile.models import Profile
 
 
-@json_send
-def my_profile(request):
-    return json_object(request, request.user, ['id', 'username',
-                ('get_profile.real_name', 'realname'),
-                ('get_profile.registration', 'registration'),])
+class profile_bone(BackboneAPIView):
+    base_queryset = Profile.objects.all()
+    serialize_fields = ('id', 'name')

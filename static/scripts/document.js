@@ -1,4 +1,4 @@
-// Copyright 2012, RespLab. All rights reserved.
+// Copyright 2012, Cercle Informatique. All rights reserved.
 
 applications.document = Backbone.View.extend({
     initialize: function(params) {
@@ -6,25 +6,35 @@ applications.document = Backbone.View.extend({
         this.type = params.args[1];
         this.context = params.args[2];
         this.documents = new Backbone.Collection();
-        this.documents.url = urls.document_d;
+        this.documents.url = '/document/'+this.type+'/'+this.context;
         this.documents.on("all", this.render);
         this.documents.fetch();
         this.render();
     },
 
     events: {
-        'submit #upload_form': function() {
+        'click #upload_form_submit': function() {
+            $('#upload_form').attr('action', urls['document_upload_file']);
+            $('#upload_frame').load(function() {
+                $('up_message').html('upload fini');
+            })
+            $('up_message').html('upload...');
+            $('#upload_form').submit();
             return false;
         },
 
         'submit #upload_http_form': function() {
             var self = this;
-            console.log('post..');
-            $.post(urls['document_upload_http'],
-                $('#upload_http_form').serialize(),
-                function(d) {
-                    alert('success!, resp = ' + d); 
-                });
+            // use ajax because $.post didn't seem to work
+            $.ajax({
+                type: 'POST',
+                url: urls['document_upload_http'],
+                data: $('#upload_http_form').serialize(),
+                success: function(d) {
+                    self.documents.fetch();
+                },
+                dataType: 'json',
+            });
             return false;
         },
     },
@@ -33,11 +43,9 @@ applications.document = Backbone.View.extend({
         console.log("document render");
         $(this.el).html(templates['tpl-document']({documents: this.documents.toJSON(),
                                                    type: this.type,
-                                                   context: this.context}));
+                                                   context: this.context,
+                                                   token: get_cookie('csrftoken')}));
         return this;
     },
 
-    unbind : function() {
-        this.documents.off();
-    }
 });

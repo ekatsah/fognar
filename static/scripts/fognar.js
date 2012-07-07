@@ -1,22 +1,18 @@
-// Copyright 2012, RespLab. All rights reserved.
+// Copyright 2012, Cercle Informatique. All rights reserved.
 
 var applications = {};
-
-var ShortCut = Backbone.Model.extend({
-    url: function() {
-        return "/application/config/" + this.id + "/";
-    }
-})
+var models = {};
+var cache = {};
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
-        $(this.el).prepend(templates['tpl-navbar']());
+        $(this.el).prepend(templates['tpl-navbar']({name: profile.get('name')}));
         this.router = params.router;
         this.el = $('#navbar');
     },
 
     events: {
-        'click #desk_button': function() {
+        'click #logo': function() {
             this.router.navigate('/desktop', {trigger: true});
         },
     },
@@ -24,7 +20,6 @@ applications.navbar = Backbone.View.extend({
 
 var ZoidRouter = Backbone.Router.extend({
     initialize: function() {
-        console.log("router initialize");
         _.bindAll(this, 'parser');
         this.current_app = null;
     },
@@ -36,17 +31,17 @@ var ZoidRouter = Backbone.Router.extend({
     parser: function(url) {
         url = url.split('/');
         if (typeof applications[url[0]] == "undefined") {
-            console.log("DEBUG: no url, go to desktop")
             this.navigate('/desktop', {trigger: true});
         }
         else {
-            console.log("DEBUG: go to application " + url[0])
+            if (this.current_app != null)
+                this.current_app.undelegateEvents();
             var config = this.config.where({name: url[0]})
             if (config.length != 0)
                 config = eval('(' + config[0].get('config') + ')');
             else
                 config = {};
-            this.current_app = new applications[url[0]]({el: $('#application'),
+            this.current_app = new applications[url[0]]({el: $('#content-wrapper'),
                 router: this, args: url, config: config});
         }
     },
@@ -68,12 +63,10 @@ $(document).ready(function() {
     $.ajaxSetup({ async: true });
 
     // start application
-    console.log("starting...")
-
     var router = new ZoidRouter;
     router.config = config;
     _.each(autostart, function(k, el) {
-        new applications[el]({router: router, el: $('#body')});
+        new applications[el]({router: router, el: $('body')});
     });
     Backbone.history.start();
 });

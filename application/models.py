@@ -1,10 +1,10 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
-from django.contrib.auth.models import User
+from profile.models import Profile
 from django.db import models
 
 class AppUsing(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(Profile)
     name = models.CharField(max_length=80)
     last_visit = models.DateTimeField(auto_now_add=True)
     visited = models.IntegerField(default=0)

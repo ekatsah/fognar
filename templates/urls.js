@@ -1,4 +1,5 @@
-/* {% comment %} Copyright 2012, RespLab. All rights reserved. {% endcomment %} */
+/* {% comment %} Copyright 2012, Cercle Informatique. All rights reserved. 
+ * {% endcomment %} */
 
 /* {% comment %}
 from django.core.urlresolvers import get_resolver
@@ -13,12 +14,11 @@ sorted([
 urls = {
     'application': '{% url application %}',
     'application_me': '{% url application_me %}',
-    'profile_me': '{% url profile_me %}',
     'auth_entry': function(a) { return 'auth/' + a; },
     'index': '',
     'logout': '{% url logout %}',
     'syslogin': '{% url syslogin %}',
     'document_all': '{% url document_all %}',
-    'document_d': '/document/d/',
     'document_upload_http': '{% url document_upload_http %}',
+    'document_upload_file': '{% url document_upload_file %}',
 };

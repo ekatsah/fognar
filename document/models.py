@@ -1,15 +1,15 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import User
+from profile.models import Profile
 from django.db import models
 from re import sub
 
 class Document(models.Model):
     name = models.TextField()
     description = models.TextField()
-    uploader = models.ForeignKey(User)
+    uploader = models.ForeignKey(Profile)
     # a course, a discussion, a group whatever
     refer_oid = models.PositiveIntegerField()
     refer_content = models.ForeignKey(ContentType)

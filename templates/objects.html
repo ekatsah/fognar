@@ -1,18 +1,25 @@
-<!-- Copyright 2012, RespLab. All rights reserved. -->
+<!-- Copyright 2012, Cercle Informatique. All rights reserved. -->
 
 <script id="tpl-desktop" type="text/x-handlebars-template">
-    <div id="desktop">
-        <h1>Hello, {{ profil.realname }}</h1>
+<div id="main-sided-wrapper">
+    <h1><i class="dashboard-icon"></i>Mon Bureau</h1>
+    <ul id="dashboard">
         {{#each shortcuts}}
-        <div class="shortcut light_blue big_button" data-type="{{this.app}}"
-                    data-target="{{this.slug}}">
-            {{ this.app }}<br>
-            {{ this.slug}}
-        </div>
+        <li class="dashboard-{{ this.app }}" data-type="{{this.app}}"
+                                             data-target="{{this.slug}}">
+            <div class="dashboard-notif">X</div>
+            <p>{{ this.slug }}</p>
+        </li>
         {{/each}}
-        <div id="market" class="big_button">Market</div>
-        <div id="course_popup"></div>
-    </div>
+        <li class="dashboard-preference">
+            <p>Préférences</p>
+        </li>
+        <li class="dashboard-add">
+            <p>Ajouter une App</p>
+        </li>
+    </ul>
+</div>
+<div id="large-sidebar-wrapper"></div>
 </script>
 
 <script id="tpl-market" type="text/x-handlebars-template">
@@ -32,7 +39,9 @@
     <li>{{this.name}} by {{this.uploader}} : {{ this.description }}</li>
     {{/each}}
     </ul><hr>
-    <form id="upload_form">
+    <div id="up_message"></div>
+    <form id="upload_form" target="upload_frame" method="post" 
+            encoding="multipart/form-data", enctype="multipart/form-data">
         <table>
             <tr><td>Filename : </td>
                 <td><input name="filename"/></td></tr>
@@ -43,7 +52,9 @@
         </table>
         <input name="ctype" type="hidden" value="{{ type }}"/>
         <input name="context" type="hidden" value="{{ context }}"/>
+        <input name='csrfmiddlewaretoken' type='hidden' id='csrf_token' value='{{ token }}' />
         <input id="upload_form_submit" type="submit" value="upload">
+        <iframe id="upload_frame" name="upload_frame" src=""></iframe>
     </form>
     <hr>
     <form id="upload_http_form">
@@ -59,19 +70,29 @@
         <input name="context" type="hidden" value="{{ context }}"/>
         <input id="upload_http_submit" type="submit" value="upload">
     </form>
-    <iframe id="upload_frame"></iframe>
 </script>
 
 <script id="tpl-navbar" type="text/x-handlebars-template">
-    <div id="navbar">
-        <div id="brand">Fognar!1 - Logo/titre</div>
-        <div id="desk_button">Desktop</div>
-    </div>
+<header>
+    <section id="navbar">
+        <a id="logo" href="#">Respublicae</a>
+        <div id="search-wrapper">
+            <form action="#">
+                <input type="text" name="search" />
+            </form>
+        </div>
+        <div id="account-wrapper">
+            <i class="person-icon"></i>
+            {{ name }} <i class="ticker-icon"></i>
+        </div>
+    </section>
+</header>
 </script>
 
 <script id="tpl-desk-course" type="text/x-handlebars-template">
-    <div id="infos" class="light_red big_button">Infos</div>
-    <div id="document" class="light_red big_button">Documents</div>
-    <div id="podcast" class="light_red big_button">Podcast</div>
-    <div id="discussion" class="light_red big_button">Discussions</div>
+    <h1>{{ slug }}</h1>
+    <div id="infos" style="margin: 10px">Infos</div>
+    <div id="document" style="margin: 10px">Documents</div>
+    <div id="podcast" style="margin: 10px">Podcast</div>
+    <div id="discussion" style="margin: 10px">Discussions</div>
 </script>
