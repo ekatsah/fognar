@@ -1,4 +1,12 @@
-// Copyright 2012, Cercle Informatique. All rights reserved.
+// Coopyright 2012, Cercle Informatique. All rights reserved.
+
+Handlebars.registerHelper('uploader_name', function(context, options){
+    if (cache.users.get(context) == undefined){
+        cache.users.add({id: context});
+        cache.users.get(context).fetch();
+    }
+    return cache.users.get(context).get('name');
+});
 
 applications.document = Backbone.View.extend({
     initialize: function(params) {
@@ -38,7 +46,7 @@ applications.document = Backbone.View.extend({
             return false;
         },
     },
-    
+
     render: function() {
         console.log("document render");
         $(this.el).html(templates['tpl-document']({documents: this.documents.toJSON(),
