@@ -6,7 +6,7 @@ models.user = Backbone.Model.extend({
     
 });
 
-cache.users = Backbone.Collection.extend({
+cache.users = new Backbone.Collection({
     model: models.user,
     url:'/profile'
 });

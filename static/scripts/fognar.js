@@ -6,7 +6,7 @@ var cache = {};
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
-        $(this.el).prepend(templates['tpl-navbar']({real_name: profile.get('real_name')}));
+        $(this.el).prepend(templates['tpl-navbar']({real_name: profile.get('name')}));
         this.router = params.router;
         this.el = $('#navbar');
     },
