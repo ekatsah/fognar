@@ -33,4 +33,6 @@ applications.course = Backbone.View.extend({
     render: function() {
         $(this.el).html(templates['tpl-course']({slug: this.slug}));
     },
+
+    close: function() {},
 });

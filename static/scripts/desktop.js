@@ -28,4 +28,6 @@ applications.desktop = Backbone.View.extend({
         $(this.el).html(templates['tpl-desktop']({shortcuts: this.config.shortcuts}));
         return this;
     },
+
+    close: function() {},
 });

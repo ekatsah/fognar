@@ -29,6 +29,6 @@ applications.viewer = Backbone.View.extend({
             $(this.el).html(templates['tpl-loading']({}));
         return this;
     },
-    
+
     close: function() {},
 });
