@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.markup',
     'south',
+    'djangbone',
     'application',
     'category',
     'course',
