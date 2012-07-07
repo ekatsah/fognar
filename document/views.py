@@ -23,7 +23,7 @@ def get_context(ctype, context):
 
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
-    serialize_fields = ('id', 'name', 'description', 'uploader')
+    serialize_fields = ('id', 'name', 'description', 'uploader_name')
     
     def dispatch(self, request, *args, **kwargs):
         if kwargs['type'] == 'course':
@@ -50,7 +50,9 @@ def upload_file(request):
         thing = get_context(data['ctype'], data['context'])
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
-                                      uploader=request.user, referer=thing)
+                                      uploader=request.user, 
+                                      uploader_name=request.user.first_name + " " + request.user.last_name, 
+                                      referer=thing)
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
         tmp_doc.write(request.FILES['file'].read())
