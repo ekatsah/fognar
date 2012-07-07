@@ -43,6 +43,7 @@ class Command(BaseCommand):
             ],
         }""")
 
+        self.stdout.write('Adding base data ...\n')
         c1 = Course.objects.create(slug='info-f-666', name='Hell Informatique',
                                    description='Hell Computer Science course')
         c2 = Course.objects.create(slug='info-f-777', name='Over Math',
