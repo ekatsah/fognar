@@ -1,6 +1,10 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
+models.document = Backbone.Model.extend({urlRoot: '/document'});
+
 Handlebars.registerHelper('uploader_name', function(uploader, options){
+    if (uploader==undefined)
+        return;
     if (cache.users.get(uploader) == undefined){
         cache.users.add({id: uploader});
         cache.users.get(uploader).fetch({success: function() {
@@ -15,7 +19,7 @@ applications.document = Backbone.View.extend({
         _.bindAll(this, 'render');
         this.type = params.args[1];
         this.context = params.args[2];
-        this.documents = new Backbone.Collection();
+        this.documents = new Backbone.Collection({model: models.document});
         this.documents.url = '/document/'+this.type+'/'+this.context;
         this.documents.on("all", this.render);
         this.documents.fetch();
@@ -25,8 +29,10 @@ applications.document = Backbone.View.extend({
 
     events: {
         'click #upload_form_submit': function() {
+            var self = this;
             $('#upload_form').attr('action', urls['document_upload_file']);
             $('#upload_frame').load(function() {
+                self.documents.fetch();
                 $('up_message').html('upload fini');
             })
             $('up_message').html('upload...');
