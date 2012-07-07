@@ -13,18 +13,24 @@ applications.course = Backbone.View.extend({
         this.slug = params.args[1];
         this.router = params.router;
         this.position = params.position;
+        this.course = new models.course({slug: this.slug});
+        this.course.url = urls['course_bone_slug'](this.slug);
+        this.course.on("all", this.render);
+        this.course.fetch();
         this.render();
     },
 
     events: {
         'click #document': function() {
+            console.log('/document/course/' + this.slug)
             this.router.navigate('/document/course/' + this.slug, 
                                  {trigger: true});
             return false;
         },
+
     },
     
     render: function() {
-        $(this.el).html(templates['tpl-desk-course']({slug: this.slug}));
+        $(this.el).html(templates['tpl-course']({slug: this.slug}));
     },
 });

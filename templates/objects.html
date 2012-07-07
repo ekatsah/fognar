@@ -89,12 +89,38 @@
 </header>
 </script>
 
-<script id="tpl-desk-course" type="text/x-handlebars-template">
-    <h1>{{ slug }}</h1>
-    <div id="infos" style="margin: 10px">Infos</div>
-    <div id="document" style="margin: 10px">Documents</div>
-    <div id="podcast" style="margin: 10px">Podcast</div>
-    <div id="discussion" style="margin: 10px">Discussions</div>
+<script id="tpl-course" type="text/x-handlebars-template">
+    <section id="content-wrapper">
+        <div id="main-sided-wrapper">
+            <h1>
+                <i class="course-icon-large"></i>
+                {{ slug }}
+            </h1>
+            <div class="toolbar">
+                <label for="sort-by">Trier par : </label>
+                <select id="sort-by">
+                    <option>Date de publication</option>
+                    <option>Classement</option>
+                </select>
+            </div>
+            {{ description }}
+        </div>
+        <div id="large-sidebar-wrapper">
+            <h2>Général</h2>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-active">Fils de discussion</a>
+                <a href="#">Wiki</a>
+                <a href="#" id="document">Documents</a>
+                <a href="#">Podcasts</a>
+                <a href="#">Contacter un prof</a>   
+            </nav>
+            <h2>TP</h2>
+            <nav class="sidebar-nav">
+                <a href="#">Fils de discussion</a>
+                <a href="#">Documents</a>
+            </nav>
+        </div>
+    </section>
 </script>
 
 <script id="tpl-doc-viewer" type="text/x-handlebars-template">
