@@ -76,7 +76,7 @@
 
 <script id="tpl-course-thread" type="text/x-handlebars-template">
 <div id="title">
-    <h1>Thread list</h1>
+    <h1>Thread list of {{ context.name }}</h1>
 </div>
 <div class="toolbar">
     <label for="sort-by">Trier par : </label>
@@ -131,8 +131,14 @@
 
 <script id="tpl-course-wiki" type="text/x-handlebars-template">
     <div id="title">
-        <h1>Wiki list</h1>
+        <h1>Wiki list of {{ context.name }}</h1>
     </div>
+    
+    <ul>
+    {{#each infos}}
+        <li><strong>{{ this.name }}</strong> : {{ this.value }}</li>
+    {{/each}}
+    </ul>
 </script>
 
 <script id="tpl-viewer" type="text/x-handlebars-template">

@@ -22,7 +22,7 @@ applications.course = Backbone.View.extend({
         this.course.url = urls['course_bone_slug'](this.slug);
         this.course.on("all", function() { self.render(self.mode, true); });
         this.course.fetch();
-        this.render(this.mode);
+        this.render('thread');
     },
 
     events: {
@@ -43,14 +43,15 @@ applications.course = Backbone.View.extend({
         }
 
         if (this.mode != mode || refresh) {
-            $('#' + mode).addClass('nav-active');
-            $('#' + this.mode).removeClass('nav-active');
+            $('a[data-' + mode + ']').addClass('nav-active');
+            $('a[data-' + this.mode + ']').removeClass('nav-active');
             this.mode = mode;
             if (this.sub_app != null) {
                 this.sub_app.undelegateEvents();
                 // FIXME remove app toussa
             }
-            this.sub_app = new application[this.mode]({el: $('#course-content'),
+            console.log(this.mode);
+            this.sub_app = new applications[this.mode]({el: $('#course-content'),
                 router: this.router, context: this.course, type: 'course'});
         }
     },
