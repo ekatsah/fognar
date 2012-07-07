@@ -7,7 +7,6 @@ from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
 from course.models import Course
-from document.models import Document
 
 class Command(BaseCommand):
     help = 'Initialize fognar for developpment'
