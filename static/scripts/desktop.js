@@ -6,10 +6,6 @@ applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.router = params.router;
-        this.me = new Backbone.Model();
-        this.me.url = urls.profile_me;
-        this.me.on("change", this.render);
-        this.me.fetch();
         this.config = params.config;
         this.popup = null;
         this.render();
@@ -29,12 +25,7 @@ applications.desktop = Backbone.View.extend({
     },
 
     render: function() {
-        if (this.me.get('realname')) {
-            $(this.el).html(templates['tpl-desktop']({profil: this.me.toJSON(), 
-                shortcuts: this.config.shortcuts}));
-            $('#course_popup').css('display', 'none');
-        } else
-            $(this.el).html(templates['tpl-loading']());
+        $(this.el).html(templates['tpl-desktop']({shortcuts: this.config.shortcuts}));
         return this;
     },
 });
