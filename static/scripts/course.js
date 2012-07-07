@@ -1,5 +1,11 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
+models.course = Backbone.Model.extend({
+    initialize: function(params) {
+    },
+    
+};
+
 applications.course = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
