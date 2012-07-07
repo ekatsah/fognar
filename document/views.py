@@ -50,7 +50,8 @@ def upload_file(request):
         thing = get_context(data['ctype'], data['context'])
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
-                                      uploader=request.user, referer=thing)
+                                      uploader=request.user.get_profile(),
+                                      referer=thing)
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
         tmp_doc.write(request.FILES['file'].read())
@@ -69,7 +70,8 @@ def upload_http(request):
         thing = get_context(data['ctype'], data['context'])
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
-                                      uploader=request.user, referer=thing)
+                                      uploader=request.user.get_profile(),
+                                      referer=thing)
         # seem to be broken, FIXME
         # Permission.new(request.user, 'document_edit', doc.id)
         PendingDocument.objects.create(doc=doc, state="queued", url=data['url'])

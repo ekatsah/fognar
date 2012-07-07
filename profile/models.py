@@ -8,17 +8,14 @@ from utils import dont_create_a_superuser
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
+    name = models.CharField(max_length=80)
     registration = models.CharField(max_length=80)
     welcome = models.BooleanField(default=True)
     comment = models.TextField(null=True)
     photo = models.CharField(max_length=80, null=True)
 
-    def real_name(self):
-        return self.user.first_name + " " + self.user.last_name
-
-
 class Inscription(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(Profile)
     section = models.CharField(max_length=80, null=True)
     year = models.PositiveIntegerField(null=True)
 
