@@ -51,7 +51,6 @@ def upload_file(request):
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
                                       uploader=request.user, 
-                                      uploader_name=request.user.first_name + " " + request.user.last_name, 
                                       referer=thing)
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
