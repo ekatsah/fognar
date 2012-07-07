@@ -1,5 +1,26 @@
 <!-- Copyright 2012, Cercle Informatique. All rights reserved. -->
 
+<script id="tpl-loading" type="text/x-handlebars-template">
+    loading..
+</script>
+
+<script id="tpl-navbar" type="text/x-handlebars-template">
+<header>
+    <section id="navbar">
+        <a id="logo" href="#">Respublicae</a>
+        <div id="search-wrapper">
+            <form action="#">
+                <input type="text" name="search" />
+            </form>
+        </div>
+        <div id="account-wrapper">
+            <i class="person-icon"></i>
+            {{ name }} <i class="ticker-icon"></i>
+        </div>
+    </section>
+</header>
+</script>
+
 <script id="tpl-desktop" type="text/x-handlebars-template">
 <div id="main-sided-wrapper">
     <h1><i class="dashboard-icon"></i>Mon Bureau</h1>
@@ -26,11 +47,47 @@
     <h1>Market</h1>
 </script>
 
-<script id="tpl-loading" type="text/x-handlebars-template">
-    loading..
+<script id="tpl-course" type="text/x-handlebars-template">
+    <section id="content-wrapper">
+        <div id="main-sided-wrapper">
+            <h1>
+                <i class="course-icon-large"></i>
+                {{ course.name }}
+            </h1>
+            <div id="course-content"></div>
+        </div>
+        <div id="large-sidebar-wrapper">
+            <h2>Général</h2>
+            <nav class="sidebar-nav">
+                <a href="#" data-app="thread" class="x_action">Fils de discussion</a>
+                <a href="#" data-app="wikicourse" class="x_action">Wiki</a>
+                <a href="#" data-app="document" class="x_action">Documents</a>
+                <a href="#">Podcasts</a>
+                <a href="#">Contacter un prof</a>   
+            </nav>
+            <h2>TP</h2>
+            <nav class="sidebar-nav">
+                <a href="#">Fils de discussion</a>
+                <a href="#">Documents</a>
+            </nav>
+        </div>
+    </section>
 </script>
 
-<script id="tpl-document" type="text/x-handlebars-template">
+<script id="tpl-course-thread" type="text/x-handlebars-template">
+<div id="title">
+    <h1>Thread list</h1>
+</div>
+<div class="toolbar">
+    <label for="sort-by">Trier par : </label>
+    <select id="sort-by">
+        <option>Date de publication</option>
+        <option>Classement</option>
+    </select>
+</div>
+</script>
+
+<script id="tpl-course-document" type="text/x-handlebars-template">
     <div id="title">
         <h1>Document list</h1>
     </div>
@@ -72,58 +129,13 @@
     </form>
 </script>
 
-<script id="tpl-navbar" type="text/x-handlebars-template">
-<header>
-    <section id="navbar">
-        <a id="logo" href="#">Respublicae</a>
-        <div id="search-wrapper">
-            <form action="#">
-                <input type="text" name="search" />
-            </form>
-        </div>
-        <div id="account-wrapper">
-            <i class="person-icon"></i>
-            {{ name }} <i class="ticker-icon"></i>
-        </div>
-    </section>
-</header>
+<script id="tpl-course-wiki" type="text/x-handlebars-template">
+    <div id="title">
+        <h1>Wiki list</h1>
+    </div>
 </script>
 
-<script id="tpl-course" type="text/x-handlebars-template">
-    <section id="content-wrapper">
-        <div id="main-sided-wrapper">
-            <h1>
-                <i class="course-icon-large"></i>
-                {{ slug }}
-            </h1>
-            <div class="toolbar">
-                <label for="sort-by">Trier par : </label>
-                <select id="sort-by">
-                    <option>Date de publication</option>
-                    <option>Classement</option>
-                </select>
-            </div>
-            {{ description }}
-        </div>
-        <div id="large-sidebar-wrapper">
-            <h2>Général</h2>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-active">Fils de discussion</a>
-                <a href="#">Wiki</a>
-                <a href="#" id="document">Documents</a>
-                <a href="#">Podcasts</a>
-                <a href="#">Contacter un prof</a>   
-            </nav>
-            <h2>TP</h2>
-            <nav class="sidebar-nav">
-                <a href="#">Fils de discussion</a>
-                <a href="#">Documents</a>
-            </nav>
-        </div>
-    </section>
-</script>
-
-<script id="tpl-doc-viewer" type="text/x-handlebars-template">
+<script id="tpl-viewer" type="text/x-handlebars-template">
     <h1>{{ doc.name }}</h1>
     <p>{{ doc.description }}</p>
     <ul>
