@@ -17,10 +17,10 @@ Handlebars.registerHelper('uploader_name', function(uploader, options){
 applications.document = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
-        this.type = params.args[1];
-        this.context = params.args[2];
+        this.type = params.type;
+        this.context = params.context;
         this.documents = new Backbone.Collection();
-        this.documents.url = urls['document_bone_type_slug'](this.type, this.context);
+        this.documents.url = urls['document_bone_type_slug'](this.type, this.context.id);
         this.documents.on("all", this.render);
         this.documents.fetch();
         cache.users.on("fetched", this.render);
@@ -60,7 +60,7 @@ applications.document = Backbone.View.extend({
         console.log("document render");
         $(this.el).html(templates['tpl-document']({documents: this.documents.toJSON(),
                                                    type: this.type,
-                                                   context: this.context,
+                                                   context: this.context.toJSON(),
                                                    token: get_cookie('csrftoken')}));
         return this;
     },
