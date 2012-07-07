@@ -14,7 +14,6 @@ sorted([
 urls = {
     'application': '{% url application %}',
     'application_me': '{% url application_me %}',
-    'profile_me': '{% url profile_me %}',
     'auth_entry': function(a) { return 'auth/' + a; },
     'index': '',
     'logout': '{% url logout %}',

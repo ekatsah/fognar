@@ -22,6 +22,7 @@
         </script>
         {% ssi objects %}
         <script src="/static/scripts/fognar.js" type="text/javascript"></script>
+        <script src="/static/scripts/profile.js" type="text/javascript"></script>
         <script src="/static/scripts/document.js" type="text/javascript"></script>
         <script src="/static/scripts/desktop.js" type="text/javascript"></script>
         <script src="/static/scripts/group.js" type="text/javascript"></script>
@@ -29,6 +30,15 @@
         <script src="/static/scripts/market.js" type="text/javascript"></script>
         <script src="/static/scripts/viewer.js" type="text/javascript"></script>
         <script src="/static/scripts/helpers.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            {% include "urls.js" %}
+            
+            autostart = {
+                navbar: {},
+            };
+            
+            
+        </script>
     </head>
 
     <body>
