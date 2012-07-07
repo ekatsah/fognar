@@ -6,8 +6,9 @@ from application.models import AppUsing
 from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
-from course.models import Course
+from course.models import Course, CourseInfo
 from optparse import make_option
+from django.utils.datetime_safe import datetime
 
 class Command(BaseCommand):
     help = 'Initialize fognar for developpment'
@@ -62,7 +63,23 @@ class Command(BaseCommand):
                                    description='Les simplex dans tout leurs etats')
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
-
+        
+        CourseInfo.objects.create(course=c1, user = profile,infos = """{
+            {name: 'Professeur', values:'JM Lavoine'},
+            {name: 'Langue', values:'Anglais'},
+            {name: 'Syllabus', values:'Analyse 1'},
+            {name: 'Difficultes', values:'dernier chapitre et les differentielles d\'ordre n'},
+            {name: 'ECTS', values:'8'},
+        }""")
+        
+        CourseInfo.objects.create(course=c1, user = profile,infos = """{
+            {name: 'Professeur', values:'B. Lecharlier'},
+            {name: 'Langue', values:'Francais'},
+            {name: 'Syllabus', values:'Informatique Ba1'},
+            {name: 'Difficultes', values:'Language noyaux'},
+            {name: 'ECTS', values:'5'},
+        }""")     
+        
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
