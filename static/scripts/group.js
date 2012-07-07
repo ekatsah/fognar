@@ -13,4 +13,6 @@ applications.group = Backbone.View.extend({
         $(this.el).html(templates['tpl-group']());
         return this;
     },
+
+    close: function() {},
 });

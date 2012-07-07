@@ -3,7 +3,9 @@
 Handlebars.registerHelper('uploader_name', function(context, options){
     if (cache.users.get(context) == undefined){
         cache.users.add({id: context});
-        cache.users.get(context).fetch();
+        cache.users.get(context).fetch({success: function() {
+            cache.users.trigger('fetched');
+        }});
     }
     return cache.users.get(context).get('name');
 });
@@ -17,6 +19,7 @@ applications.document = Backbone.View.extend({
         this.documents.url = '/document/'+this.type+'/'+this.context;
         this.documents.on("all", this.render);
         this.documents.fetch();
+        cache.users.on("fetched", this.render);
         this.render();
     },
 
@@ -54,5 +57,9 @@ applications.document = Backbone.View.extend({
                                                    context: this.context,
                                                    token: get_cookie('csrftoken')}));
         return this;
+    },
+
+    close: function() {
+        cache.users.off("fetched", this.render);
     },
 });
