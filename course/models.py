@@ -14,5 +14,3 @@ class CourseInfo(models.Model):
     user = models.ForeignKey(Profile)
     infos = models.TextField()
     date = models.DateTimeField(auto_now=True)
-    name = models.TextField()
-    click = models.PositiveIntegerField(default=0)
