@@ -31,13 +31,12 @@
         <script src="/static/scripts/viewer.js" type="text/javascript"></script>
         <script src="/static/scripts/helpers.js" type="text/javascript"></script>
         <script type="text/javascript">
-            {% include "urls.js" %}
-            
-            autostart = {
-                navbar: {},
-            };
-            
-            
+            var profile = new models.user({
+                id: {{ user.get_profile.id}},
+                name: {{ user.get_profile.name}},
+            });
+
+            cache.user.add(profile);
         </script>
     </head>
 
