@@ -158,7 +158,7 @@ class BackboneAPIView(View):
         single JSON object, otherwise return a JSON array of objects.
         """
         values = queryset.values(*self.serialize_fields)
-        if single_object or self.kwargs.get('id'):
+        if single_object or self.kwargs.get('id') or queryset.count() == 1:
             # For single-item requests, convert ValuesQueryset to a dict simply
             # by slicing the first item:
             json_output = self.json_encoder.encode(values[0])
