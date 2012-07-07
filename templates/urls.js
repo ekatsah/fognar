@@ -31,4 +31,5 @@ urls = {
     'logout': 'logout',
     'profile_bone_id': function (a) { return 'profile/' + a; },
     'syslogin': 'syslogin',
+    'wiki_bone_id': function (a) { return 'course/wiki/' + a; },
 };
