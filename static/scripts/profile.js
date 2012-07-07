@@ -8,8 +8,8 @@ models.user = Backbone.Model.extend({
 
 cache.users = new Backbone.Collection({
     model: models.user,
-    url:'/profile'
 });
+cache.users.url = '/profile';
 
 applications.profile = Backbone.View.extend({
     initialize: function(params) {
