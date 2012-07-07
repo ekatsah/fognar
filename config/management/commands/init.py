@@ -38,8 +38,11 @@ class Command(BaseCommand):
         user.last_name = last_name
         user.set_password(password)
         user.save()
-
-        AppUsing.objects.create(user=user, name="desktop", config=""" {
+        profile = user.get_profile()
+        profile.name = first_name + " " + last_name
+        profile.save()
+        
+        AppUsing.objects.create(user=profile, name="desktop", config=""" {
             shortcuts: [ 
                 {app: 'course', slug: 'info-f-666'},
                 {app: 'course', slug: 'info-f-777'},
