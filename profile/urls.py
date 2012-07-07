@@ -6,5 +6,6 @@ from profile.views import profile_bone
 
 
 urlpatterns = patterns('',
-    url(r'^(?P<id>\d+', profile_bone.as_view(), name="profile_bone_id"),
+    url(r'^/(?P<id>\d+', stop_anon(profile_bone.as_view()), 
+    name="profile_bone_id"),
 )

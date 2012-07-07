@@ -8,4 +8,4 @@ from django.contrib.auth.models import User
 
 class profile_bone(BackboneAPIView):
     base_queryset = User.objects.all()
-    serialize_fields = ('
+    serialize_fields = ('id', 'name')

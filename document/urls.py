@@ -14,7 +14,8 @@ urlpatterns = patterns('',
 
     url(r'^d/$', document_bone.as_view(), name="document_bone"),
     url(r'^d/(?P<id>\d+)', document_bone.as_view(), name="document_bone_id"),
-    url(r'(?P<type>course|group)/(?P<slug>[A-Za-z0-9-_]+)', document_bone.as_view(), name="document_bone_type_slug"),
+    url(r'(?P<type>course|group)/(?P<slug>[A-Za-z0-9-_]+)', 
+    document_bone.as_view(), name="document_bone_type_slug"),
 
     url(r'^upload_file', stop_anon(uniq_post(upload_file)),
         name='document_upload_file'),
