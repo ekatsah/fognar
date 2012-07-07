@@ -9,6 +9,7 @@ from utils import dont_create_a_superuser
 class Profile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=80)
+    email = models.CharField(max_length=250)
     registration = models.CharField(max_length=80)
     welcome = models.BooleanField(default=True)
     comment = models.TextField(null=True)

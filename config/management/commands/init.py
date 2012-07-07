@@ -40,6 +40,7 @@ class Command(BaseCommand):
         user.save()
         profile = user.get_profile()
         profile.name = first_name + " " + last_name
+        profile.email = '42@urlab.be'
         profile.save()
         
         AppUsing.objects.create(user=profile, name="desktop", config=""" {
