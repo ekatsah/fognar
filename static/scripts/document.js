@@ -55,4 +55,5 @@ applications.document = Backbone.View.extend({
                                                    token: get_cookie('csrftoken')}));
         return this;
     },
+
 });

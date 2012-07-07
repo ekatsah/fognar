@@ -11,6 +11,7 @@ from os import system, path, makedirs
 from multiprocessing import Process
 from pyPdf import PdfFileReader
 from urllib2 import urlopen
+import subprocess
 
 # TODO : rtfm django logging
 import logging
@@ -26,14 +27,24 @@ class Command(BaseCommand):
 
     def convert_page(self, doc, page, filename, num):
         # extract a normal size page and a thumbnail with graphicsmagick
-        pname = "%s/%s/%04d_%04d.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num)
-        mname = "%s/%s/%04d_%04d_m.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num)
-        w, h = page.bleedBox.getWidth(), page.bleedBox.getHeight()
-        system('gm convert -resize %dx%d -quality 90 %s "%s[%d]" %s' %
-               (w, h, ' -density 350', filename, num, pname))
-        system('gm convert -resize 118x1000 %s "%s[%d]" %s' % 
-               ('-quality 90 -density 100', filename, num, mname))
-        Page.objects.create(num=num + 1, width=w, height=h, doc=doc)
+        #mini
+        h_120 = make_jepg(120,num,"%s/%s/%04d_%04d_m.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
+        #normal
+        h_600 = make_jepg(600,num,"%s/%s/%04d_%04d_n.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
+        #big
+        h_900 = make_jepg(900,num,"%s/%s/%04d_%04d_b.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
+
+        Page.objects.create(num=num + 1, height_120=h_120, height_600=h_600, height_900=h_900, doc=doc)
+
+    def make_jepg(width, num, name):
+        logger.info('Starting jepegisation of doc %s page %d with width %d' %
+                (name, num, width))
+        system('gm convert -geometry x%d -quality 90 %s "%s[%d]" %s' %
+               (width, ' -density 350', filename, num, name))
+        height, width = subprocess.check_output(['gm', 'identify', '-format','%h-%w', imgpath]).strip().split('-')
+        logger.info('Outputted image size if %d by %d' %
+                (height, width))                
+        return height
 
     def parse_file(self, doc, upfile):
         logger.info('Starting processing of doc %d (from %s) : %s' % 
