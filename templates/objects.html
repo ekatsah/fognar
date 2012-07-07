@@ -96,3 +96,13 @@
     <div id="podcast" style="margin: 10px">Podcast</div>
     <div id="discussion" style="margin: 10px">Discussions</div>
 </script>
+
+<script id="tpl-doc-viewer" type="text/x-handlebars-template">
+    <h1>{{ doc.name }}</h1>
+    <p>{{ doc.description }}</p>
+    <ul>
+    {{#each pages}}
+        <li>{{ this.num }} : {{ this.height_120 }}</li>
+    {{/each}}
+    </ul>
+</script>

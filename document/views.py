@@ -3,8 +3,7 @@
 from config.json import json_send
 from django.utils.html import escape
 from django.shortcuts import get_object_or_404
-from django.core.exceptions import ObjectDoesNotExist
-from document.models import Document, PendingDocument
+from document.models import Document, PendingDocument, Page
 from document.forms import UploadHttpForm, UploadFileForm
 from djangbone.views import BackboneAPIView
 from course.models import Course
@@ -25,20 +24,32 @@ class document_bone(BackboneAPIView):
     serialize_fields = ('id', 'name', 'description', 'uploader')
     
     def dispatch(self, request, *args, **kwargs):
-        if kwargs['type'] == 'course':
+        if kwargs.get('type', None) == 'course':
             try:
                 c = Course.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(refer_oid = c.id);
-            except ObjectDoesNotExist:
+                self.base_queryset = document_bone.base_queryset.filter(referer = c);
+            except:
                 self.base_queryset = document_bone.base_queryset.none();
-        elif kwargs['type'] == 'group':
+        elif kwargs.get('type', None) == 'group':
             try:
                 g = Group.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(refer_oid = g.id);
-            except ObjectDoesNotExist:
+                self.base_queryset = document_bone.base_queryset.filter(referer = g);
+            except:
                 self.base_queryset = document_bone.base_queryset.none();
-                
+
         return super(document_bone, self).dispatch(request,*args, **kwargs)
+
+class page_bone(BackboneAPIView):
+    base_queryset = Page.objects.all()
+    serialize_fields = ('id', 'num', 'height_120', 'height_600', 'height_900')
+    
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            doc = Document.objects.get(id=kwargs['did'])
+            self.base_queryset = page_bone.base_queryset.filter(doc=doc);
+        except:
+            self.base_queryset = document_bone.base_queryset.none();
+        return super(page_bone, self).dispatch(request,*args, **kwargs)
 
 @json_send
 def upload_file(request):
