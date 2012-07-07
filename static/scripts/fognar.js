@@ -1,12 +1,7 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
 var applications = {};
-
-var ShortCut = Backbone.Model.extend({
-    url: function() {
-        return "/application/config/" + this.id + "/";
-    }
-})
+var models = {};
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
