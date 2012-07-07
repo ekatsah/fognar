@@ -40,7 +40,6 @@ class Command(BaseCommand):
                 {app: 'course', slug: 'info-f-999'},
                 {app: 'group', slug: 'ACE'},
                 {app: 'group', slug: 'CI'},
-                
             ],
         }""")
 
