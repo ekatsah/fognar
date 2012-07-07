@@ -42,11 +42,11 @@ class Command(BaseCommand):
                             height_900=h_900, doc=doc)
 
     def make_jepg(self, width, num, filename, name):
-        system('gm convert -geometry x%d -quality 90 %s "%s[%d]" %s' %
+        system('gm convert -geometry %dx -quality 90 %s "%s[%d]" %s' %
                (width, ' -density 350', filename, num, name))
-        height, width = subprocess.check_output(['gm', 'identify', '-format',
-                                           '%h-%w', name]).strip().split('-')
-        height, width = int(height), int(width)
+        height = int(subprocess.check_output(['gm', 'identify', '-format',
+                                              '%h', name]).strip())
+        print str(height)
         return height
 
     def parse_file(self, doc, upfile):
