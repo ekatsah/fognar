@@ -1,5 +1,7 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
+cache.users = Backbone.Collection.extend({ model: Backbone.Model.extend({}), url:'/profile'});
+
 applications.document = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');

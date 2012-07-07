@@ -2,6 +2,7 @@
 
 var applications = {};
 var models = {};
+var cache = {};
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
