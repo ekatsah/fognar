@@ -2,9 +2,10 @@
 
 models.course = Backbone.Model.extend({
     initialize: function(params) {
+        console.log('new course model');
     },
     
-};
+});
 
 applications.course = Backbone.View.extend({
     initialize: function(params) {
