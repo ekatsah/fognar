@@ -1,10 +1,7 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
 models.course = Backbone.Model.extend({
-    initialize: function(params) {
-        console.log('new course model');
-    },
-    
+    initialize: function(params) {},
 });
 
 applications.course = Backbone.View.extend({
@@ -20,7 +17,7 @@ applications.course = Backbone.View.extend({
                              {trigger: false});
         this.course = new models.course({slug: this.slug});
         this.course.url = urls['course_bone_slug'](this.slug);
-        this.course.on("all", function() { self.render(self.mode, true); });
+        this.course.on("change", function() { self.render(self.mode, true); });
         this.course.fetch();
         this.render('thread');
     },
@@ -39,9 +36,14 @@ applications.course = Backbone.View.extend({
         // FIXME check if mode is valid
         if (this.first || refresh) {
             this.first = false;
-            $(this.el).html(templates['tpl-course']({slug: this.slug}));
+            console.log("reprint course, => " + dump(this.course.toJSON()));
+            if (this.sub_app != null) {
+                this.sub_app.undelegateEvents();
+                // FIXME remove app toussa
+            }
+            $(this.el).html(templates['tpl-course']({course: this.course}));
         }
-
+        console.log('this.mode = "' + this.mode + '" && mode = "' + mode + '" && refresh = ' + refresh);
         if (this.mode != mode || refresh) {
             $('a[data-' + mode + ']').addClass('nav-active');
             $('a[data-' + this.mode + ']').removeClass('nav-active');
@@ -50,10 +52,11 @@ applications.course = Backbone.View.extend({
                 this.sub_app.undelegateEvents();
                 // FIXME remove app toussa
             }
-            console.log(this.mode);
+            console.log('  -> reprint');
             this.sub_app = new applications[this.mode]({el: $('#course-content'),
                 router: this.router, context: this.course, type: 'course'});
         }
+        return this;
     },
 
     close: function() {},
