@@ -23,7 +23,8 @@ def get_context(ctype, context):
 
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
-    serialize_fields = ('id', 'name', 'description', 'uploader')
+    serialize_fields = ('id', 'name', 'description', 'uploader', 'rating', 
+                        'vote_number', 'view_number', 'download_number')
     
     def dispatch(self, request, *args, **kwargs):
         if kwargs['type'] == 'course':
