@@ -109,6 +109,13 @@ i.dashboard-icon {
     margin-right: 10px;
 }
 
+i.course-icon-large {
+    background: url("/static/image/course-icon-large.png");
+    display: inline-block;
+    width: 22px; height: 20px;
+    margin-right: 2px;
+}
+
 #main-sided-wrapper {
     float: left;
     width: 660px;
@@ -129,6 +136,47 @@ i.dashboard-icon {
 h1 {
     font-size: 20px;
     font-weight: bold;
+}
+
+.sidebar-nav {
+    margin-bottom: 40px;
+}
+
+.sidebar-nav a {
+    font-size: 14px;
+    color: #999;
+    display: block;
+    border-left: 2px solid #DDD;
+    padding-left: 10px;
+    line-height: 30px;
+    text-decoration: none;
+}   
+
+.sidebar-nav a:hover {
+    color: #333;
+    border-color: #333;
+}
+
+a.nav-active {
+    color: #b22;
+    border-color: #b22;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: bold;
+    height: 30px;
+}
+
+.toolbar {
+    margin-top: 20px;
+}
+
+#sort-by {
+    background: #fff;
+    border: 1px solid #b22;
+    padding: 2px 4px;
 }
 
 #dashboard {
