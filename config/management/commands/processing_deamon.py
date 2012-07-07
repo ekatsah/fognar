@@ -25,30 +25,33 @@ logger.setLevel(logging.INFO)
 class Command(BaseCommand):
     help = 'Start tha processing deamon'
 
-    def convert_page(self, doc, page, filename, num):
+    def convert_page(self, doc, filename, num):
         # extract a normal size page and a thumbnail with graphicsmagick
         #mini
-        h_120 = make_jepg(120,num,"%s/%s/%04d_%04d_m.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
+        h_120 = self.make_jepg(120, num, filename, "%s/%s/%04d_%04d_m.jpg" % 
+                               (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
         #normal
-        h_600 = make_jepg(600,num,"%s/%s/%04d_%04d_n.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
+        h_600 = self.make_jepg(600, num, filename, "%s/%s/%04d_%04d_n.jpg" % 
+                               (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
         #big
-        h_900 = make_jepg(900,num,"%s/%s/%04d_%04d_b.jpg" % (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
+        h_900 = self.make_jepg(900, num, filename, "%s/%s/%04d_%04d_b.jpg" % 
+                               (UPLOAD_DIR, doc.referer.slug, doc.pk, num))
 
-        Page.objects.create(num=num + 1, height_120=h_120, height_600=h_600, height_900=h_900, doc=doc)
+        close_connection()
+        Page.objects.create(num=num, height_120=h_120, height_600=h_600, 
+                            height_900=h_900, doc=doc)
 
-    def make_jepg(width, num, name):
-        logger.info('Starting jepegisation of doc %s page %d with width %d' %
-                (name, num, width))
+    def make_jepg(self, width, num, filename, name):
         system('gm convert -geometry x%d -quality 90 %s "%s[%d]" %s' %
                (width, ' -density 350', filename, num, name))
-        height, width = subprocess.check_output(['gm', 'identify', '-format','%h-%w', imgpath]).strip().split('-')
-        logger.info('Outputted image size if %d by %d' %
-                (height, width))                
+        height, width = subprocess.check_output(['gm', 'identify', '-format',
+                                           '%h-%w', name]).strip().split('-')
+        height, width = int(height), int(width)
         return height
 
     def parse_file(self, doc, upfile):
         logger.info('Starting processing of doc %d (from %s) : %s' % 
-                    (doc.id, doc.uploader.username, doc.name))
+                    (doc.id, doc.uploader.name, doc.name))
         filename = "%s/%s/%04d.pdf" % (UPLOAD_DIR, doc.referer.slug, doc.id)
     
         # check if course subdirectory exist
@@ -71,8 +74,8 @@ class Command(BaseCommand):
         # words.close()
     
         # iteration page a page, transform en png + get page size
-        for num, page in zip(xrange(pdf.numPages), pdf.pages):
-            self.convert_page(doc, page, filename, num)
+        for num in xrange(pdf.numPages):
+            self.convert_page(doc, filename, num)
     
         logger.info('End of processing of doc %d' % doc.id)
     
@@ -98,7 +101,7 @@ class Command(BaseCommand):
     
         except Exception as e:
             logger.error('Process file error of doc %d (from %s) : %s' % 
-                         (pending.doc.id, pending.doc.uploader.username, str(e)))
+                         (pending.doc.id, pending.doc.uploader.name, str(e)))
             pending.doc.delete()
 
     # drop here when the deamon is killed
