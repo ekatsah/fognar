@@ -33,10 +33,10 @@
         <script type="text/javascript">
             var profile = new models.user({
                 id: {{ user.get_profile.id}},
-                name: {{ user.get_profile.name}},
+                name: '{{ user.get_profile.name}}',
             });
 
-            cache.user.add(profile);
+            cache.users.add(profile);
         </script>
     </head>
 
