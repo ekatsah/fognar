@@ -24,5 +24,7 @@ applications.profile = Backbone.View.extend({
     
     render: function() {
     },
+
+    close: function() {},
 });
 
