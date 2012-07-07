@@ -10,6 +10,7 @@ class Document(models.Model):
     name = models.TextField()
     description = models.TextField()
     uploader = models.ForeignKey(User)
+    uploader_name = models.TextField()
     # a course, a discussion, a group whatever
     refer_oid = models.PositiveIntegerField()
     refer_content = models.ForeignKey(ContentType)
