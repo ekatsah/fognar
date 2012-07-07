@@ -1,16 +1,8 @@
 # Copyright 2012, Cercle Informatique. All rights reserved.
 
 from djangbone.views import BackboneAPIView
-
-from config.json import json_list, json_send
 from models import AppUsing
 from forms import AppConfigForm
-
-
-@json_send
-def my_apps(request):
-    apps = AppUsing.objects.filter(user=request.user)
-    return json_list(request, apps, ['name', 'id', 'config'])
 
 
 class ConfigView(BackboneAPIView):

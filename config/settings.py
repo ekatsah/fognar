@@ -88,7 +88,6 @@ INSTALLED_APPS = (
     'course',
     'document',
     'group',
-    'permission',
     'profile',
     'config',
     'django_extensions',

@@ -7,7 +7,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from document.models import Document, PendingDocument
 from document.forms import UploadHttpForm, UploadFileForm
 from djangbone.views import BackboneAPIView
-from permission.models import Permission
 from course.models import Course
 from group.models import Group
 from re import match
@@ -56,7 +55,6 @@ def upload_file(request):
         tmp_doc = open(url, 'w')
         tmp_doc.write(request.FILES['file'].read())
         tmp_doc.close()
-        #Permission.new(request.user, 'document_edit', doc.id)
         PendingDocument.objects.create(doc=doc, state="queued", url='file://' + url)
         return '{"message": "ok"}'
     else:
@@ -72,8 +70,6 @@ def upload_http(request):
                                       description=escape(data['description']),
                                       uploader=request.user.get_profile(),
                                       referer=thing)
-        # seem to be broken, FIXME
-        # Permission.new(request.user, 'document_edit', doc.id)
         PendingDocument.objects.create(doc=doc, state="queued", url=data['url'])
         return '{"message": "ok"}'
     else:

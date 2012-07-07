@@ -10,17 +10,12 @@ class Group(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField()
     description = models.TextField(null=True)
+    info = models.TextField(null=True)
 
 class GroupMember(models.Model):
     user = models.ForeignKey(Profile)
     title = models.TextField()
-    meta = models.TextField()
-
-class GroupURL(models.Model):
-    group = models.ForeignKey(Group)
-    url = models.TextField()
-    name = models.TextField()
-    click = models.PositiveIntegerField(default=0)
+    role = models.TextField()
 
 class Publication(models.Model):
     group = models.ForeignKey(Group)

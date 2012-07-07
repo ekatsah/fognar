@@ -58,7 +58,7 @@ $(document).ready(function() {
     // make ajax synchronous for config fetch. TODO : bootstraping
     $.ajaxSetup({ async: false });
     var config = new Backbone.Collection();
-    config.url = urls.application_me;
+    config.url = urls['app_config'];
     config.fetch();
     $.ajaxSetup({ async: true });
 
