@@ -23,7 +23,7 @@ OBJECT_FILE = '%s/templates/objects.html' % PROJECT_PATH
 AUTH_PROFILE_MODULE = 'profile.Profile'
 
 # Page to show after a syslogin
-LOGIN_REDIRECT_URL = '/zoidberg#/profile'
+LOGIN_REDIRECT_URL = '/zoidberg#desktop'
 
 # url to internal login
 LOGIN_URL = '/syslogin'
