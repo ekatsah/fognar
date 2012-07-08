@@ -35,10 +35,6 @@ applications.sidebar = Backbone.View.extend({
     },
 
     close: function(params) {},
-
-
-
-
 });
 
 var ZoidRouter = Backbone.Router.extend({
