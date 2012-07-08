@@ -87,6 +87,7 @@
 
 <script id="tpl-course-document" type="text/x-handlebars-template">
     <div id="title"><h2>Liste de document</h2></div>
+    <a href="#" id="upload">Upload</a>
     <ul>
     {{#each documents}}
     <li>{{this.name}} by {{uploader_name this.uploader}} : {{ this.description }}</li>
