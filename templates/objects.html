@@ -91,6 +91,16 @@
     <div id="title">
         <h1>Document list</h1>
     </div>
+    <div class="toolbar">
+        <label for="sort-by">Trier par : </label>
+        <select id="sort-by">
+            <option value="name">Titre</option>
+            <option value="uploader">Auteur</option>
+            <option value="rating">Qualité</option>
+            <option value="popularity">Popularité</option>
+            <option value="date">Date de publication</option>
+        </select>
+    </div>
     <ul>
     {{#each documents}}
     <li>{{this.name}} by {{uploader_name this.uploader}} : {{ this.description }}</li>
