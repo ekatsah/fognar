@@ -14,7 +14,7 @@ applications.course = Backbone.View.extend({
         this.slug = params.args[1];
         this.router = params.router;
         this.router.navigate('/course/' + this.slug + '/thread', 
-                             {trigger: false});
+                             {trigger: false, replace: true});
         this.course = new models.course({slug: this.slug});
         this.course.url = urls['course_bone_slug'](this.slug);
         this.course.on("change", function() { self.render(self.mode, true); });
