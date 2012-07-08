@@ -1,8 +1,7 @@
 # Copyright 2012, Cercle Informatique. All rights reserved.
 
 from django.forms import ModelForm
-
-from models import AppUsing
+from application.models import AppUsing
 
 
 class AppConfigForm(ModelForm):

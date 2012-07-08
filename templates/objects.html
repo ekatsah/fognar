@@ -75,9 +75,7 @@
 </script>
 
 <script id="tpl-course-thread" type="text/x-handlebars-template">
-<div id="title">
-    <h1>Thread list of {{ context.name }}</h1>
-</div>
+<div id="title"><h2>Fils de discussion</h2></div>
 <div class="toolbar">
     <label for="sort-by">Trier par : </label>
     <select id="sort-by">
@@ -88,10 +86,9 @@
 </script>
 
 <script id="tpl-course-document" type="text/x-handlebars-template">
-    <div id="title">
-        <h1>Document list</h1>
-    </div>
-    <div class="toolbar">
+    <<div id="title"><h2>Liste de document</h2></div>
+    <a href="#" id="upload">Upload</a>
+    div class="toolbar">
         <label for="sort-by">Trier par : </label>
         <select id="sort-by">
             <option value="name">Titre</option>
@@ -105,7 +102,11 @@
     {{#each documents}}
     <li>{{this.name}} by {{uploader_name this.uploader}} : {{ this.description }}</li>
     {{/each}}
-    </ul><hr>
+    </ul>
+</script>
+
+<script id="tpl-document-upload" type="text/x-handlebars-template">
+    <h1>Upload document</h1>
     <div id="up_message"></div>
     <form id="upload_form" target="upload_frame" method="post" 
             encoding="multipart/form-data", enctype="multipart/form-data">
@@ -140,10 +141,7 @@
 </script>
 
 <script id="tpl-course-wiki" type="text/x-handlebars-template">
-    <div id="title">
-        <h1>Wiki list of {{ context.name }}</h1>
-    </div>
-    
+    <div id="title"><h2>Wiki cours</h2></div>
     <ul>
     {{#each infos}}
         <li><strong>{{ this.name }}</strong> : {{ this.value }}</li>
@@ -159,4 +157,8 @@
         <li>{{ this.num }} : {{ this.height_120 }}</li>
     {{/each}}
     </ul>
+</script>
+
+<script id="tpl-sidebar" type="text/x-handlebars-template">
+    <section id="sidebar">\o/</section>
 </script>

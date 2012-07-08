@@ -22,6 +22,15 @@ applications.document = Backbone.View.extend({
     },
 
     events: {
+        'click #upload': function() {
+            sidebar.render(templates['tpl-document-upload']({
+                type: this.type,
+                context: this.context.toJSON(),
+                token: get_cookie('csrftoken'),
+            }));
+            sidebar.toggle();
+            return false;
+        },
         'click #upload_form_submit': function() {
             var self = this;
             $('#upload_form').attr('action', urls['document_upload_file']);

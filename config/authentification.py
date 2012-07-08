@@ -99,6 +99,7 @@ def create_user(values):
     profile = user.get_profile()
     profile.name = values['first_name'] + " " + values['last_name']
     profile.registration = values['registration']
+    profile.email = values['email']
     profile.save()
 
     try:

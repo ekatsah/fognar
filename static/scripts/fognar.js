@@ -20,6 +20,28 @@ applications.navbar = Backbone.View.extend({
     close: function() {},
 });
 
+applications.sidebar = Backbone.View.extend({
+    initialize: function(params) {
+        $(this.el).prepend(templates['tpl-sidebar']());
+        this.router = params.router;
+        this.el = $('#sidebar');
+        this.el.initSideBar();
+        window.sidebar = this;
+    },
+
+    events: function(params) {},
+
+    toggle: function(params) {
+        this.el.toggleSideBar();
+    },
+
+    close: function(params) {},
+    
+    render: function(content) {
+        $('#sidebar').html(content);
+    },
+});
+
 var ZoidRouter = Backbone.Router.extend({
     initialize: function() {
         _.bindAll(this, 'parser');
