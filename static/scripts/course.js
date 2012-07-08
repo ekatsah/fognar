@@ -41,7 +41,7 @@ applications.course = Backbone.View.extend({
                 this.sub_app.undelegateEvents();
                 // FIXME remove app toussa
             }
-            $(this.el).html(templates['tpl-course']({course: this.course}));
+            $(this.el).html(templates['tpl-course']({course: this.course.toJSON()}));
         }
         console.log('this.mode = "' + this.mode + '" && mode = "' + mode + '" && refresh = ' + refresh);
         if (this.mode != mode || refresh) {
