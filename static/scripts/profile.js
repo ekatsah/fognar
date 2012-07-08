@@ -7,10 +7,25 @@ models.user = Backbone.Model.extend({
     
 });
 
-cache.users = new Backbone.Collection({
+collections.users = Backbone.Collection.extend({
     model: models.user,
+
+    url: '/profile',
+
+    get_or_fetch: function(uid) {
+        var ret = this.get(uid);
+        if (ret == undefined) {
+            this.add({id: uid});
+            this.get(uid).fetch({success: function() {
+                cache.users.trigger('fetched');
+            }});
+            return this.get(0);
+        }
+        return ret;
+    }
 });
-cache.users.url = '/profile';
+
+cache.users = new collections.users({id: 0, name:'Chargement ...'});
 
 applications.profile = Backbone.View.extend({
     initialize: function(params) {
