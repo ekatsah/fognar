@@ -16,6 +16,7 @@ applications.navbar = Backbone.View.extend({
             this.router.navigate('/desktop', {trigger: true});
         },
     },
+    close: function() {},
 });
 
 applications.sidebar = Backbone.View.extend({
@@ -56,8 +57,10 @@ var ZoidRouter = Backbone.Router.extend({
             this.navigate('/desktop', {trigger: true});
         }
         else {
-            if (this.current_app != null)
+            if (this.current_app != null) {
                 this.current_app.undelegateEvents();
+                this.current_app.close();
+            }
             var config = this.config.where({name: url[0]})
             if (config.length != 0)
                 config = eval('(' + config[0].get('config') + ')');

@@ -19,6 +19,11 @@ class Document(models.Model):
     words = models.PositiveIntegerField(null=True, default=0)
     pages = models.PositiveIntegerField(null=True, default=0)
     date = models.DateTimeField(auto_now=True, null=False)
+    
+    rating = models.PositiveIntegerField(null=True, default=0)
+    vote_number = models.PositiveIntegerField(null=True, default=0)
+    view_number = models.PositiveIntegerField(null=True, default=0)
+    download_number = models.PositiveIntegerField(null=True, default=0)
 
     def pretty_name(self):
         name = sub(r'[^-_a-z]', '', self.name.lower().replace(' ', '_'))

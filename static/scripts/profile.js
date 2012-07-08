@@ -1,3 +1,4 @@
+ // Copyright 2012, Cercle Informatique. All rights reserved.
 
 models.user = Backbone.Model.extend({
     initialize: function(params) {
@@ -23,5 +24,7 @@ applications.profile = Backbone.View.extend({
     
     render: function() {
     },
+
+    close: function() {},
 });
 

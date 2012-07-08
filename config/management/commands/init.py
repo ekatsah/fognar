@@ -6,8 +6,9 @@ from application.models import AppUsing
 from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
-from course.models import Course
+from course.models import Course, CourseInfo
 from optparse import make_option
+
 
 class Command(BaseCommand):
     help = 'Initialize fognar for developpment'
@@ -63,6 +64,22 @@ class Command(BaseCommand):
                                    description='Les simplex dans tout leurs etats')
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
+        
+        CourseInfo.objects.create(course=c1, user=profile, infos="""{
+            0: {name: 'Professeur', values:'JM Lavoine'},
+            1: {name: 'Langue', values:'Anglais'},
+            2: {name: 'Syllabus', values:'Analyse 1'},
+            3: {name: 'Difficultes', values:'dernier chapitre et les differentielles d\'ordre n'},
+            4: {name: 'ECTS', values:'8'},
+        }""")
+
+        CourseInfo.objects.create(course=c1, user=profile, infos="""{
+            0: {name: 'Professeur', values:'B. Lecharlier'},
+            1: {name: 'Langue', values:'Francais'},
+            2: {name: 'Syllabus', values:'Informatique Ba1'},
+            3: {name: 'Difficultes', values:'Language noyaux'},
+            4: {name: 'ECTS', values:'5'},
+        }""")
 
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')

@@ -1,29 +1,38 @@
-// Coopyright 2012, Cercle Informatique. All rights reserved.
+// Copyright 2012, Cercle Informatique. All rights reserved.
 
-Handlebars.registerHelper('uploader_name', function(context, options){
-    if (cache.users.get(context) == undefined){
-        cache.users.add({id: context});
-        cache.users.get(context).fetch();
+models.document = Backbone.Model.extend({urlRoot: '/document'});
+
+Handlebars.registerHelper('uploader_name', function(uploader, options){
+    if (uploader==undefined)
+        return;
+    if (cache.users.get(uploader) == undefined){
+        cache.users.add({id: uploader});
+        cache.users.get(uploader).fetch({success: function() {
+            cache.users.trigger('fetched');
+        }});
     }
-    return cache.users.get(context).get('name');
+    return cache.users.get(uploader).get('name');
 });
 
 applications.document = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
-        this.type = params.args[1];
-        this.context = params.args[2];
+        this.type = params.type;
+        this.context = params.context;
         this.documents = new Backbone.Collection();
-        this.documents.url = urls['document_bone_type_slug'](this.type, this.context);
+        this.documents.url = urls['document_bone_type_slug'](this.type, this.context.id);
         this.documents.on("all", this.render);
         this.documents.fetch();
+        cache.users.on("fetched", this.render);
         this.render();
     },
 
     events: {
         'click #upload_form_submit': function() {
+            var self = this;
             $('#upload_form').attr('action', urls['document_upload_file']);
             $('#upload_frame').load(function() {
+                self.documents.fetch();
                 $('up_message').html('upload fini');
             })
             $('up_message').html('upload...');
@@ -49,11 +58,16 @@ applications.document = Backbone.View.extend({
 
     render: function() {
         console.log("document render");
-        $(this.el).html(templates['tpl-document']({documents: this.documents.toJSON(),
-                                                   type: this.type,
-                                                   context: this.context,
-                                                   token: get_cookie('csrftoken')}));
+        $(this.el).html(templates['tpl-course-document']({
+            documents: this.documents.toJSON(),
+            type: this.type,
+            context: this.context.toJSON(),
+            token: get_cookie('csrftoken'),
+        }));
         return this;
     },
 
+    close: function() {
+        cache.users.off("fetched", this.render);
+    },
 });
