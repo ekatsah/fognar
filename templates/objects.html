@@ -109,7 +109,7 @@
     <h1>Upload document</h1>
     <div id="up_message"></div>
     <form id="upload_form" target="upload_frame" method="post" 
-            encoding="multipart/form-data", enctype="multipart/form-data">
+            encoding="multipart/form-data" enctype="multipart/form-data">
         <table>
             <tr><td>Filename : </td>
                 <td><input name="filename"/></td></tr>
@@ -125,7 +125,7 @@
         <iframe id="upload_frame" name="upload_frame" src=""></iframe>
     </form>
     <hr>
-    <form id="upload_http_form">
+    <form id="upload_http_form" method="post">
         <table>
             <tr><td>Filename : </td>
                 <td><input name="filename" value="slidix"/></td></tr>
@@ -136,6 +136,7 @@
         </table>
         <input name="ctype" type="hidden" value="{{ type }}"/>
         <input name="context" type="hidden" value="{{ context }}"/>
+        <input name='csrfmiddlewaretoken' type='hidden' id='csrf_token' value='{{ token }}' />
         <input id="upload_http_submit" type="submit" value="upload">
     </form>
 </script>
