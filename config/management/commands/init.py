@@ -64,21 +64,29 @@ class Command(BaseCommand):
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
         
-        CourseInfo.objects.create(course=c1, user = profile,infos = """{
-            {name: 'Professeur', values:'JM Lavoine'},
-            {name: 'Langue', values:'Anglais'},
-            {name: 'Syllabus', values:'Analyse 1'},
-            {name: 'Difficultes', values:'dernier chapitre et les differentielles d\'ordre n'},
-            {name: 'ECTS', values:'8'},
-        }""")
+        CourseInfo.objects.create(course=c1, user = profile,infos = """[
+            {    name: "general", values: [
+                                        {name: 'Professeur', values:'B. Lecharlier'},
+                                        {name: 'Langue', values:'Francais'},
+                                        {name: 'Syllabus', values:'Informatique Ba1'},
+                                        {name: 'ECTS', values:'5'},
+                                    ],
+            },
+        ]""")
         
-        CourseInfo.objects.create(course=c1, user = profile,infos = """{
-            {name: 'Professeur', values:'B. Lecharlier'},
-            {name: 'Langue', values:'Francais'},
-            {name: 'Syllabus', values:'Informatique Ba1'},
-            {name: 'Difficultes', values:'Language noyaux'},
-            {name: 'ECTS', values:'5'},
-        }""")     
+        CourseInfo.objects.create(course=c1, user = profile,infos = """[
+            {    name: "general", values: [
+                                        {name: 'Professeur', values:'B. Lecharlier'},
+                                        {name: 'Langue', values:'Francais'},
+                                        {name: 'Syllabus', values:'Informatique Ba1'},
+                                        {name: 'ECTS', values:'5'},
+                                    ],
+            },
+            {    name: "exam", values: [
+                                      {name: 'Difficultes', values:'Language noyaux'},
+                                     ],
+            },
+        ]""")     
         
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')
