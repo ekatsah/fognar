@@ -21,24 +21,54 @@ applications.navbar = Backbone.View.extend({
 
 applications.sidebar = Backbone.View.extend({
     initialize: function(params) {
-        $(this.el).prepend(templates['tpl-sidebar']());
+        var self = this;
+        _.bindAll(this, 'render', 'close', 'toggle', 'mask', 'show');
         this.router = params.router;
-        this.el = $('#sidebar');
-        this.el.initSideBar();
+        this.visible = false;
+        this.calling = null;
         window.sidebar = this;
+        $(this.el).append(templates['tpl-sidebar']());
+        $('#sidebar-backdrop').css("visibility", "hidden");
+        $('#sidebar-backdrop').click(function() {
+            self.mask();
+        });
+        this.el = $('#sidebar');
     },
-
-    events: function(params) {},
-
-    toggle: function(params) {
-        this.el.toggleSideBar();
-    },
-
-    close: function(params) {},
     
+    show: function(caller) {
+        if (this.visible == false) {
+            $('#sidebar').addClass("side-toolbar-opened");
+            $('#sidebar-backdrop').removeClass("backdrop-hidden");
+            $('#sidebar-backdrop').css("visibility", "visible");
+            this.visible = true;
+        }
+        this.calling = caller;
+    },
+    
+    mask: function() {
+        if (this.visible) {
+            $('#sidebar').removeClass("side-toolbar-opened");
+            $('#sidebar-backdrop').addClass("backdrop-hidden");
+            setTimeout(function() {
+                $('#sidebar-backdrop').css("visibility", "hidden"); 
+            }, 300);
+            this.visible = false;
+        }
+        this.calling = null;
+    },
+    
+    toggle: function(caller) {
+        if (this.visible)
+            this.mask();
+        else
+            this.show(caller);
+    },
+
     render: function(content) {
         $('#sidebar').html(content);
     },
+
+    close: function() {},
 });
 
 var ZoidRouter = Backbone.Router.extend({
