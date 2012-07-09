@@ -14,6 +14,8 @@ class Profile(models.Model):
     welcome = models.BooleanField(default=True)
     comment = models.TextField(null=True)
     photo = models.CharField(max_length=80, null=True)
+    autostart = models.TextField(default="{sidebar: {}, navbar: {},}")
+    desktop_config = models.TextField(default="")
 
 class Inscription(models.Model):
     user = models.ForeignKey(Profile)

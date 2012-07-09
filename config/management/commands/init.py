@@ -2,7 +2,6 @@
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from application.models import AppUsing
 from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
@@ -78,7 +77,7 @@ class Command(BaseCommand):
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
                                   description='Youplaboom')
 
-        AppUsing.objects.create(user=profile, name="desktop", config=""" {
+        profile.desktop_config = """ {
             shortcuts: [ 
                 {app: 'course', id: %d},
                 {app: 'course', id: %d},
@@ -87,7 +86,8 @@ class Command(BaseCommand):
                 {app: 'group', id: %d},
                 {app: 'group', id: %d},
             ],
-        }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id))
+        }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id)
+        profile.save()
 
         cat0 = Category.objects.create(name='Faculty', description='Root node w/ category')
         cat1 = Category.objects.create(name='Sciences', description='Fac de sciences')

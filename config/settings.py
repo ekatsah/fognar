@@ -84,7 +84,6 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'south',
     'djangbone',
-    'application',
     'category',
     'course',
     'document',
