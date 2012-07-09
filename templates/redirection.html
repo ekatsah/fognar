@@ -13,7 +13,7 @@
                 if (dash != -1 && dash != url.length - 1)
                     var next = url.substring(dash + 1);
                 else
-                    var next = "/profile";
+                    var next = "desktop";
                 var host = url.substring(0, url.indexOf('zoid'));
                 window.location = '{{ url|safe }}' + encodeURIComponent(host + 'auth/' + next);
             });
