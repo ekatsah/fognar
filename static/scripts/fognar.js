@@ -42,6 +42,9 @@ applications.sidebar = Backbone.View.extend({
             $('#sidebar-backdrop').css("visibility", "visible");
             this.visible = true;
         }
+        if (this.calling != null)
+            this.undelegateEvents(this.calling.events);
+        this.delegateEvents(caller.events);
         this.calling = caller;
     },
     
@@ -54,6 +57,8 @@ applications.sidebar = Backbone.View.extend({
             }, 300);
             this.visible = false;
         }
+        if (this.calling != null)
+            this.undelegateEvents(this.calling.events);
         this.calling = null;
     },
     
