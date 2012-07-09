@@ -50,8 +50,8 @@ applications.course = Backbone.View.extend({
         }
         console.log('this.mode = "' + this.mode + '" && mode = "' + mode + '" && refresh = ' + refresh);
         if (this.mode != mode || refresh) {
-            $('a[data-' + mode + ']').addClass('nav-active');
-            $('a[data-' + this.mode + ']').removeClass('nav-active');
+            $('a[data-app="' + this.mode + '"]').removeClass('nav-active');
+            $('a[data-app="' + mode + '"]').addClass('nav-active');
             this.mode = mode;
             if (this.sub_app != null) {
                 this.sub_app.undelegateEvents();
