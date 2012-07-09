@@ -42,7 +42,7 @@ class page_bone(BackboneAPIView):
 def upload_file(request):
     form = UploadFileForm(request.POST, request.FILES)
     if form.is_valid() and match(r'.*\.[pP][dD][fF]$',
-                                 request.FILES['file'].name):
+                                 request.FILES['xfile'].name):
         data = form.cleaned_data
         thing = get_context(data['ctype'], data['context'])
         doc = Document.objects.create(name=escape(data['filename']),
@@ -51,7 +51,7 @@ def upload_file(request):
                                       referer=thing)
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
-        tmp_doc.write(request.FILES['file'].read())
+        tmp_doc.write(request.FILES['xfile'].read())
         tmp_doc.close()
         PendingDocument.objects.create(doc=doc, state="queued", url='file://' + url)
         return '{"message": "ok"}'
