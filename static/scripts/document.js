@@ -33,13 +33,20 @@ applications.document = Backbone.View.extend({
         },
 
         'click #upload_form_submit': function() {
-            var self = this;
+            var self = this.calling;
             $('#upload_form').attr('action', urls['document_upload_file']);
             $('#upload_frame').load(function() {
-                self.documents.fetch();
-                $('up_message').html('upload fini');
+                $('#upload_frame').unbind('load');
+                var raw = $('pre', frames['upload_frame'].document).html();
+                var message = eval('(' + raw + ')').message;
+                if (message != 'ok')
+                    $('#upload_message').html(message);
+                else {
+                    $('#upload_message').html('Transfert OK, will process later');
+                    self.documents.fetch();
+                }
             })
-            $('up_message').html('upload...');
+            $('#up_message').html('Upload..');
             $('#upload_form').submit();
             return false;
         },
@@ -52,10 +59,17 @@ applications.document = Backbone.View.extend({
                 url: urls['document_upload_http'],
                 data: $('#upload_http_form').serialize(),
                 success: function(d) {
-                    self.documents.fetch();
+                    var message = eval(d).message;
+                    if (message != 'ok')
+                        $('#upload_message').html(message);
+                    else {
+                        $('#upload_message').html('Transfert OK, will process later');
+                        self.documents.fetch();
+                    }
                 },
                 dataType: 'json',
             });
+            $('#up_message').html('Upload..');
             return false;
         },
 

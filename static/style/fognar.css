@@ -296,6 +296,11 @@ h2 {
     margin: 4px;
 }
 
+#upload_message {
+    font-weight: bold;
+    font-style: italic;
+    margin: 5px 0px 5px 0px;
+}
 .side-toolbar-opened {
     margin-left: -400px;
 }
