@@ -12,12 +12,13 @@ from re import match
 
 def get_context(ctype, context):
     if ctype == 'course':
-        return get_object_or_404(Course, slug=context)
+        return get_object_or_404(Course, id=context)
     elif ctype == 'group':
-        return get_object_or_404(Group, slug=context)
+        return get_object_or_404(Group, id=context)
     else:
         # Force 404
-        return get_object_or_404(Group, slug="-1")
+        return get_object_or_404(Group, id="-1")
+
 
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
@@ -25,21 +26,6 @@ class document_bone(BackboneAPIView):
                         'rating_average', 'rating_lower_bound', 'view_number',
                         'download_number')
     
-    def dispatch(self, request, *args, **kwargs):
-        if kwargs.get('type', None) == 'course':
-            try:
-                c = Course.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(refer_oid = c.id);
-            except:
-                self.base_queryset = document_bone.base_queryset.none();
-        elif kwargs.get('type', None) == 'group':
-            try:
-                g = Group.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(refer_oid = g.id);
-            except:
-                self.base_queryset = document_bone.base_queryset.none();
-
-        return super(document_bone, self).dispatch(request,*args, **kwargs)
 
 class page_bone(BackboneAPIView):
     base_queryset = Page.objects.all()
@@ -57,7 +43,7 @@ class page_bone(BackboneAPIView):
 def upload_file(request):
     form = UploadFileForm(request.POST, request.FILES)
     if form.is_valid() and match(r'.*\.[pP][dD][fF]$',
-                                 request.FILES['file'].name):
+                                 request.FILES['xfile'].name):
         data = form.cleaned_data
         thing = get_context(data['ctype'], data['context'])
         doc = Document.objects.create(name=escape(data['filename']),
@@ -66,7 +52,7 @@ def upload_file(request):
                                       referer=thing)
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
-        tmp_doc.write(request.FILES['file'].read())
+        tmp_doc.write(request.FILES['xfile'].read())
         tmp_doc.close()
         PendingDocument.objects.create(doc=doc, state="queued", url='file://' + url)
         return '{"message": "ok"}'
@@ -94,7 +80,7 @@ def rate(request):
     if form.is_valid():
         did = form.cleaned_data['did'];
         star = form.cleaned_data['star']
-        if  star not in range(1,6):
+        if not (star > 0 and star < 6):
             return '{"message": "invalid vote"}'
         try:
             d = Document.objects.get(id=did);
@@ -105,27 +91,14 @@ def rate(request):
         #check first if the user already voted for that document, in that
         #case, remove his previous vote.
 
-        #this is awful ... if somebody know how to fix this, he's more than welcome to do so
-        if star == 1:
-            d.rating_1 += 1
-        elif star == 2:
-            d.rating_2 += 1
-        elif star == 3:
-            d.rating_3 += 1
-        elif star == 4:
-            d.rating_4 += 1
-        else:
-            d.rating_5 += 1
-        compute_rating(d)
+        setattr(d, 'rating_' + str(star), getattr(d, 'rating_' + str(star)) + 1)
+        d.rating_average = d.compute_rating()
         d.save()
+        # check to see if MVC recommand to put this in a d.update_rating(params)
+        # or something like that
         return '{"message": "rate succesful"}'
     else:
         return '{"message": "invalid form"}'
 
-def compute_rating(d):
-    n = d.rating_1+d.rating_2+d.rating_3+d.rating_4+d.rating_5
-    d.rating_average = (d.rating_1+2*d.rating_2+3*d.rating_3+4*d.rating_4+5*d.rating_5)/n
-    
-    #TODO:
-    #Compute gaussian confidence interval lower bound
 
+    

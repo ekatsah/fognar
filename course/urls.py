@@ -5,11 +5,11 @@ from config.authentification import stop_anon
 from course.views import course_bone, wiki_bone
 
 urlpatterns = patterns('',
-    url(r'(?P<slug>[A-Za-z0-9-_]+)', 
+    url(r'^(?P<id>\d+)$', 
         stop_anon(course_bone.as_view()), 
-        name="course_bone_slug"),
+        name="course_bone_id"),
 
-    url(r'^wiki/(?P<cid>[0-9]+)', 
+    url(r'^wiki/(?P<id>\d+)$', 
         stop_anon(wiki_bone.as_view()), 
         name="wiki_bone_id"),
 )

@@ -14,7 +14,7 @@ applications.document = Backbone.View.extend({
         this.type = params.type;
         this.context = params.context;
         this.documents = new Backbone.Collection();
-        this.documents.url = urls['document_bone_type_slug'](this.type, this.context.get('slug'));
+        this.documents.url = urls['document_bone_id'](this.context.get('id'));
         this.documents.on("all", this.render);
         this.documents.fetch();
         cache.users.on("fetched", this.render);
@@ -27,7 +27,7 @@ applications.document = Backbone.View.extend({
         'click #upload': function() {
             sidebar.render(templates['tpl-document-upload']({
                 type: this.type,
-                context: this.context.get('slug'),
+                context: this.context.get('id'),
                 token: get_cookie('csrftoken'),
             }));
             sidebar.show(this);

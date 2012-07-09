@@ -17,10 +17,7 @@
         <script type="text/javascript">
             {% include "urls.js" %}
             
-            autostart = {
-                sidebar: {},
-                navbar: {},
-            };
+            autostart = {{ user.get_profile.autostart }};
         </script>
         {% ssi objects %}
         <script src="/static/scripts/fognar.js" type="text/javascript"></script>
@@ -35,12 +32,13 @@
         <script src="/static/scripts/message.js" type="text/javascript"></script>
         <script src="/static/scripts/wikicourse.js" type="text/javascript"></script>
         <script type="text/javascript">
-            var profile = new models.user({
+            window.profile = new models.user({
                 id: {{ user.get_profile.id}},
                 name: '{{ user.get_profile.name}}',
+                desktop_config: eval("({{ user.get_profile.desktop_config|escapejs }})"),
             });
 
-            cache.users.add(profile);
+            cache.users.add(window.profile);
         </script>
     </head>
 

@@ -7,7 +7,9 @@ var cache = {};
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
-        $(this.el).prepend(templates['tpl-navbar']({name: profile.get('name')}));
+        $(this.el).prepend(templates['tpl-navbar']({
+            name: window.profile.get('name')
+        }));
         this.router = params.router;
         this.el = $('#navbar');
     },
@@ -97,13 +99,9 @@ var ZoidRouter = Backbone.Router.extend({
                 this.current_app.undelegateEvents();
                 this.current_app.close();
             }
-            var config = this.config.where({name: url[0]})
-            if (config.length != 0)
-                config = eval('(' + config[0].get('config') + ')');
-            else
-                config = {};
+
             this.current_app = new applications[url[0]]({el: $('#content-wrapper'),
-                router: this, args: url, config: config});
+                router: this, args: url});
         }
     },
 });
@@ -116,16 +114,8 @@ $(document).ready(function() {
         Handlebars.registerPartial(t.id, $(t).html());
     });
 
-    // make ajax synchronous for config fetch. TODO : bootstraping
-    $.ajaxSetup({ async: false });
-    var config = new Backbone.Collection();
-    config.url = urls['app_config'];
-    config.fetch();
-    $.ajaxSetup({ async: true });
-
     // start application
     var router = new ZoidRouter;
-    router.config = config;
     _.each(autostart, function(k, el) {
         new applications[el]({router: router, el: $('body')});
     });

@@ -5,7 +5,7 @@ from django import forms
 class UploadFileForm(forms.Form):
     filename = forms.CharField()
     description = forms.CharField()
-    file = forms.FileField()
+    xfile = forms.FileField()
     context = forms.CharField()
     ctype = forms.CharField()
 

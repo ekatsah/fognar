@@ -36,6 +36,14 @@ class Document(models.Model):
             name += '.pdf'
         return name
 
+    def computed_rating(self):
+        n = self.rating_1 + self.rating_2 + self.rating_3 + self.rating_4 +\
+            self.rating_5
+        return (self.rating_1 + 2 * self.rating_2 + 3 * self.rating_3 +\
+                4 * self.rating_4 + 5 * self.rating_5) / n
+
+    #TODO:
+    #Compute gaussian confidence interval lower bound
 
 class Page(models.Model):
     num = models.IntegerField()

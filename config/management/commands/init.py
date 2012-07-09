@@ -2,7 +2,6 @@
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from application.models import AppUsing
 from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
@@ -44,17 +43,6 @@ class Command(BaseCommand):
         profile.email = '42@urlab.be'
         profile.save()
         
-        AppUsing.objects.create(user=profile, name="desktop", config=""" {
-            shortcuts: [ 
-                {app: 'course', slug: 'info-f-666'},
-                {app: 'course', slug: 'info-f-777'},
-                {app: 'course', slug: 'info-f-888'},
-                {app: 'course', slug: 'info-f-999'},
-                {app: 'group', slug: 'ACE'},
-                {app: 'group', slug: 'CI'},
-            ],
-        }""")
-
         self.stdout.write('Adding base data ...\n')
         c1 = Course.objects.create(slug='info-f-666', name='Hell Informatique',
                                    description='Hell Computer Science course')
@@ -65,26 +53,41 @@ class Command(BaseCommand):
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
         
-        CourseInfo.objects.create(course=c1, user=profile, infos="""{
-            0: {name: 'Professeur', values:'JM Lavoine'},
-            1: {name: 'Langue', values:'Anglais'},
-            2: {name: 'Syllabus', values:'Analyse 1'},
-            3: {name: 'Difficultes', values:'dernier chapitre et les differentielles d\'ordre n'},
-            4: {name: 'ECTS', values:'8'},
-        }""")
+        i1 = CourseInfo.objects.create(user=profile, infos="""[
+            {name: 'Professeur', value:'JM Lavoine'},
+            {name: 'Langue', value:'Anglais'},
+            {name: 'Syllabus', value:'Analyse 1'},
+            {name: 'Difficultes', value:'dernier chapitre et les differentielles d\'ordre n'},
+            {name: 'ECTS', value:'8'},
+        ]""")
 
-        CourseInfo.objects.create(course=c1, user=profile, infos="""{
-            0: {name: 'Professeur', values:'B. Lecharlier'},
-            1: {name: 'Langue', values:'Francais'},
-            2: {name: 'Syllabus', values:'Informatique Ba1'},
-            3: {name: 'Difficultes', values:'Language noyaux'},
-            4: {name: 'ECTS', values:'5'},
-        }""")
+        i2 = CourseInfo.objects.create(user=profile, infos="""[
+            {name: 'Professeur', value:'B. Lecharlier'},
+            {name: 'Langue', value:'Francais'},
+            {name: 'Syllabus', value:'Informatique Ba1'},
+            {name: 'Difficultes', value:'Language noyaux'},
+            {name: 'ECTS', value:'5'},
+        ]""", prev=i1)
+
+        c1.infos = i2
+        c1.save()
 
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
                                   description='Youplaboom')
+
+        profile.desktop_config = """ {
+            shortcuts: [ 
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'group', id: %d},
+                {app: 'group', id: %d},
+            ],
+        }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id)
+        profile.save()
 
         cat0 = Category.objects.create(name='Faculty', description='Root node w/ category')
         cat1 = Category.objects.create(name='Sciences', description='Fac de sciences')
