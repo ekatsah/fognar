@@ -23,14 +23,29 @@
 					<i class="course-icon-large"></i>
 					Droit Public
 				</h1>
+				<div id="publish-conversation">
+					<form action="#">
+						<textarea class="publish-conversation" placeholder="On vous écoute ..."></textarea>
+						<input type="submit" value="Publier" class="button publish-comment"></input>
+						<select class="ui-select conversation-tag-select">
+							<option>Question concernant le cours</option>
+							<option>Question d'examen</option>
+							<option>Info pratique</option>
+						</select>
+						<div class="cf"></div>
+					</form>
+				</div>
+				<!-- CECI EST TEMPORAIRE : le styling css va changer -->
+				<div id="filter-toolbar">
+					<form action="#">
+						<input type="text" placeholder="Recherchez une publication ..." />
+						<select class="ui-select">
+							<option>Date de publication</option>
+							<option>Blablabla</option>
+						</select>
+					</form>
+				</div>
 				<section class="conversation-feed">
-					<article>
-						<div>
-							<a href="#">
-								<img src="img/sample-avatar.png" alt="" />
-							</a>
-						</div>
-					</article>
 					<article>
 						<div>
 							<a href="#">
@@ -44,7 +59,7 @@
 								</strong>
 								<span class="title-date">il y a 13 minutes</span>
 								<span class="tag-wrapper">
-									Théorie
+									Question sur la matière
 								</span>
 							</h3>
 							<p>
@@ -122,7 +137,7 @@
 										</div>
 										<div>
 											<form action="#">
-												<textarea class="comment-textarea"></textarea>
+												<textarea class="comment-textarea" placeholder="Réagissez ..."></textarea>
 												<input type="submit" value="Publier" class="button publish-comment"></input>
 											</form>
 										</div>
