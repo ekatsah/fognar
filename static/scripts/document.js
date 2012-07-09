@@ -25,7 +25,7 @@ applications.document = Backbone.View.extend({
         'click #upload': function() {
             sidebar.render(templates['tpl-document-upload']({
                 type: this.type,
-                context: this.context.toJSON(),
+                context: this.context.get('slug'),
                 token: get_cookie('csrftoken'),
             }));
             sidebar.show(this);
