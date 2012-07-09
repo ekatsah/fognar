@@ -244,7 +244,7 @@ h2 {
 }
 
 .side-toolbar {
-    width: 300px;
+    width: 400px;
     background: #fff;
     -webkit-box-shadow:  -3px 0px 0px 0px rgba(0, 0, 0, .2);
         box-shadow:  -3px 0px 0px 0px rgba(0, 0, 0, .2);
@@ -260,8 +260,44 @@ h2 {
     z-index: 2;
 }
 
+#sidebar-inner {
+    margin: 10px;
+}
+
+#sidebar-inner hr {
+    border: none;
+    background-color: #ddd;
+    height: 1px;
+    margin: 14px -10px 14px -10px;
+}
+
+#sidebar-inner td {
+    vertical-align: middle;
+    padding: 4px;
+}
+
+#sidebar-inner h1 {
+    font-size: 14px;
+    margin: 5px 3px 10px 3px;
+}
+
+#sidebar-inner input,textarea {
+    border: 1px solid #d88;
+    border-radius: 3px;
+    min-width: 200px;
+    padding: 2px;
+    box-shadow:  1px 1px 1px #ddd;
+}
+
+#sidebar-inner input[type='submit'], input[type='button'] {
+    background-color: #f3eeee;
+    min-width: 0px;
+    padding: 4px 7px 3px 7px;
+    margin: 4px;
+}
+
 .side-toolbar-opened {
-    margin-left: -300px;
+    margin-left: -400px;
 }
 
 .backdrop {

@@ -71,7 +71,7 @@ applications.sidebar = Backbone.View.extend({
     },
 
     render: function(content) {
-        $('#sidebar').html(content);
+        $('#sidebar-inner').html(content);
     },
 
     close: function() {},
