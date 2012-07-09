@@ -156,6 +156,10 @@ h2 {
 	padding: 2px 4px;
 }
 
+#filter-toolbar {
+	margin: 10px 0;
+}
+
 /* --- Conversation Feed --- */
 .conversation-feed {
 	margin-top: 20px;
