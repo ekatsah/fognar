@@ -8,18 +8,23 @@ applications.course = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
         var self = this;
+        // FIXME check if init_mode is valid
+        if (typeof params.args[2] == 'undefined')
+            var init_mode = "thread";
+        else
+            var init_mode = params.args[2];
         this.mode = null;
         this.first = true;
         this.sub_app = null;
         this.slug = params.args[1];
         this.router = params.router;
-        this.router.navigate('/course/' + this.slug + '/thread', 
+        this.router.navigate('/course/' + this.slug + '/' + init_mode, 
                              {trigger: false, replace: true});
         this.course = new models.course({slug: this.slug});
         this.course.url = urls['course_bone_slug'](this.slug);
         this.course.on("change", function() { self.render(self.mode, true); });
         this.course.fetch();
-        this.render('thread');
+        this.render(init_mode);
     },
 
     events: {
