@@ -148,7 +148,7 @@
 <script id="tpl-course-wiki" type="text/x-handlebars-template">
     <div id="title"><h2>Wiki cours</h2></div>
     <ul>
-    {{#each infos}}
+    {{#each infos.infos }}
         <li><strong>{{ this.name }}</strong> : {{ this.value }}</li>
     {{/each}}
     </ul>

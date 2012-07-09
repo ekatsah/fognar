@@ -54,21 +54,21 @@ class Command(BaseCommand):
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
         
-        i1 = CourseInfo.objects.create(user=profile, infos="""{
-            0: {name: 'Professeur', values:'JM Lavoine'},
-            1: {name: 'Langue', values:'Anglais'},
-            2: {name: 'Syllabus', values:'Analyse 1'},
-            3: {name: 'Difficultes', values:'dernier chapitre et les differentielles d\'ordre n'},
-            4: {name: 'ECTS', values:'8'},
-        }""")
+        i1 = CourseInfo.objects.create(user=profile, infos="""[
+            {name: 'Professeur', value:'JM Lavoine'},
+            {name: 'Langue', value:'Anglais'},
+            {name: 'Syllabus', value:'Analyse 1'},
+            {name: 'Difficultes', value:'dernier chapitre et les differentielles d\'ordre n'},
+            {name: 'ECTS', value:'8'},
+        ]""")
 
-        i2 = CourseInfo.objects.create(user=profile, infos="""{
-            0: {name: 'Professeur', values:'B. Lecharlier'},
-            1: {name: 'Langue', values:'Francais'},
-            2: {name: 'Syllabus', values:'Informatique Ba1'},
-            3: {name: 'Difficultes', values:'Language noyaux'},
-            4: {name: 'ECTS', values:'5'},
-        }""", prev=i1)
+        i2 = CourseInfo.objects.create(user=profile, infos="""[
+            {name: 'Professeur', value:'B. Lecharlier'},
+            {name: 'Langue', value:'Francais'},
+            {name: 'Syllabus', value:'Informatique Ba1'},
+            {name: 'Difficultes', value:'Language noyaux'},
+            {name: 'ECTS', value:'5'},
+        ]""", prev=i1)
 
         c1.infos = i2
         c1.save()
