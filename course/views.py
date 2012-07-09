@@ -6,21 +6,11 @@ from course.models import Course, CourseInfo
 class course_bone(BackboneAPIView):
     base_queryset = Course.objects.all()
     serialize_fields = ('id', 'slug', 'name', 'description')
-    
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            c = Course.objects.get(slug=kwargs['slug']);
-            self.base_queryset = course_bone.base_queryset.filter(id=c.id);
-        except:
-            self.base_queryset = course_bone.base_queryset.none();
-                
-        return super(course_bone, self).dispatch(request,*args, **kwargs)
-
 
 class wiki_bone(BackboneAPIView):
     base_queryset = CourseInfo.objects.order_by('-date')
     serialize_fields = ('id','course','infos', 'date')
-    
+
     def dispatch(self, request, *args, **kwargs):
         try:
             c = Course.objects.get(id=kwargs['cid'])

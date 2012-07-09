@@ -13,7 +13,7 @@ urlpatterns = patterns('',
         stop_anon(document_bone.as_view()), 
         name="document_bone_id"),
 
-    url(r'^r/(?P<type>course|group)/(?P<slug>[A-Za-z0-9-_]+)', 
+    url(r'^r/(?P<type>course|group)/(?P<cid>[A-Za-z0-9-_]+)', 
         stop_anon(document_bone.as_view()), 
         name="document_bone_type_slug"),
 

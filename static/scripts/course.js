@@ -16,12 +16,12 @@ applications.course = Backbone.View.extend({
         this.mode = null;
         this.first = true;
         this.sub_app = null;
-        this.slug = params.args[1];
+        this.cid = params.args[1];
         this.router = params.router;
-        this.router.navigate('/course/' + this.slug + '/' + init_mode, 
+        this.router.navigate('/course/' + this.cid + '/' + init_mode, 
                              {trigger: false, replace: true});
-        this.course = new models.course({slug: this.slug});
-        this.course.url = urls['course_bone_slug'](this.slug);
+        this.course = new models.course({id: this.cid});
+        this.course.url = urls['course_bone_id'](this.cid);
         this.course.on("change", function() { self.render(self.mode, true); });
         this.course.fetch();
         this.render(init_mode);
@@ -30,7 +30,7 @@ applications.course = Backbone.View.extend({
     events: {
         'click .x_action': function(e) {
             var app = $(e.target).attr("data-app");
-            this.router.navigate('/course/' + this.slug + '/' + app, 
+            this.router.navigate('/course/' + this.cid + '/' + app, 
                                  {trigger: false});
             this.render(app);
             return false;

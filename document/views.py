@@ -12,33 +12,19 @@ from re import match
 
 def get_context(ctype, context):
     if ctype == 'course':
-        return get_object_or_404(Course, slug=context)
+        return get_object_or_404(Course, id=context)
     elif ctype == 'group':
-        return get_object_or_404(Group, slug=context)
+        return get_object_or_404(Group, id=context)
     else:
         # Force 404
-        return get_object_or_404(Group, slug="-1")
+        return get_object_or_404(Group, id="-1")
+
 
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
     serialize_fields = ('id', 'name', 'description', 'uploader', "date", 'rating', 
                         'vote_number', 'view_number', 'download_number')
     
-    def dispatch(self, request, *args, **kwargs):
-        if kwargs.get('type', None) == 'course':
-            try:
-                c = Course.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(refer_oid = c.id);
-            except:
-                self.base_queryset = document_bone.base_queryset.none();
-        elif kwargs.get('type', None) == 'group':
-            try:
-                g = Group.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(refer_oid = g.id);
-            except:
-                self.base_queryset = document_bone.base_queryset.none();
-
-        return super(document_bone, self).dispatch(request,*args, **kwargs)
 
 class page_bone(BackboneAPIView):
     base_queryset = Page.objects.all()

@@ -44,17 +44,6 @@ class Command(BaseCommand):
         profile.email = '42@urlab.be'
         profile.save()
         
-        AppUsing.objects.create(user=profile, name="desktop", config=""" {
-            shortcuts: [ 
-                {app: 'course', slug: 'info-f-666'},
-                {app: 'course', slug: 'info-f-777'},
-                {app: 'course', slug: 'info-f-888'},
-                {app: 'course', slug: 'info-f-999'},
-                {app: 'group', slug: 'ACE'},
-                {app: 'group', slug: 'CI'},
-            ],
-        }""")
-
         self.stdout.write('Adding base data ...\n')
         c1 = Course.objects.create(slug='info-f-666', name='Hell Informatique',
                                    description='Hell Computer Science course')
@@ -85,6 +74,17 @@ class Command(BaseCommand):
                                   description='Cercle des etudiants en info \o/')
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
                                   description='Youplaboom')
+
+        AppUsing.objects.create(user=profile, name="desktop", config=""" {
+            shortcuts: [ 
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'group', id: %d},
+                {app: 'group', id: %d},
+            ],
+        }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id))
 
         cat0 = Category.objects.create(name='Faculty', description='Root node w/ category')
         cat1 = Category.objects.create(name='Sciences', description='Fac de sciences')
