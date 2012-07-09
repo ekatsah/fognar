@@ -22,8 +22,9 @@ def get_context(ctype, context):
 
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
-    serialize_fields = ('id', 'name', 'description', 'uploader', "date", 'rating', 
-                        'vote_number', 'view_number', 'download_number')
+    serialize_fields = ('id', 'name', 'description', 'uploader', "date",
+                        'rating_average', 'rating_lower_bound', 'view_number',
+                        'download_number')
     
 
 class page_bone(BackboneAPIView):
@@ -72,3 +73,42 @@ def upload_http(request):
         return '{"message": "ok"}'
     else:
         return '{"message": "invalid form"}'
+
+@json_send
+def rate(request):
+    form = UploadHttpForm(request.POST)
+    if form.is_valid():
+        did = form.cleaned_data['did'];
+        star = form.cleaned_data['star']
+        if  star not in range(1,6):
+            return '{"message": "invalid vote"}'
+        try:
+            d = Document.objects.get(id=did);
+        except:
+            return '{"message": "invalid did"}'
+
+        #TODO:
+        #check first if the user already voted for that document, in that
+        #case, remove his previous vote.
+
+        #this is awful ... if somebody know how to fix this, he's more than welcome to do so
+        if star == 1:
+            d.rating_1 += 1
+        elif star == 2:
+            d.rating_2 += 1
+        elif star == 3:
+            d.rating_3 += 1
+        elif star == 4:
+            d.rating_4 += 1
+        else
+            d.rating_5 += 1
+        compute_rating(d)
+        d.save()
+        return '{"message": "rate succesful"}'
+
+def compute_rating(d):
+    n = d.rating_1+d_rating_2+d.rating_3+d.rating_4+d.rating_5
+    d.rating_average = (d.rating_1+2*d_rating_2+3*d.rating_3+4*d.rating_4+5*d.rating_5)/n
+    
+    #TODO:
+    #Compute gaussian confidence interval lower bound
