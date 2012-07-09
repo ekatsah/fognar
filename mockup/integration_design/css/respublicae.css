@@ -1,6 +1,13 @@
+body, input, textarea {
+	font: normal 13px "Helvetica", "Arial", "Tahoma", "Verdana", sans-serif;
+}
+
+input[type="text"], textarea {
+	padding: 4px 6px;
+}
+
 body {
 	background: #F6F6F6;
-	font: normal 13px "Helvetica", "Arial", "Tahoma", "Verdana", sans-serif;
 	color: #333;
 }
 
@@ -95,12 +102,12 @@ i.course-icon-large {
 	float: left;
 	width: 260px;
 	margin-left: 40px;
+	padding-top: 40px;
 }
 
 #content-wrapper {
 	width: 960px;
 	margin: 40px auto 0 auto;
-	
 }
 
 h1 {
@@ -327,12 +334,12 @@ textarea {
 	background: #fff;
 	border: 1px solid #ccc;
 	border-radius: 2px;
+	resize: vertical;
+	max-height: 200px;
 }
 
 .comment-textarea {
 	width: 100%; height: 50px;
-	resize: vertical;
-	max-height: 200px;
 }
 
 .publish-comment {
@@ -342,6 +349,41 @@ textarea {
 	background-repeat: no-repeat;
 	background-position: left center;
 	float: right;
+	margin-top: 10px;
+}
+
+.publish-conversation {
+	width: 100%;
+	height: 60px;
+}
+
+#publish-conversation {
+	margin-top: 15px;
+	padding: 10px;
+	background: #EEE;
+	border: 1px solid #DDD;
+	border-radius: 2px;
+}
+
+.ui-select {
+	background: url("../img/select.png") no-repeat top right #fff;
+	overflow: hidden;
+	height: 30px;
+	color: #666;
+	font: normal 12px "Helvetica", sans-serif;
+	-webkit-appearance: none;
+	padding-left: 10px;
+	padding-right: 40px;
+	border: none;
+	box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, .25);
+	cursor: pointer;
+}
+
+.ui-select:hover {
+	background-position: bottom right;
+}
+
+.conversation-tag-select {
 	margin-top: 10px;
 }
 
