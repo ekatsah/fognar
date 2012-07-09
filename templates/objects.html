@@ -98,6 +98,30 @@
 </script>
 
 <script id="tpl-wiki" type="text/x-handlebars-template">
-	<h1>{{wiki.name}}</h1>
-	{{wiki.infos}}
+	<h1>Wiki course</h1>
+		<h1>{{name}}</h1>
+		<div id="wiki_container">
+			{{#each wiki}}
+				<br/>
+				<h2 ><b>{{this.name}}</b></h2>
+				<div class="edit" data-target="{{this.name}}">Edit</div><div class="signal" data-target="{{this.name}}">Signal</div><hr/>
+				<div id="{{this.name}}_container">
+						{{#each this.values}}
+							<b>{{this.name}}:</b> {{this.values}}<br/>
+						{{/each}}
+				</div>
+			{{/each}}
+		</div>
+</script>
+
+<script id="tpl-wiki-form" type="text/x-handlebars-template">
+	<form>
+		<ul id="current_edition"> 
+			{{#each form}}
+				<li>{{this.name}}:<input type="text" value="{{this.values}}" name="{{this.name}}" id="form_{{this.name}}"></li>
+			{{/each}}
+		</ul>
+		<button id="form_confirm">Confirmer</button>
+		<div id="form_add_field">+</div>
+	</form>
 </script>
