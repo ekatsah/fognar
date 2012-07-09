@@ -2,16 +2,10 @@
 
 models.document = Backbone.Model.extend({urlRoot: '/document'});
 
-Handlebars.registerHelper('uploader_name', function(uploader, options){
+Handlebars.registerHelper('uploader_name', function(uploader, options) {
     if (uploader==undefined)
         return;
-    if (cache.users.get(uploader) == undefined){
-        cache.users.add({id: uploader});
-        cache.users.get(uploader).fetch({success: function() {
-            cache.users.trigger('fetched');
-        }});
-    }
-    return cache.users.get(uploader).get('name');
+    return cache.users.get_or_fetch(uploader).get('name');
 });
 
 applications.document = Backbone.View.extend({
@@ -20,7 +14,7 @@ applications.document = Backbone.View.extend({
         this.type = params.type;
         this.context = params.context;
         this.documents = new Backbone.Collection();
-        this.documents.url = urls['document_bone_type_slug'](this.type, this.context.id);
+        this.documents.url = urls['document_bone_type_slug'](this.type, this.context.get('slug'));
         this.documents.on("all", this.render);
         this.documents.fetch();
         cache.users.on("fetched", this.render);
@@ -64,17 +58,61 @@ applications.document = Backbone.View.extend({
             });
             return false;
         },
+        
+        'change #sort-by': function() {
+            this.documents.comparator = this.sort[$('#sort-by').val()];
+            this.documents.sort();
+        },
     },
 
     render: function() {
         console.log("document render");
         $(this.el).html(templates['tpl-course-document']({
             documents: this.documents.toJSON(),
+            type: this.type,
+            context: this.context.get('slug'),
+            token: get_cookie('csrftoken'),
         }));
         return this;
     },
 
     close: function() {
         cache.users.off("fetched", this.render);
+    },
+
+    sort: {
+
+        name: function(a,b) {
+            if (a.get("name")>b.get("name"))
+                return 1;
+            else
+                return -1;
+        },
+
+        uploader: function(a,b) {
+            if(cache.users.get_or_fetch(a.get('uploader'))
+                >cache.users.get_or_fetch(b.get('uploader')))
+                return 1;
+            else
+                return -1;
+        },
+
+        rating: function(a,b) {
+            if(a.get('rating')>b.get('rating'))
+                return -1;
+            else
+                return 1;
+        },
+
+        popularity: function(a,b) {
+            if(a.get('view_number')+a.get('download_number')>b.get('view_number')+b.get('download_number'))
+                return -1;
+            else
+                return 1;
+        },
+
+        date: function(a,b) {
+        
+        },
     },
 });

@@ -21,20 +21,20 @@ def get_context(ctype, context):
 
 class document_bone(BackboneAPIView):
     base_queryset = Document.objects.all()
-    serialize_fields = ('id', 'name', 'description', 'uploader', 'rating', 
+    serialize_fields = ('id', 'name', 'description', 'uploader', "date", 'rating', 
                         'vote_number', 'view_number', 'download_number')
     
     def dispatch(self, request, *args, **kwargs):
         if kwargs.get('type', None) == 'course':
             try:
                 c = Course.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(referer = c);
+                self.base_queryset = document_bone.base_queryset.filter(refer_oid = c.id);
             except:
                 self.base_queryset = document_bone.base_queryset.none();
         elif kwargs.get('type', None) == 'group':
             try:
                 g = Group.objects.get(slug = kwargs['slug']);
-                self.base_queryset = document_bone.base_queryset.filter(referer = g);
+                self.base_queryset = document_bone.base_queryset.filter(refer_oid = g.id);
             except:
                 self.base_queryset = document_bone.base_queryset.none();
 
