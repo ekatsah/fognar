@@ -45,7 +45,7 @@ applications.document = Backbone.View.extend({
         },
 
         'submit #upload_http_form': function() {
-            var self = this;
+            var self = this.calling;
             // use ajax because $.post didn't seem to work
             $.ajax({
                 type: 'POST',
@@ -58,7 +58,7 @@ applications.document = Backbone.View.extend({
             });
             return false;
         },
-        
+
         'change #sort-by': function() {
             this.documents.comparator = this.sort[$('#sort-by').val()];
             this.documents.sort();
