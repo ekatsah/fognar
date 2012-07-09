@@ -69,9 +69,6 @@ applications.document = Backbone.View.extend({
         console.log("document render");
         $(this.el).html(templates['tpl-course-document']({
             documents: this.documents.toJSON(),
-            type: this.type,
-            context: this.context.get('slug'),
-            token: get_cookie('csrftoken'),
         }));
         return this;
     },
