@@ -92,14 +92,11 @@ def rate(request):
         #case, remove his previous vote.
 
         d.setattr('rating_' + str(star), d.getattr('rating_' + str(star)) + 1)
-        d.rating_average = compute_rating(d)
+        d.rating_average = d.computed_rating()
         d.save()
+        # check to see if MVC recommand to put this in a d.update_rating(params)
+        # or something like that
         return '{"message": "rate succesful"}'
 
-def compute_rating(d):
-    n = d.rating_1 + d.rating_2 + d.rating_3 + d.rating_4 + d.rating_5
-    return (d.rating_1 + 2 * d.rating_2 + 3 * d.rating_3 + 
-            4 * d.rating_4 + 5 * d.rating_5) / n
+
     
-    #TODO:
-    #Compute gaussian confidence interval lower bound
