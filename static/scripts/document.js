@@ -34,9 +34,10 @@ applications.document = Backbone.View.extend({
                 context: this.context.toJSON(),
                 token: get_cookie('csrftoken'),
             }));
-            sidebar.toggle();
+            sidebar.show(this);
             return false;
         },
+
         'click #upload_form_submit': function() {
             var self = this;
             $('#upload_form').attr('action', urls['document_upload_file']);
