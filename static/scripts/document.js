@@ -18,6 +18,8 @@ applications.document = Backbone.View.extend({
         this.documents.on("all", this.render);
         this.documents.fetch();
         cache.users.on("fetched", this.render);
+        this.sort_by = "name";
+        this.documents.comparator = this.sort[this.sort_by];
         this.render();
     },
 
@@ -74,7 +76,8 @@ applications.document = Backbone.View.extend({
         },
 
         'change #sort-by': function() {
-            this.documents.comparator = this.sort[$('#sort-by').val()];
+            this.sort_by = $('#sort-by').val();
+            this.documents.comparator = this.sort[this.sort_by];
             this.documents.sort();
         },
     },
@@ -84,6 +87,7 @@ applications.document = Backbone.View.extend({
         $(this.el).html(templates['tpl-course-document']({
             documents: this.documents.toJSON(),
         }));
+        $('#sort-by').val(this.sort_by);
         return this;
     },
 
@@ -109,11 +113,17 @@ applications.document = Backbone.View.extend({
         },
 
         rating: function(a,b) {
-            if(a.get('rating')>b.get('rating'))
+            if(a.get('rating_average')>b.get('rating_average'))
                 return -1;
             else
                 return 1;
         },
+
+        statistical_rating: function(a,b) {
+            if (a.get('rating_lower_bound')>b.get('rating_lower_bound')
+                return -1;
+            else
+                return 1;
 
         popularity: function(a,b) {
             if(a.get('view_number')+a.get('download_number')>b.get('view_number')+b.get('download_number'))
@@ -123,7 +133,11 @@ applications.document = Backbone.View.extend({
         },
 
         date: function(a,b) {
-        
+            if (a.get('date')>b.get('date'))
+                return 1;
+            else
+                return -1;
         },
+
     },
 });
