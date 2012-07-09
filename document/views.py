@@ -80,7 +80,7 @@ def rate(request):
     if form.is_valid():
         did = form.cleaned_data['did'];
         star = form.cleaned_data['star']
-        if  star not in range(1,6):
+        if not (star > 0 and star < 6):
             return '{"message": "invalid vote"}'
         try:
             d = Document.objects.get(id=did);
@@ -91,24 +91,15 @@ def rate(request):
         #check first if the user already voted for that document, in that
         #case, remove his previous vote.
 
-        #this is awful ... if somebody know how to fix this, he's more than welcome to do so
-        if star == 1:
-            d.rating_1 += 1
-        elif star == 2:
-            d.rating_2 += 1
-        elif star == 3:
-            d.rating_3 += 1
-        elif star == 4:
-            d.rating_4 += 1
-        else
-            d.rating_5 += 1
+        d.setattr('rating_' + str(star), d.getattr('rating_' + str(star)) + 1)
         compute_rating(d)
         d.save()
         return '{"message": "rate succesful"}'
 
 def compute_rating(d):
-    n = d.rating_1+d_rating_2+d.rating_3+d.rating_4+d.rating_5
-    d.rating_average = (d.rating_1+2*d_rating_2+3*d.rating_3+4*d.rating_4+5*d.rating_5)/n
+    n = d.rating_1 + d.rating_2 + d.rating_3 + d.rating_4 + d.rating_5
+    d.rating_average = (d.rating_1 + 2 * d.rating_2 + 3 * d.rating_3 + 
+                        4 * d.rating_4 + 5 * d.rating_5) / n
     
     #TODO:
     #Compute gaussian confidence interval lower bound

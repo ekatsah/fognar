@@ -3,6 +3,7 @@
 from django.conf.urls.defaults import patterns, url
 from config.authentification import stop_anon, uniq_post
 from document.views import upload_file, upload_http, document_bone, page_bone
+from document.views import rate
 
 urlpatterns = patterns('',
     url(r'^d/$', 
