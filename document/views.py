@@ -4,7 +4,7 @@ from config.json import json_send
 from django.utils.html import escape
 from django.shortcuts import get_object_or_404
 from document.models import Document, PendingDocument, Page
-from document.forms import UploadHttpForm, UploadFileForm
+from document.forms import UploadHttpForm, UploadFileForm, RateDocumentForm
 from djangbone.views import BackboneAPIView
 from course.models import Course
 from group.models import Group
@@ -90,7 +90,7 @@ def upload_http(request):
 
 @json_send
 def rate(request):
-    form = UploadHttpForm(request.POST)
+    form = RateDocumentForm(request.POST)
     if form.is_valid():
         did = form.cleaned_data['did'];
         star = form.cleaned_data['star']
@@ -114,15 +114,18 @@ def rate(request):
             d.rating_3 += 1
         elif star == 4:
             d.rating_4 += 1
-        else
+        else:
             d.rating_5 += 1
         compute_rating(d)
         d.save()
         return '{"message": "rate succesful"}'
+    else:
+        return '{"message": "invalid form"}'
 
 def compute_rating(d):
-    n = d.rating_1+d_rating_2+d.rating_3+d.rating_4+d.rating_5
-    d.rating_average = (d.rating_1+2*d_rating_2+3*d.rating_3+4*d.rating_4+5*d.rating_5)/n
+    n = d.rating_1+d.rating_2+d.rating_3+d.rating_4+d.rating_5
+    d.rating_average = (d.rating_1+2*d.rating_2+3*d.rating_3+4*d.rating_4+5*d.rating_5)/n
     
     #TODO:
     #Compute gaussian confidence interval lower bound
+

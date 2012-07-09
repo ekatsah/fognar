@@ -120,10 +120,11 @@ applications.document = Backbone.View.extend({
         },
 
         statistical_rating: function(a,b) {
-            if (a.get('rating_lower_bound')>b.get('rating_lower_bound')
+            if (a.get('rating_lower_bound')>b.get('rating_lower_bound'))
                 return -1;
             else
                 return 1;
+        },
 
         popularity: function(a,b) {
             if(a.get('view_number')+a.get('download_number')>b.get('view_number')+b.get('download_number'))

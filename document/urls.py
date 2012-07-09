@@ -2,7 +2,7 @@
 
 from django.conf.urls.defaults import patterns, url
 from config.authentification import stop_anon, uniq_post
-from document.views import upload_file, upload_http, document_bone, page_bone
+from document.views import upload_file, upload_http, document_bone, page_bone, rate
 
 urlpatterns = patterns('',
     url(r'^d/$', 
@@ -29,7 +29,7 @@ urlpatterns = patterns('',
         stop_anon(uniq_post(upload_http)),
         name='document_upload_http'),
 
-    url(r'^rate/(?P<did>\d+',
+    url(r'^rate',
         stop_anon(uniq_post(rate)),
         name = 'document_rate'),
 )

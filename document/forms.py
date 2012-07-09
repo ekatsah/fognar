@@ -15,3 +15,7 @@ class UploadHttpForm(forms.Form):
     url = forms.RegexField(r'.*\.[pP][dD][fF]$')
     context = forms.CharField()
     ctype = forms.CharField()
+
+class RateDocumentForm(forms.Form):
+    did = forms.IntegerField()
+    star = forms.IntegerField()
