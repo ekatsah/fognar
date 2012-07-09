@@ -16,8 +16,6 @@ for url in urls:
 {% endcomment %} */
 
 urls = {
-    'app_config': 'application/config/',
-    'app_config_id': 'application/config/%(id)s',
     'application': 'zoidberg',
     'auth_entry': function(a) { return 'auth/' + a; },
     'course_bone_id': function(a) { return 'course/' + a; },
