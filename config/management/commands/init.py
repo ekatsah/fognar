@@ -54,7 +54,7 @@ class Command(BaseCommand):
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
         
-        CourseInfo.objects.create(course=c1, user=profile, infos="""{
+        i1 = CourseInfo.objects.create(user=profile, infos="""{
             0: {name: 'Professeur', values:'JM Lavoine'},
             1: {name: 'Langue', values:'Anglais'},
             2: {name: 'Syllabus', values:'Analyse 1'},
@@ -62,13 +62,16 @@ class Command(BaseCommand):
             4: {name: 'ECTS', values:'8'},
         }""")
 
-        CourseInfo.objects.create(course=c1, user=profile, infos="""{
+        i2 = CourseInfo.objects.create(user=profile, infos="""{
             0: {name: 'Professeur', values:'B. Lecharlier'},
             1: {name: 'Langue', values:'Francais'},
             2: {name: 'Syllabus', values:'Informatique Ba1'},
             3: {name: 'Difficultes', values:'Language noyaux'},
             4: {name: 'ECTS', values:'5'},
-        }""")
+        }""", prev=i1)
+
+        c1.infos = i2
+        c1.save()
 
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')
