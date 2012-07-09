@@ -3,7 +3,7 @@
 models.document = Backbone.Model.extend({urlRoot: '/document'});
 
 Handlebars.registerHelper('uploader_name', function(uploader, options) {
-    if (uploader==undefined)
+    if (typeof uploader == 'undefined')
         return;
     return cache.users.get_or_fetch(uploader).get('name');
 });
