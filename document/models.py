@@ -20,8 +20,13 @@ class Document(models.Model):
     pages = models.PositiveIntegerField(null=True, default=0)
     date = models.DateTimeField(auto_now=True, null=False)
     
-    rating = models.PositiveIntegerField(null=True, default=0)
-    vote_number = models.PositiveIntegerField(null=True, default=0)
+    rating_1 = models.PositiveIntegerField(null=True, default=0)
+    rating_2 = models.PositiveIntegerField(null=True, default=0)
+    rating_3 = models.PositiveIntegerField(null=True, default=0)
+    rating_4 = models.PositiveIntegerField(null=True, default=0)
+    rating_5 = models.PositiveIntegerField(null=True, default=0)
+    rating_average = models.PositiveIntegerField(null=True, default=0)
+    rating_lower_bound = models.PositiveIntegerField(null=True, default=0)
     view_number = models.PositiveIntegerField(null=True, default=0)
     download_number = models.PositiveIntegerField(null=True, default=0)
 
