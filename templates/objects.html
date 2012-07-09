@@ -100,7 +100,8 @@
     </div>
     <ul>
     {{#each documents}}
-    <li>{{this.name}} by {{uploader_name this.uploader}} : {{ this.description }}</li>
+    <li><a href="#viewer/{{ this.id }}">{{this.name}}</a> by 
+        {{uploader_name this.uploader}} : {{ this.description }}</li>
     {{/each}}
     </ul>
 </script>
