@@ -187,7 +187,7 @@ h2 {
 	margin-left: 20px;
 }
 
-.conversation-feed h3 strong {
+h3 strong {
 	font-size: 16px;
 	font-weight: bold;
 }
@@ -392,13 +392,91 @@ textarea {
 }
 
 /* -- Documents Page -- */
-#send-new-document {
-	width: 240px;
-}
-
 i.upload-icon {
 	background: url("../img/upload-icon.png");
 	width: 13px; height: 13px;
 	margin-right: 5px;
 	display: inline-block;
+	vertical-align: top;
+}
+
+#new-document-toolbar {
+	margin-top: 40px;
+}
+
+#new-document-toolbar a {
+	float: left;
+	width: 220px;
+}
+
+#new-document-toolbar select, #new-document-toolbar label {
+	float: right;
+}
+
+#new-document-toolbar label {
+	line-height: 30px;
+	margin-right: 10px;
+	color: #666;
+}
+
+#new-document-toolbar select {
+	width: 160px;
+}
+
+#document-feed {
+	margin-top: 40px;
+}
+
+#document-feed article > div:first-child {
+	float: left;
+	margin-right: 20px;
+	width: 100px;
+}
+
+#document-feed article > div:nth-child(2) {
+	float: left;
+	width: 540px;
+}
+
+.rating, .doc-type {
+	margin-top: 10px;
+	font-weight: bold;
+	color: #666;
+	font-size: 14px;
+	display: inline-block;
+}
+
+.doc-type {
+	margin-left: 20px;
+}
+
+i.star-icon {
+	background: url("../img/star-icon.png") no-repeat;
+	width: 12px; height: 12px;
+	display: inline-block;
+}
+
+i.star-icon-gray {
+	background: url("../img/star-icon-gray.png") no-repeat;
+	width: 12px; height: 12px;
+	display: inline-block;
+}
+
+i.type-icon {
+	background: url("../img/type-icon.png") no-repeat;
+	width: 12px; height: 12px;
+	display: inline-block;
+}
+
+.doc-description {
+	margin-top: 20px;
+	color: #666;
+	line-height: 18px;
+}
+
+.doc-feed-actions {
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 18px;
+	margin-top: 10px;
 }
