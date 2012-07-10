@@ -120,7 +120,7 @@ applications.document = Backbone.View.extend({
         },
 
         statistical_rating: function(a,b) {
-            if (a.get('rating_lower_bound')>b.get('rating_lower_bound')
+            if (a.get('rating_lower_bound')>b.get('rating_lower_bound'))
                 return -1;
             else
                 return 1;
