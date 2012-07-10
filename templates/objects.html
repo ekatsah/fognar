@@ -115,13 +115,12 @@
 </script>
 
 <script id="tpl-wiki-form" type="text/x-handlebars-template">
-	<form>
 		<ul id="current_edition"> 
 			{{#each form}}
 				<li>{{this.name}}:<input type="text" value="{{this.values}}" name="{{this.name}}" id="form_{{this.name}}"></li>
 			{{/each}}
 		</ul>
 		<button id="form_confirm">Confirmer</button>
+		<button id="form_cancel">Annuler</button>
 		<div id="form_add_field">+</div>
-	</form>
 </script>

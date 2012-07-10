@@ -30,6 +30,6 @@ urls = {
     'logout': 'logout',
     'profile_bone_id': function (a) { return 'profile/' + a; },
     'syslogin': 'syslogin',
-    'wiki_bone_type_id': function (id) { return 'course/wiki/' + id; },
+    'wiki_bone_id': function (id) { return 'course/wiki/' + id; },
     'wiki_bone_save': 'course/wikisave',
 };

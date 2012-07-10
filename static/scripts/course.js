@@ -76,13 +76,31 @@ models.Wiki = Backbone.Model.extend({
                 dataType: 'json',
         });
     	//this.initialize();
-    }
+    },
+    
+    updateInfo: function(){
+    	var current = this.information[this.currentEditing]['values'];
+    	for(i=0; i<current.length; i++)
+    		current[i]['values'] = $('#form_	'+current[i]['name']).val();
+    	this.information[this.currentEditing]['values'] = current;
+    	console.log(this.information);
+    },
 });
 
 applications.wiki = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
-		this.wiki = new models.Wiki(params.args[1],this);
+        this.type = params.type;
+        this.context = params.context;
+        this.infos = new Backbone.Model();
+        this.infos.url = urls['wiki_bone_id'](this.context.get('infos'));
+        this.infos.parse = function(d) {
+            d.infos = eval('(' + d.infos + ')');
+            return d;
+        };
+        this.infos.on("change", this.render);
+        this.infos.fetch();
+        this.render();
     },
     
     update_after_add: function(key){
@@ -112,13 +130,18 @@ applications.wiki = Backbone.View.extend({
         },
         
         'click #form_confirm': function() {
+        	this.wiki.updateInfo();
         	this.wiki.save();
         },
     },
-
+    
     render: function() {
-	    $(this.el).html(templates['tpl-wiki']({name: this.wiki.name, wiki: this.wiki.information}));
-	    return this;
+        $(this.el).html(templates['tpl-course-wiki']({
+            infos: this.infos.toJSON(),
+            context: this.context.toJSON(),
+        }));
+        return this;
     },
 
+    close: function() {},
 });
