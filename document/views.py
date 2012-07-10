@@ -34,7 +34,7 @@ class page_bone(BackboneAPIView):
     def dispatch(self, request, *args, **kwargs):
         try:
             doc = Document.objects.get(id=kwargs['did'])
-            self.base_queryset = page_bone.base_queryset.filter(doc=doc);
+            self.base_queryset = page_bone.base_queryset.filter(doc=doc)
         except:
             self.base_queryset = document_bone.base_queryset.none();
         return super(page_bone, self).dispatch(request,*args, **kwargs)
