@@ -5,6 +5,7 @@ from djangbone.views import BackboneAPIView
 from course.models import CourseInfo
 from django.core.exceptions import ObjectDoesNotExist
 from course.forms import saveInfos
+from json import loads
 
 class wiki_bone(BackboneAPIView):
     base_queryset = CourseInfo.objects.order_by('-date')
@@ -19,5 +20,16 @@ class wiki_bone(BackboneAPIView):
 
 @json_send
 def save_infos(request):
-    data= request.POST.copy()
-    return '{"message": '+data+'}'
+    if request.is_ajax():
+        if request.method == 'POST':
+            post_data = loads(request.raw_post_data)
+            for element in post_data:
+                if(element['key'] == 'id'):
+                    cid = element['value']
+                elif(element['key'] == 'info'):
+                    infos = element['value']
+            ci = CourseInfo.objects.create(user=request.user.get_profile(),
+                                      course=cid,
+                                      infos=infos)
+            ci.save()
+    return 'false'
