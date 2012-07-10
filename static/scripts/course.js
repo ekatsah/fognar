@@ -1,29 +1,44 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
 models.course = Backbone.Model.extend({
+<<<<<<< HEAD
     initialize: function(params) {
     },
     
+=======
+    initialize: function(params) {},
+>>>>>>> stak/master
 });
 
 applications.course = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
-        this.slug = params.args[1];
+        var self = this;
+        // FIXME check if init_mode is valid
+        if (typeof params.args[2] == 'undefined')
+            var init_mode = "thread";
+        else
+            var init_mode = params.args[2];
+        this.mode = null;
+        this.first = true;
+        this.sub_app = null;
+        this.cid = params.args[1];
         this.router = params.router;
-        this.position = params.position;
-        this.render();
+        this.router.navigate('/course/' + this.cid + '/' + init_mode, 
+                             {trigger: false, replace: true});
+        this.course = new models.course({id: this.cid});
+        this.course.url = urls['course_bone_id'](this.cid);
+        this.course.on("change", function() { self.render(self.mode, true); });
+        this.course.fetch();
+        this.render(init_mode);
     },
 
     events: {
-        'click #document': function() {
-            this.router.navigate('/document/course/' + this.slug, 
-                                 {trigger: true});
-            return false;
-        },
-        'click #infos': function() {
-            this.router.navigate('/wiki/' + this.slug, 
-                                 {trigger: true});
+        'click .x_action': function(e) {
+            var app = $(e.target).attr("data-app");
+            this.router.navigate('/course/' + this.cid + '/' + app, 
+                                 {trigger: false});
+            this.render(app);
             return false;
         },
     },
@@ -134,12 +149,30 @@ applications.wiki = Backbone.View.extend({
         	this.wiki.save();
         },
     },
-    
-    render: function() {
-        $(this.el).html(templates['tpl-course-wiki']({
-            infos: this.infos.toJSON(),
-            context: this.context.toJSON(),
-        }));
+    render: function(mode, refresh) {
+        // FIXME check if mode is valid
+        if (this.first || refresh) {
+            this.first = false;
+            console.log("reprint course, => " + dump(this.course.toJSON()));
+            if (this.sub_app != null) {
+                this.sub_app.undelegateEvents();
+                // FIXME remove app toussa
+            }
+            $(this.el).html(templates['tpl-course']({course: this.course.toJSON()}));
+        }
+        console.log('this.mode = "' + this.mode + '" && mode = "' + mode + '" && refresh = ' + refresh);
+        if (this.mode != mode || refresh) {
+            $('a[data-app="' + this.mode + '"]').removeClass('nav-active');
+            $('a[data-app="' + mode + '"]').addClass('nav-active');
+            this.mode = mode;
+            if (this.sub_app != null) {
+                this.sub_app.undelegateEvents();
+                // FIXME remove app toussa
+            }
+            console.log('  -> reprint');
+            this.sub_app = new applications[this.mode]({el: $('#course-content'),
+                router: this.router, context: this.course, type: 'course'});
+        }
         return this;
     },
 

@@ -13,4 +13,6 @@ applications.market = Backbone.View.extend({
         $(this.el).html(templates['tpl-market']());
         return this;
     },
+
+    close: function() {},
 });

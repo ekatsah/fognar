@@ -19,6 +19,16 @@ class Document(models.Model):
     words = models.PositiveIntegerField(null=True, default=0)
     pages = models.PositiveIntegerField(null=True, default=0)
     date = models.DateTimeField(auto_now=True, null=False)
+    
+    rating_1 = models.PositiveIntegerField(null=True, default=0)
+    rating_2 = models.PositiveIntegerField(null=True, default=0)
+    rating_3 = models.PositiveIntegerField(null=True, default=0)
+    rating_4 = models.PositiveIntegerField(null=True, default=0)
+    rating_5 = models.PositiveIntegerField(null=True, default=0)
+    rating_average = models.PositiveIntegerField(null=True, default=0)
+    rating_lower_bound = models.PositiveIntegerField(null=True, default=0)
+    view_number = models.PositiveIntegerField(null=True, default=0)
+    download_number = models.PositiveIntegerField(null=True, default=0)
 
     def pretty_name(self):
         name = sub(r'[^-_a-z]', '', self.name.lower().replace(' ', '_'))
@@ -26,6 +36,14 @@ class Document(models.Model):
             name += '.pdf'
         return name
 
+    def computed_rating(self):
+        n = self.rating_1 + self.rating_2 + self.rating_3 + self.rating_4 +\
+            self.rating_5
+        return (self.rating_1 + 2 * self.rating_2 + 3 * self.rating_3 +\
+                4 * self.rating_4 + 5 * self.rating_5) / n
+
+    #TODO:
+    #Compute gaussian confidence interval lower bound
 
 class Page(models.Model):
     num = models.IntegerField()

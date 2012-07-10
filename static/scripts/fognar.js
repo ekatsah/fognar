@@ -2,11 +2,14 @@
 
 var applications = {};
 var models = {};
+var collections = {};
 var cache = {};
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
-        $(this.el).prepend(templates['tpl-navbar']({name: profile.get('name')}));
+        $(this.el).prepend(templates['tpl-navbar']({
+            name: window.profile.get('name')
+        }));
         this.router = params.router;
         this.el = $('#navbar');
     },
@@ -16,6 +19,64 @@ applications.navbar = Backbone.View.extend({
             this.router.navigate('/desktop', {trigger: true});
         },
     },
+    close: function() {},
+});
+
+applications.sidebar = Backbone.View.extend({
+    initialize: function(params) {
+        var self = this;
+        _.bindAll(this, 'render', 'close', 'toggle', 'mask', 'show');
+        this.router = params.router;
+        this.visible = false;
+        this.calling = null;
+        window.sidebar = this;
+        $(this.el).append(templates['tpl-sidebar']());
+        $('#sidebar-backdrop').css("visibility", "hidden");
+        $('#sidebar-backdrop').click(function() {
+            self.mask();
+        });
+        this.el = $('#sidebar');
+    },
+    
+    show: function(caller) {
+        if (this.visible == false) {
+            $('#sidebar').addClass("side-toolbar-opened");
+            $('#sidebar-backdrop').removeClass("backdrop-hidden");
+            $('#sidebar-backdrop').css("visibility", "visible");
+            this.visible = true;
+        }
+        if (this.calling != null)
+            this.undelegateEvents(this.calling.events);
+        this.delegateEvents(caller.events);
+        this.calling = caller;
+    },
+    
+    mask: function() {
+        if (this.visible) {
+            $('#sidebar').removeClass("side-toolbar-opened");
+            $('#sidebar-backdrop').addClass("backdrop-hidden");
+            setTimeout(function() {
+                $('#sidebar-backdrop').css("visibility", "hidden"); 
+            }, 300);
+            this.visible = false;
+        }
+        if (this.calling != null)
+            this.undelegateEvents(this.calling.events);
+        this.calling = null;
+    },
+    
+    toggle: function(caller) {
+        if (this.visible)
+            this.mask();
+        else
+            this.show(caller);
+    },
+
+    render: function(content) {
+        $('#sidebar-inner').html(content);
+    },
+
+    close: function() {},
 });
 
 var ZoidRouter = Backbone.Router.extend({
@@ -34,15 +95,13 @@ var ZoidRouter = Backbone.Router.extend({
             this.navigate('/desktop', {trigger: true});
         }
         else {
-            if (this.current_app != null)
+            if (this.current_app != null) {
                 this.current_app.undelegateEvents();
-            var config = this.config.where({name: url[0]})
-            if (config.length != 0)
-                config = eval('(' + config[0].get('config') + ')');
-            else
-                config = {};
+                this.current_app.close();
+            }
+
             this.current_app = new applications[url[0]]({el: $('#content-wrapper'),
-                router: this, args: url, config: config});
+                router: this, args: url});
         }
     },
 });
@@ -55,16 +114,8 @@ $(document).ready(function() {
         Handlebars.registerPartial(t.id, $(t).html());
     });
 
-    // make ajax synchronous for config fetch. TODO : bootstraping
-    $.ajaxSetup({ async: false });
-    var config = new Backbone.Collection();
-    config.url = urls['app_config'];
-    config.fetch();
-    $.ajaxSetup({ async: true });
-
     // start application
     var router = new ZoidRouter;
-    router.config = config;
     _.each(autostart, function(k, el) {
         new applications[el]({router: router, el: $('body')});
     });

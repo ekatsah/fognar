@@ -2,14 +2,14 @@
 
 from django.conf.urls.defaults import patterns, url
 from config.authentification import stop_anon
-from course.views import wiki_bone,save_infos
+from course.views import course_bone,wiki_bone
 
 urlpatterns = patterns('',
+    url(r'^(?P<id>\d+)$', 
+        stop_anon(course_bone.as_view()), 
+        name="course_bone_id"),
 
-    url(r'^wiki/(?P<cid>[0-9]+)', 
+    url(r'^wiki/(?P<id>\d+)$', 
         stop_anon(wiki_bone.as_view()), 
-        name="wiki_bone_type_cid"),
-    url(r'^wikisave$', 
-        stop_anon(save_infos), 
-        name="wiki_info_save"),
+        name="wiki_bone_id"),
 )

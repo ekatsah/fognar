@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="http://css.olivierkaisin.be/reset.css" /> 
+		<link rel="stylesheet" type="text/css" href="side-toolbar.css" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script> 		
+		<script type="text/javascript" src="side-toolbar.js"></script> 		
+	</head>
+	<body>
+		<a id="showbar" href="#">Show Toolbar</a>
+		<section id="sidebar"></section>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#sidebar").initSideBar();
+
+				$("#showbar").click(function() {
+					$("#sidebar").toggleSideBar();
+				})
+			})
+		</script>
+	</body>
+</html>

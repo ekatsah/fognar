@@ -76,6 +76,13 @@
 				display: inline-block;
 			}
 
+			i.course-icon-large {
+				background: url("img/course-icon-large.png");
+				display: inline-block;
+				width: 22px; height: 20px;
+				margin-right: 2px;
+			}
+
 			#main-sided-wrapper {
 				float: left;
 				width: 660px;
@@ -99,6 +106,10 @@
 				font-weight: bold;
 			}
 
+			.sidebar-nav {
+				margin-bottom: 40px;
+			}
+
 			.sidebar-nav a {
 				font-size: 14px;
 				color: #999;
@@ -119,6 +130,22 @@
 				border-color: #b22;
 				font-weight: bold;
 			}
+
+			h2 {
+				font-size: 16px;
+				font-weight: bold;
+				height: 30px;
+			}
+
+			.toolbar {
+				margin-top: 20px;
+			}
+
+			#sort-by {
+				background: #fff;
+				border: 1px solid #b22;
+				padding: 2px 4px;
+			}
 		</style>
 	</head>
 	<body>
@@ -134,15 +161,31 @@
 		</header>
 		<section id="content-wrapper">
 			<div id="main-sided-wrapper">
+				<h1>
+					<i class="course-icon-large"></i>
+					Droit Public
+				</h1>
+				<div class="toolbar">
+					<label for="sort-by">Trier par : </label>
+					<select id="sort-by">
+						<option>Date de publication</option>
+						<option>Classement</option>
+					</select>
+				</div>
 			</div>
 			<div id="large-sidebar-wrapper">
+				<h2>Général</h2>
 				<nav class="sidebar-nav">
 					<a href="#" class="nav-active">Fils de discussion</a>
-					<a href="#">Documents</a>
 					<a href="#">Wiki</a>
-					<a href="#">TP</a>
-					<a href="#">Valves</a>
+					<a href="#">Documents</a>
+					<a href="#">Podcasts</a>
 					<a href="#">Contacter un prof</a>	
+				</nav>
+				<h2>TP</h2>
+				<nav class="sidebar-nav">
+					<a href="#">Fils de discussion</a>
+					<a href="#">Documents</a>
 				</nav>
 			</div>
 		</section>

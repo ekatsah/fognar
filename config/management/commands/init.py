@@ -2,13 +2,12 @@
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from application.models import AppUsing
 from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
 from course.models import Course, CourseInfo
 from optparse import make_option
-from django.utils.datetime_safe import datetime
+
 
 class Command(BaseCommand):
     help = 'Initialize fognar for developpment'
@@ -41,19 +40,9 @@ class Command(BaseCommand):
         user.save()
         profile = user.get_profile()
         profile.name = first_name + " " + last_name
+        profile.email = '42@urlab.be'
         profile.save()
         
-        AppUsing.objects.create(user=profile, name="desktop", config=""" {
-            shortcuts: [ 
-                {app: 'course', slug: 'info-f-666'},
-                {app: 'course', slug: 'info-f-777'},
-                {app: 'course', slug: 'info-f-888'},
-                {app: 'course', slug: 'info-f-999'},
-                {app: 'group', slug: 'ACE'},
-                {app: 'group', slug: 'CI'},
-            ],
-        }""")
-
         self.stdout.write('Adding base data ...\n')
         c1 = Course.objects.create(slug='info-f-666', name='Hell Informatique',
                                    description='Hell Computer Science course')
@@ -74,7 +63,7 @@ class Command(BaseCommand):
             },
         ]""")
         
-        CourseInfo.objects.create(course=c1, user = profile,infos = """[
+        i2 = CourseInfo.objects.create(course=c1, user = profile,infos = """[
             {    name: "general", values: [
                                         {name: 'Professeur', values:'B. Lecharlier'},
                                         {name: 'Langue', values:'Francais'},
@@ -87,11 +76,25 @@ class Command(BaseCommand):
                                      ],
             },
         ]""")     
+        c1.infos = i2
+        c1.save()
         
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
                                   description='Youplaboom')
+
+        profile.desktop_config = """ {
+            shortcuts: [ 
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'course', id: %d},
+                {app: 'group', id: %d},
+                {app: 'group', id: %d},
+            ],
+        }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id)
+        profile.save()
 
         cat0 = Category.objects.create(name='Faculty', description='Root node w/ category')
         cat1 = Category.objects.create(name='Sciences', description='Fac de sciences')

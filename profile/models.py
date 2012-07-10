@@ -9,10 +9,13 @@ from utils import dont_create_a_superuser
 class Profile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=80)
+    email = models.CharField(max_length=250)
     registration = models.CharField(max_length=80)
     welcome = models.BooleanField(default=True)
     comment = models.TextField(null=True)
     photo = models.CharField(max_length=80, null=True)
+    autostart = models.TextField(default="{sidebar: {}, navbar: {},}")
+    desktop_config = models.TextField(default="")
 
 class Inscription(models.Model):
     user = models.ForeignKey(Profile)

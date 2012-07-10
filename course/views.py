@@ -1,35 +1,14 @@
-# Copyright 2012, RespLab. All rights reserved.
+# Copyright 2012, Cercle Informatique. All rights reserved.
 
 from config.json import json_send
 from djangbone.views import BackboneAPIView
-from course.models import CourseInfo
-from django.core.exceptions import ObjectDoesNotExist
-from course.forms import saveInfos
-from json import loads
+from course.models import Course, CourseInfo
+
+class course_bone(BackboneAPIView):
+    base_queryset = Course.objects.all()
+    serialize_fields = ('id', 'slug', 'name', 'description', 'infos')
 
 class wiki_bone(BackboneAPIView):
-    base_queryset = CourseInfo.objects.order_by('-date')
-    serialize_fields = ('id','course','infos', 'date','course__name','course__slug','course__description')
-    
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            self.base_queryset = wiki_bone.base_queryset.filter(course=kwargs['cid'])[0:1]
-        except ObjectDoesNotExist:
-            self.base_queryset = wiki_bone.base_queryset.none()
-        return super(wiki_bone, self).dispatch(request,*args, **kwargs)
+    base_queryset = CourseInfo.objects.all()
+    serialize_fields = ('id', 'user', 'infos', 'date', 'prev')
 
-@json_send
-def save_infos(request):
-    if request.is_ajax():
-        if request.method == 'POST':
-            post_data = loads(request.raw_post_data)
-            for element in post_data:
-                if(element['key'] == 'id'):
-                    cid = element['value']
-                elif(element['key'] == 'info'):
-                    infos = element['value']
-            ci = CourseInfo.objects.create(user=request.user.get_profile(),
-                                      course=cid,
-                                      infos=infos)
-            ci.save()
-    return 'false'

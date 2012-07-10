@@ -1,12 +1,10 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
-
-
 applications.desktop = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.router = params.router;
-        this.config = params.config;
+        this.config = window.profile.get('desktop_config');
         this.popup = null;
         this.render();
         console.log('Initialize desktop');
@@ -28,4 +26,6 @@ applications.desktop = Backbone.View.extend({
         $(this.el).html(templates['tpl-desktop']({shortcuts: this.config.shortcuts}));
         return this;
     },
+
+    close: function() {},
 });
