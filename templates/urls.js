@@ -21,7 +21,7 @@ urls = {
     'course_bone_id': function(a) { return 'course/' + a; },
     'document_bone': 'document/d/',
     'document_bone_id': function(a) { return 'document/d/' + a; },
-    'document_bone_type_slug': function (a, b) { return 'document/r/' + a + '/' + b; },
+    'document_bone_type_id': function (a, b) { return 'document/r/' + a + '/' + b; },
     'document_page': function(a) { return 'document/p/' + a + '/'; },
     'document_upload_file': 'document/upload_file',
     'document_upload_http': 'document/upload_http',

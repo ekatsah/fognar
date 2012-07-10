@@ -14,7 +14,10 @@ applications.document = Backbone.View.extend({
         this.type = params.type;
         this.context = params.context;
         this.documents = new Backbone.Collection();
-        this.documents.url = urls['document_bone_id'](this.context.get('id'));
+        this.documents.url = urls['document_bone_type_id'](
+            this.type,
+            this.context.get('id')
+        );
         this.documents.on("all", this.render);
         this.documents.fetch();
         cache.users.on("fetched", this.render);

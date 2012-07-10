@@ -4,6 +4,7 @@ from config.json import json_send
 from django.utils.html import escape
 from django.shortcuts import get_object_or_404
 from document.models import Document, PendingDocument, Page
+from django.contrib.contenttypes.models import ContentType
 from document.forms import UploadHttpForm, UploadFileForm
 from djangbone.views import BackboneAPIView
 from course.models import Course
@@ -25,7 +26,21 @@ class document_bone(BackboneAPIView):
     serialize_fields = ('id', 'name', 'description', 'uploader', "date",
                         'rating_average', 'rating_lower_bound', 'view_number',
                         'download_number')
-    
+
+
+class document_typeid(BackboneAPIView):
+    base_queryset = Document.objects.all()
+    serialize_fields = ('id', 'name', 'description', 'uploader', "date",
+                        'rating_average', 'rating_lower_bound', 'view_number',
+                        'download_number')
+
+    def dispatch(self, request, *args, **kwargs):
+        thing = get_context(kwargs.get('type', None), kwargs.get('cid', None))
+        c = ContentType.objects.get_for_model(thing)
+        qs = document_typeid.base_queryset
+        self.base_queryset = qs.filter(refer_oid=thing.id, refer_content=c)
+        return super(document_typeid, self).dispatch(request,*args, **kwargs)
+
 
 class page_bone(BackboneAPIView):
     base_queryset = Page.objects.all()
