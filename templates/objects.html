@@ -180,9 +180,8 @@
 </script>
 
 <script id="tpl-course-document" type="text/x-handlebars-template">
-    <div id="title"><h2>Liste de document</h2></div>
     <div id="new-document-toolbar">
-        <a href="#" class="button">
+        <a id="upload" href="#" class="button">
             <i class="upload-icon"></i>
             Envoyer un nouveau document
         </a>
@@ -196,9 +195,9 @@
         </select>
         <label>Trier par:</label
     </div>
-    {{#each documents}}
         <div class="cf"></div>
         <div id="document-feed">
+        {{#each documents}}
             <article>
                 <div>
                     <img src="static/image/sample-document-preview.png" alt="" />
@@ -206,11 +205,10 @@
                 <div>
                     <h3>
                         <strong><a href="#">{{this.name}}</a></strong>
-                        <span class="title-date">{{this.date}}</span>
+                        <span class="title-date">Posté {{date this.date}}</span>
                     </h3>
                     <div>
-                        <span class="rating">
-                        </span>
+                        {{{stars this.rating_average}}}
                         <span class="doc-type">
                             <i class="type-icon"></i>
                             pdf
@@ -221,8 +219,8 @@
                     </div>
                 </div>
             </article>
+        {{/each}}
         </div>
-    {{/each}}
 </script>
 
 <script id="tpl-document-upload" type="text/x-handlebars-template">

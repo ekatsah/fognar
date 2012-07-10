@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from djangbone.views import BackboneAPIView
 from course.models import Course
 from group.models import Group
+from datetime import datetime
 from re import match
 
 def get_context(ctype, context):
@@ -64,7 +65,8 @@ def upload_file(request):
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
                                       uploader=request.user.get_profile(),
-                                      referer=thing)
+                                      referer=thing,
+                                      date=datetime.now())
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
         tmp_doc.write(request.FILES['xfile'].read())
@@ -83,7 +85,8 @@ def upload_http(request):
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
                                       uploader=request.user.get_profile(),
-                                      referer=thing)
+                                      referer=thing,
+                                      date=datetime.now())
         PendingDocument.objects.create(doc=doc, state="queued", url=data['url'])
         return '{"message": "ok"}'
     else:
