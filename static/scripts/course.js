@@ -1,13 +1,7 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
 models.course = Backbone.Model.extend({
-<<<<<<< HEAD
-    initialize: function(params) {
-    },
-    
-=======
     initialize: function(params) {},
->>>>>>> stak/master
 });
 
 applications.course = Backbone.View.extend({
