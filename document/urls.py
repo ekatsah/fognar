@@ -30,7 +30,7 @@ urlpatterns = patterns('',
         stop_anon(uniq_post(upload_http)),
         name='document_upload_http'),
 
-    url(r'^rate/(?P<did>\d+',
+    url(r'^rate/(?P<did>\d+)',
         stop_anon(uniq_post(rate)),
         name = 'document_rate'),
 )
