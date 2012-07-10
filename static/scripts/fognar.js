@@ -30,7 +30,7 @@ applications.sidebar = Backbone.View.extend({
         this.visible = false;
         this.calling = null;
         window.sidebar = this;
-        $(this.el).append(templates['tpl-sidebar']);
+        $(this.el).append(templates['tpl-sidebar']());//TODO resolving bug /on descktop : Uncaught TypeError: Object #<Object> has no method 'tpl-sidebar'
         $('#sidebar-backdrop').css("visibility", "hidden");
         $('#sidebar-backdrop').click(function() {
             self.mask();
