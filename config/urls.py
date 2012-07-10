@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^profile/', include('profile.urls'), name='profile'),
     url(r'^document/', include('document.urls'), name='document'),
     url(r'^course/', include('course.urls'), name='course'),
+    url(r'^msg/', include('message.urls'), name='message'),
 
     # The product/client entry points
     url(r'^$',
