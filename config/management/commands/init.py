@@ -53,7 +53,8 @@ class Command(BaseCommand):
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
         
-        CourseInfo.objects.create(course=c1, user = profile,infos = """[
+        i1 = CourseInfo.objects.create(user=profile, 
+                                       infos = """[
             {    name: "general", values: [
                                         {name: 'Professeur', values:'B. Lecharlier'},
                                         {name: 'Langue', values:'Francais'},
@@ -63,7 +64,9 @@ class Command(BaseCommand):
             },
         ]""")
         
-        i2 = CourseInfo.objects.create(course=c1, user = profile,infos = """[
+        i2 = CourseInfo.objects.create(user = profile,
+                                       prev=i1,
+                                       infos = """[
             {    name: "general", values: [
                                         {name: 'Professeur', values:'B. Lecharlier'},
                                         {name: 'Langue', values:'Francais'},

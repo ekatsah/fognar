@@ -114,6 +114,7 @@ applications.wiki = Backbone.View.extend({
             return d;
         };
         this.infos.on("change", this.render);
+        console.log(this)
         this.infos.fetch();
         this.render();
     },

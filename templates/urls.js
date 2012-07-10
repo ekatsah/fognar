@@ -43,6 +43,4 @@ urls = {
     'thread_bone': 'msg/t/',
     'thread_bone_id': function(a) { return 'msg/t/' + a; },
     'thread_bone_type_id': function(a, b) { return 'msg/r/' + a + '/' + b; },
-    'wiki_bone_id': function(a) { return 'course/wiki/' + a; },
-
 };
