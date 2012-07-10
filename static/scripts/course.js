@@ -102,13 +102,13 @@ applications.wiki = Backbone.View.extend({
         this.type = params.type;
         this.context = params.context;
         this.infos = new Backbone.Model();
-        this.infos.url = urls['wiki_bone_id'](this.context.get('infos'));
+        this.infos.url = urls['wiki_bone_id'](1);//replace 1 by this.context.get('infos')
         this.infos.parse = function(d) {
             d.infos = eval('(' + d.infos + ')');
             return d;
         };
         this.infos.on("change", this.render);
-        console.log(this)
+        console.log(this);
         this.infos.fetch();
         this.render();
     },
