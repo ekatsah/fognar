@@ -44,55 +44,24 @@ applications.course = Backbone.View.extend({
 
 models.Wiki = Backbone.Model.extend({
 	initialize: function(id,view) {
-		this.view = view;
-    	this.id = 1;//Replace by "id" for the moment it's slug'
-    	this.url = urls['wiki_bone_type_id'](this.id);
-    	this.on("all", this.modelise);
-    	this.fetch();
-    },
-    
-	modelise: function(){
-    	var courseJSON = this.toJSON()[0];
-    	this.slug = courseJSON['course__slug'];
-    	this.name = courseJSON['course__name'];
-	    this.information = eval("("+courseJSON['infos']+")");
-	    this.view.render();
     },
     
     get_form: function(key){
-        for(i=0; (i<this.information.length)&&(this.information[i]['name']!=key); i++);
+        for(i=0; (i<this.attributes.infos.length)&&(this.attributes.infos[i]['name']!=key); i++);
         this.currentEditing = i;
-        return this.information[i]['values'];
+        return this.attributes.infos[i]['values'];
     },
     
     form_push: function(fname,fvalue){
-    	this.information[this.currentEditing]['values'].push({name: fname, values: fvalue});
-    	this.view.update_after_add(this.information[this.currentEditing]['name']);
+    	this.attributes.infos[this.currentEditing]['values'].push({name: fname, value: fvalue});
     },
     
-    save: function(){
-    	var dataPost = [];
-    	dataPost.push({key:'info', value:JSON.stringify(this.information)});
-    	dataPost.push({key:'id', value:this.id});
-    	console.log(JSON.stringify(dataPost));
-    	$.ajax({
-                type: 'POST',
-                url: urls['wiki_bone_save'],
-                data: JSON.stringify(dataPost),
-                success: function() {
-                    this.initialize();
-                },
-                dataType: 'json',
-        });
-    	//this.initialize();
-    },
     
     updateInfo: function(){
     	var current = this.information[this.currentEditing]['values'];
     	for(i=0; i<current.length; i++)
-    		current[i]['values'] = $('#form_	'+current[i]['name']).val();
+    		current[i]['values'] = $('#form_'+current[i]['name']).val();
     	this.information[this.currentEditing]['values'] = current;
-    	console.log(this.information);
     },
 });
 
@@ -101,7 +70,7 @@ applications.wiki = Backbone.View.extend({
         _.bindAll(this, 'render');
         this.type = params.type;
         this.context = params.context;
-        this.infos = new Backbone.Model();
+        this.infos = new models.Wiki();
         this.infos.url = urls['wiki_bone_id'](1);//replace 1 by this.context.get('infos')
         this.infos.parse = function(d) {
             d.infos = eval('(' + d.infos + ')');
@@ -119,9 +88,10 @@ applications.wiki = Backbone.View.extend({
 
     events: {
         'click .edit': function(e) {
-        	this.render();
-        	var key = $(e.target).attr('data-target');
-        	$("#"+key+"_container").html(templates['tpl-wiki-form']({form: this.wiki.get_form(key)}));
+        	this.keyEditing = $(e.target).attr('data-target');
+        	$("#"+this.keyEditing+"_container").html(templates['tpl-wiki-form']({form: this.infos.get_form(this.keyEditing)}));
+        	$("#form_add_field").hide();
+        	$("#form_add_field").hide();
         },
         
         'click .signal': function(e) {
@@ -129,46 +99,27 @@ applications.wiki = Backbone.View.extend({
         },
         
         'click #form_add_field': function() {
-        	$("#current_edition").append('<li><input type="text" value="" name="add_key" id="wiki_form_add_key"><textarea value="" name="add_value" id="wiki_form_add_value"/><div id="wiki_form_add_submit">OK</div></li>');
+        	$("#current_edition").append(templates['wiki-form-add']());
         	$("#form_add_field").hide();
         },
         
         'click #wiki_form_add_submit': function() {
         	var name = $('#wiki_form_add_key').val();
         	var value = $('#wiki_form_add_value').val();
-        	this.wiki.form_push(name,value);
+        	this.infos.form_push(name,value);
+			$("#"+this.keyEditing+"_container").html(templates['tpl-wiki-form']({form: this.infos.get_form(this.keyEditing)}));
         },
         
         'click #form_confirm': function() {
-        	this.wiki.updateInfo();
-        	this.wiki.save();
+        	this.infos.id = null;
+        	console.log(this.infos);
+        	this.infos.save();
         },
     },
     render: function(mode, refresh) {
-        // FIXME check if mode is valid
-        if (this.first || refresh) {
-            this.first = false;
-            console.log("reprint course, => " + dump(this.course.toJSON()));
-            if (this.sub_app != null) {
-                this.sub_app.undelegateEvents();
-                // FIXME remove app toussa
-            }
-            $(this.el).html(templates['tpl-course']({course: this.course.toJSON()}));
-        }
-        console.log('this.mode = "' + this.mode + '" && mode = "' + mode + '" && refresh = ' + refresh);
-        if (this.mode != mode || refresh) {
-            $('a[data-app="' + this.mode + '"]').removeClass('nav-active');
-            $('a[data-app="' + mode + '"]').addClass('nav-active');
-            this.mode = mode;
-            if (this.sub_app != null) {
-                this.sub_app.undelegateEvents();
-                // FIXME remove app toussa
-            }
-            console.log('  -> reprint');
-            this.sub_app = new applications[this.mode]({el: $('#course-content'),
-                router: this.router, context: this.course, type: 'course'});
-        }
-        return this;
+        console.log(this.infos.toJSON());
+        $(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
+		return this;
     },
 
     close: function() {},

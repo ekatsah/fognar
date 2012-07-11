@@ -258,20 +258,19 @@
 
 
 <script id="tpl-wiki" type="text/x-handlebars-template">
-	<h1>Wiki course</h1>
-		<h1>{{name}}</h1>
 		<div id="wiki_container">
-			{{#each wiki}}
+			{{#each wiki.infos}}
 				<br/>
 				<h2 ><b>{{this.name}}</b></h2>
 				<div class="edit" data-target="{{this.name}}">Edit</div><div class="signal" data-target="{{this.name}}">Signal</div><hr/>
-				<div id="{{this.name}}_container">
-						{{#each this.values}}
-							<b>{{this.name}}:</b> {{this.values}}<br/>
-						{{/each}}
-				</div>
+				<ul id="{{this.name}}_container">
+				{{#each this.values}}
+					<li class="{{this.name}}"><b>{{this.name}}:</b> {{this.value}}<br/></li>
+				{{/each}}
+				</ul>
 			{{/each}}
 		</div>
+		last edit by {{wiki.user__name}}
 </script>
 
 <script id="tpl-wiki-form" type="text/x-handlebars-template">
@@ -283,6 +282,10 @@
 		<button id="form_confirm">Confirmer</button>
 		<button id="form_cancel">Annuler</button>
 		<div id="form_add_field">+</div>
+</script>
+
+<script id="wiki-form-add" type="text/x-handlebars-template">
+	<li><input type="text" value="" name="add_key" id="wiki_form_add_key"><textarea value="" name="add_value" id="wiki_form_add_value"/><div id="wiki_form_add_submit">OK</div></li>
 </script>
 
 <script id="tpl-sidebar" type="text/x-handlebars-template">
