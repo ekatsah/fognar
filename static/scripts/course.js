@@ -43,7 +43,9 @@ applications.course = Backbone.View.extend({
 });
 
 models.Wiki = Backbone.Model.extend({
-	initialize: function(id,view) {
+	initialize: function(id) {
+		console.log('init model wiki');
+		console.log(id)
     },
     
     get_form: function(key){
@@ -58,11 +60,13 @@ models.Wiki = Backbone.Model.extend({
     
     
     updateInfo: function(){
-    	var current = this.information[this.currentEditing]['values'];
+    	var current = this.attributes.infos[this.currentEditing]['values'];
     	for(i=0; i<current.length; i++)
-    		current[i]['values'] = $('#form_'+current[i]['name']).val();
-    	this.information[this.currentEditing]['values'] = current;
+    		current[i]['value'] = $('#current_edition .form_'+current[i]['name']).val();
+    	this.attributes.infos[this.currentEditing]['values'] = current;
     },
+    
+    close: function(){},
 });
 
 applications.wiki = Backbone.View.extend({
@@ -70,8 +74,8 @@ applications.wiki = Backbone.View.extend({
         _.bindAll(this, 'render');
         this.type = params.type;
         this.context = params.context;
-        this.infos = new models.Wiki();
-        this.infos.url = urls['wiki_bone_id'](1);//replace 1 by this.context.get('infos')
+        this.infos = new models.Wiki({id: this.context.get('id')});
+        this.infos.url = urls['wiki_bone_id'](this.context.get('infos'));
         this.infos.parse = function(d) {
             d.infos = eval('(' + d.infos + ')');
             return d;
@@ -90,8 +94,8 @@ applications.wiki = Backbone.View.extend({
         'click .edit': function(e) {
         	this.keyEditing = $(e.target).attr('data-target');
         	$("#"+this.keyEditing+"_container").html(templates['tpl-wiki-form']({form: this.infos.get_form(this.keyEditing)}));
-        	$("#form_add_field").hide();
-        	$("#form_add_field").hide();
+        	$(".edit").hide();
+        	$(".signal").hide();
         },
         
         'click .signal': function(e) {
@@ -112,12 +116,12 @@ applications.wiki = Backbone.View.extend({
         
         'click #form_confirm': function() {
         	this.infos.id = null;
-        	console.log(this.infos);
+        	this.infos.updateInfo()
         	this.infos.save();
+        	$(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
         },
     },
     render: function(mode, refresh) {
-        console.log(this.infos.toJSON());
         $(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
 		return this;
     },

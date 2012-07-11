@@ -276,7 +276,7 @@
 <script id="tpl-wiki-form" type="text/x-handlebars-template">
 		<ul id="current_edition"> 
 			{{#each form}}
-				<li>{{this.name}}:<input type="text" value="{{this.values}}" name="{{this.name}}" id="form_{{this.name}}"></li>
+				<li>{{this.name}}:<textarea name="{{this.name}}" class="form_{{this.name}}">{{this.value}}</textarea></li>
 			{{/each}}
 		</ul>
 		<button id="form_confirm">Confirmer</button>
