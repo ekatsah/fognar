@@ -32,8 +32,8 @@ class document_bone(BackboneAPIView):
 class document_typeid(BackboneAPIView):
     base_queryset = Document.objects.all()
     serialize_fields = ('id', 'name', 'description', 'uploader', "date",
-                        'rating_average', 'rating_lower_bound', 'view_number',
-                        'download_number')
+                        'rating_average', 'rating_lower_bound', 'rating_number',
+                        'view_number', 'download_number')
 
     def dispatch(self, request, *args, **kwargs):
         thing = get_context(kwargs.get('type', None), kwargs.get('cid', None))
@@ -110,7 +110,7 @@ def rate(request):
         #case, remove his previous vote.
 
         setattr(d, 'rating_' + str(star), getattr(d, 'rating_' + str(star)) + 1)
-        d.rating_average = d.compute_rating()
+        d.compute_rating()
         d.save()
         # check to see if MVC recommand to put this in a d.update_rating(params)
         # or something like that

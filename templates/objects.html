@@ -195,9 +195,9 @@
         </select>
         <label>Trier par:</label
     </div>
+        {{#each documents}}
         <div class="cf"></div>
         <div id="document-feed">
-        {{#each documents}}
             <article>
                 <div>
                     <img src="static/image/sample-document-preview.png" alt="" />
@@ -208,7 +208,7 @@
                         <span class="title-date">Posté {{date this.date}}</span>
                     </h3>
                     <div>
-                        {{{stars this.rating_average}}}
+                        {{{stars this}}}
                         <span class="doc-type">
                             <i class="type-icon"></i>
                             pdf
@@ -219,8 +219,8 @@
                     </div>
                 </div>
             </article>
-        {{/each}}
         </div>
+        {{/each}}
 </script>
 
 <script id="tpl-document-upload" type="text/x-handlebars-template">

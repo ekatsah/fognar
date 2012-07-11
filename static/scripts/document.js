@@ -8,14 +8,14 @@ Handlebars.registerHelper('user_name', function(uploader, options) {
     return cache.users.get_or_fetch(uploader).get('name');
 });
 
-Handlebars.registerHelper('stars', function(rating_average, options) {
-    var star = Math.round(rating_average);
+Handlebars.registerHelper('stars', function(context, options) {
+    var star = Math.round(context.rating_average);
     var ret = '<span class="rating">';
     for (var i=0; i<star; i++)
         ret = ret+'<i class="star-icon"></i>';
     for (var i=star; i<5; i++)
         ret = ret+'<i class="star-icon-gray"></i>';
-    return ret+'</span>';
+    return ret+context.rating_number+'</span>';
 });
 
 Handlebars.registerHelper('date', function(date, options) {
