@@ -56,10 +56,10 @@ class Command(BaseCommand):
         i1 = CourseInfo.objects.create(user=profile, 
                                        infos = """[
             {    name: "general", values: [
-                                        {name: 'Professeur', values:'B. Lecharlier'},
-                                        {name: 'Langue', values:'Francais'},
-                                        {name: 'Syllabus', values:'Informatique Ba1'},
-                                        {name: 'ECTS', values:'5'},
+                                        {name: 'Professeur', value:'B. Lecharlier'},
+                                        {name: 'Langue', value:'Francais'},
+                                        {name: 'Syllabus', value:'Informatique Ba1'},
+                                        {name: 'ECTS', value:'5'},
                                     ],
             },
         ]""")
@@ -68,10 +68,10 @@ class Command(BaseCommand):
                                        prev=i1,
                                        infos = """[
             {    name: "general", values: [
-                                        {name: 'Professeur', values:'B. Lecharlier'},
-                                        {name: 'Langue', values:'Francais'},
-                                        {name: 'Syllabus', values:'Informatique Ba1'},
-                                        {name: 'ECTS', values:'5'},
+                                        {name: 'Professeur', value:'B. Lecharlier'},
+                                        {name: 'Langue', value:'Francais'},
+                                        {name: 'Syllabus', value:'Informatique Ba1'},
+                                        {name: 'ECTS', value:'5'},
                                     ],
             },
             {    name: "exam", values: [
