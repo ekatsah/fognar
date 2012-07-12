@@ -74,8 +74,9 @@ applications.wiki = Backbone.View.extend({
         _.bindAll(this, 'render');
         this.type = params.type;
         this.context = params.context;
-        this.infos = new models.Wiki({id: this.context.get('id')});
-        this.infos.url = urls['wiki_bone_id'](this.context.get('infos'));
+        this.infos = new models.Wiki({id: 24});
+        this.infos.url = urls['wiki_bone_id'](24);
+        this.infos.attributes.courseId = 1;
         this.infos.parse = function(d) {
             d.infos = eval('(' + d.infos + ')');
             return d;

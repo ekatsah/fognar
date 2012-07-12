@@ -19,7 +19,7 @@ class wiki_bone(BackboneAPIView):
         if request.method=='POST':
             form = loads(request.raw_post_data)
             courseInfo = CourseInfo.objects.create(prev=CourseInfo.objects.get(pk=form['id']), user=request.user.get_profile(), infos=dumps(form['infos']))
-            Course.objects.filter(id=1).update(infos=courseInfo)
+            Course.objects.filter(pk=form['courseId']).update(infos=courseInfo)
             return 'OK'
         elif request.method=='GET':    
             return super(wiki_bone, self).dispatch(request, *args, **kwargs)
