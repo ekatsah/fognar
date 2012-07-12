@@ -180,11 +180,12 @@
 </script>
 
 <script id="tpl-course-document" type="text/x-handlebars-template">
-    <div id="title"><h2>Liste de document</h2></div>
-    <a href="#" id="upload">Upload</a>
-    <div class="toolbar">
-        <label for="sort-by">Trier par : </label>
-        <select id="sort-by">
+    <div id="new-document-toolbar">
+        <a id="upload" href="#" class="button">
+            <i class="upload-icon"></i>
+            Envoyer un nouveau document
+        </a>
+        <select class="ui-select" id="sort-by">
             <option value="name">Titre</option>
             <option value="uploader">Auteur</option>
             <option value="rating">Qualité</option>
@@ -192,13 +193,34 @@
             <option value="popularity">Popularité</option>
             <option value="date">Date de publication</option>
         </select>
+        <label>Trier par:</label
     </div>
-    <ul>
-    {{#each documents}}
-    <li><a href="#viewer/{{ this.id }}">{{this.name}}</a> by 
-        {{uploader_name this.uploader}} : {{ this.description }}</li>
-    {{/each}}
-    </ul>
+        {{#each documents}}
+        <div class="cf"></div>
+        <div id="document-feed">
+            <article>
+                <div>
+                    <img src="static/image/sample-document-preview.png" alt="" />
+                </div>
+                <div>
+                    <h3>
+                        <strong><a href="#">{{this.name}}</a></strong>
+                        <span class="title-date">Posté {{date this.date}}</span>
+                    </h3>
+                    <div>
+                        {{{stars this}}}
+                        <span class="doc-type">
+                            <i class="type-icon"></i>
+                            pdf
+                        </span>
+                    </div>
+                    <div class="doc-description">
+                        <p>{{this.description}}</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        {{/each}}
 </script>
 
 <script id="tpl-document-upload" type="text/x-handlebars-template">

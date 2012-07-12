@@ -2,11 +2,32 @@
 
 models.document = Backbone.Model.extend({urlRoot: '/document'});
 
-Handlebars.registerHelper('uploader_name', function(uploader, options) {
+Handlebars.registerHelper('user_name', function(uploader, options) {
     if (typeof uploader == 'undefined')
         return;
     return cache.users.get_or_fetch(uploader).get('name');
 });
+
+Handlebars.registerHelper('stars', function(context, options) {
+    var star = Math.round(context.rating_average);
+    var ret = '<span class="rating">';
+    for (var i=0; i<star; i++)
+        ret = ret+'<i class="star-icon"></i>';
+    for (var i=star; i<5; i++)
+        ret = ret+'<i class="star-icon-gray"></i>';
+    return ret+context.rating_number+'</span>';
+});
+
+Handlebars.registerHelper('date', function(date, options) {
+    var d = new Date(date);
+    var ellapsed = new Date().getTime()-d.getTime();
+    if(ellapsed<60000)
+        return 'il y a '+Math.round(ellapsed/1000)+' secondes';
+    else if(ellapsed<3600000)
+        return 'il y a '+Math.round(ellapsed/60000)+' minutes';
+    return 'le '+d;
+});
+
 
 applications.document = Backbone.View.extend({
     initialize: function(params) {

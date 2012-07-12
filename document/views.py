@@ -4,11 +4,12 @@ from config.json import json_send
 from django.utils.html import escape
 from django.shortcuts import get_object_or_404
 from document.models import Document, PendingDocument, Page
+from document.forms import UploadHttpForm, UploadFileForm, RateDocumentForm
 from django.contrib.contenttypes.models import ContentType
-from document.forms import UploadHttpForm, UploadFileForm
 from djangbone.views import BackboneAPIView
 from course.models import Course
 from group.models import Group
+from datetime import datetime
 from re import match
 
 def get_context(ctype, context):
@@ -31,8 +32,8 @@ class document_bone(BackboneAPIView):
 class document_typeid(BackboneAPIView):
     base_queryset = Document.objects.all()
     serialize_fields = ('id', 'name', 'description', 'uploader', "date",
-                        'rating_average', 'rating_lower_bound', 'view_number',
-                        'download_number')
+                        'rating_average', 'rating_lower_bound', 'rating_number',
+                        'view_number', 'download_number')
 
     def dispatch(self, request, *args, **kwargs):
         thing = get_context(kwargs.get('type', None), kwargs.get('cid', None))
@@ -64,7 +65,8 @@ def upload_file(request):
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
                                       uploader=request.user.get_profile(),
-                                      referer=thing)
+                                      referer=thing,
+                                      date=datetime.now())
         url = '/tmp/TMP402_%d.pdf' % doc.id
         tmp_doc = open(url, 'w')
         tmp_doc.write(request.FILES['xfile'].read())
@@ -83,7 +85,8 @@ def upload_http(request):
         doc = Document.objects.create(name=escape(data['filename']),
                                       description=escape(data['description']),
                                       uploader=request.user.get_profile(),
-                                      referer=thing)
+                                      referer=thing,
+                                      date=datetime.now())
         PendingDocument.objects.create(doc=doc, state="queued", url=data['url'])
         return '{"message": "ok"}'
     else:
@@ -91,7 +94,7 @@ def upload_http(request):
 
 @json_send
 def rate(request):
-    form = UploadHttpForm(request.POST)
+    form = RateDocumentForm(request.POST)
     if form.is_valid():
         did = form.cleaned_data['did'];
         star = form.cleaned_data['star']
@@ -106,12 +109,14 @@ def rate(request):
         #check first if the user already voted for that document, in that
         #case, remove his previous vote.
 
-        d.setattr('rating_' + str(star), d.getattr('rating_' + str(star)) + 1)
-        d.rating_average = d.computed_rating()
+        setattr(d, 'rating_' + str(star), getattr(d, 'rating_' + str(star)) + 1)
+        d.compute_rating()
         d.save()
         # check to see if MVC recommand to put this in a d.update_rating(params)
         # or something like that
         return '{"message": "rate succesful"}'
+    else:
+        return '{"message": "invalid form"}'
 
 
     
