@@ -675,8 +675,13 @@ hr {
     margin-bottom: 40px;
 }
 
-#wiki article ul li {
+#wiki article ul {
     margin-top: 20px;
+    overflow: hidden;
+}
+
+#wiki li {
+    margin-top: 4px;
     overflow: hidden;
 }
 
@@ -688,12 +693,38 @@ hr {
     float: left;
     min-height: 20px;
     color: #333;
+    padding: 3px;
 }
 
 .wiki-content {
-    width: 500px;
+    width: 473px;
     float: left;
     font-size: 14px;
     line-height: 20px;
     color: #666;
+    padding: 3px 10px 3px 10px;
+}
+
+.wiki-text {
+    width: 430px;
+    float: left;
+}
+
+.wiki-content:hover {
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.wiki-edit {
+    background-image: url('/static/image/edit.png');
+    width: 20px;
+    height: 20px;
+    margin: 0px 10px 0px 0px;
+    float: right;
+    display: none;
+    cursor: pointer;
+}
+
+.wiki-content:hover .wiki-edit {
+    display: inline;
 }

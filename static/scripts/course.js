@@ -67,14 +67,14 @@ applications.course = Backbone.View.extend({
         // FIXME check if mode is valid
         if (this.first || refresh) {
             this.first = false;
-            console.log("reprint course, => " + dump(this.course.toJSON()));
+
             if (this.sub_app != null) {
                 this.sub_app.undelegateEvents();
                 // FIXME remove app toussa
             }
             $(this.el).html(templates['tpl-course']({course: this.course.toJSON()}));
         }
-        console.log('this.mode = "' + this.mode + '" && mode = "' + mode + '" && refresh = ' + refresh);
+
         if (this.mode != mode || refresh) {
             $('a[data-app="' + this.mode + '"]').removeClass('nav-active');
             $('a[data-app="' + mode + '"]').addClass('nav-active');
@@ -83,7 +83,7 @@ applications.course = Backbone.View.extend({
                 this.sub_app.undelegateEvents();
                 // FIXME remove app toussa
             }
-            console.log(' -> reprint');
+
             this.sub_app = new applications[this.mode]({el: $('#course-content'),
                 router: this.router, context: this.course, type: 'course'});
         }
@@ -109,47 +109,14 @@ applications.wikicourse = Backbone.View.extend({
         this.render();
     },
 
-    update_after_add: function(key){
-        $("#"+key+"_container").html(templates['tpl-wiki-form']({form: this.wiki.get_form(key)}));
-    },
-
     events: {
-        'click .edit': function(e) {
-        	this.keyEditing = $(e.target).attr('data-target');
-        	$("#" + this.keyEditing + "_container").html(
-        	   templates['tpl-wiki-form']({
-        	       form: this.infos.get_form(this.keyEditing)
-        	   })
-        	);
-        	$(".edit").hide();
-        	$(".signal").hide();
-        },
-
-        'click .signal': function(e) {
-        	alert($(e.target).attr('data-target'));
-        },
-
-        'click #form_add_field': function() {
-        	$("#current_edition").append(templates['wiki-form-add']());
-        	$("#form_add_field").hide();
-        },
-
-        'click #wiki_form_add_submit': function() {
-            var name = $('#wiki_form_add_key').val();
-        	var value = $('#wiki_form_add_value').val();
-        	this.infos.form_push(name,value);
-			$("#" + this.keyEditing + "_container").html(
-			    templates['tpl-wiki-form']({
-			        form: this.infos.get_form(this.keyEditing)
-			    })
-			);
-        },
-
-        'click #form_confirm': function() {
-        	this.infos.id = null;
-        	this.infos.updateInfo()
-        	this.infos.save();
-        	$(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
+        'click .wiki-edit': function(e) {
+            var parent = e.target.parentElement;
+            var text = $(parent).children('.wiki-text');
+            var input = document.createElement('input');
+            $(input).val($(text).html());
+            $(text).remove();
+            $(parent).prepend(input);
         },
     },
 
