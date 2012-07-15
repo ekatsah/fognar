@@ -259,15 +259,6 @@
     </form>
 </script>
 
-<script id="tpl-course-wiki" type="text/x-handlebars-template">
-    <div id="title"><h2>Wiki cours</h2></div>
-    <ul>
-    {{#each infos.infos }}
-        <li><strong>{{ this.name }}</strong> : {{ this.value }}</li>
-    {{/each}}
-    </ul>
-</script>
-
 <script id="tpl-viewer" type="text/x-handlebars-template">
     <h1>{{ doc.name }}</h1>
     <p>{{ doc.description }}</p>
@@ -277,7 +268,6 @@
     {{/each}}
     </ul>
 </script>
-
 
 <script id="tpl-wiki" type="text/x-handlebars-template">
 		<div id="wiki_container">
