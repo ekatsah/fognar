@@ -6,7 +6,7 @@ models.course = Backbone.Model.extend({
 
 collections.course = Backbone.Collection.extend({
     initialize: function() {
-    	_.bindAl(this, 'get_or_fetch');
+    	_.bindAll(this, 'get_or_fetch');
     },
 
     model: models.course,
