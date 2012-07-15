@@ -45,6 +45,7 @@
                 slug: '{{ course.slug }}',
                 name: '{{ course.name }}',
                 description: '{{ course.description }}',
+                infos: {% if course.infos %}{{ course.infos.id }}{% else %}0{% endif %},
             }));
             {% endfor %}
         </script>

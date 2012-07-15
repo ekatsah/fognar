@@ -45,10 +45,11 @@ applications.course = Backbone.View.extend({
         this.router = params.router;
         this.router.navigate('/course/' + this.cid + '/' + init_mode, 
                              {trigger: false, replace: true});
-        this.course = new models.course({id: this.cid});
-        this.course.url = urls['course_bone_id'](this.cid);
-        this.course.on("change", function() { self.render(self.mode, true); });
-        this.course.fetch();
+        this.course = cache.course.get_or_fetch(this.cid);
+        //new models.course({id: this.cid});
+        //this.course.url = urls['course_bone_id'](this.cid);
+        //this.course.on("change", function() { self.render(self.mode, true); });
+        //this.course.fetch();
         this.render(init_mode);
     },
 
@@ -97,9 +98,8 @@ applications.wikicourse = Backbone.View.extend({
         _.bindAll(this, 'render');
         this.type = params.type;
         this.context = params.context;
-        this.infos = new Backbone.Model();
-        this.infos.set({id: this.context.get('infos')});
-        this.infos.url = urls['wiki_bone_id'];
+        this.infos = new Backbone.Model({id: this.context.get('infos')});
+        this.infos.url = urls['wiki_bone_id'](this.infos.get('id'));
         this.infos.parse = function(d) {
             d.infos = eval('(' + d.infos + ')');
             return d;
