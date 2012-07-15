@@ -1,10 +1,7 @@
  // Copyright 2012, Cercle Informatique. All rights reserved.
 
 models.user = Backbone.Model.extend({
-    initialize: function(params) {
-        console.log('new user model');
-    },
-    
+    initialize: function(params) {},
 });
 
 collections.users = Backbone.Collection.extend({
