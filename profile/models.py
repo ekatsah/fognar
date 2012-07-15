@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.db import models
 from utils import dont_create_a_superuser
-
+from json import loads
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
@@ -17,6 +17,18 @@ class Profile(models.Model):
     autostart = models.TextField(default="{sidebar: {}, navbar: {},}")
     desktop_config = models.TextField(default="")
 
+    def get_courses(self):
+        from course.models import Course
+        try:
+            config = loads(self.desktop_config)
+        except Exception as e:
+            print str(e)
+            raise Exception("mouh")
+        print str(config)
+        return [ Course.objects.get(pk=s['id'])
+                 for s in config['shortcuts']
+                 if s['app'] == 'course' ]
+                
 class Inscription(models.Model):
     user = models.ForeignKey(Profile)
     section = models.CharField(max_length=80, null=True)

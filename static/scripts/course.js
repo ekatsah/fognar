@@ -4,6 +4,31 @@ models.course = Backbone.Model.extend({
     initialize: function(params) {},
 });
 
+collections.course = Backbone.Collection.extend({
+    initialize: function() {
+    	_.bindAl(this, 'get_or_fetch');
+    },
+
+    model: models.course,
+    url: urls['course_bone'],
+
+    get_or_fetch: function(cid) {
+        var ret = this.get(cid);
+        var self = this;
+        if (ret == undefined) {
+            this.add({id: cid});
+            this.get(cid).fetch({success: function() {
+                self.trigger('fetched');
+            }});
+            return this.get(0);
+        }
+        return ret;
+    }
+});
+
+cache.course = new collections.course();
+
+
 applications.course = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
