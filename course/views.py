@@ -2,8 +2,9 @@
 
 from config.json import json_send
 from djangbone.views import BackboneAPIView
+from django.shortcuts import get_object_or_404
 from course.models import Course, CourseInfo
-from json import loads,dumps
+from json import loads, dumps
 
 class course_bone(BackboneAPIView):
     base_queryset = Course.objects.all()
@@ -16,10 +17,15 @@ class wiki_bone(BackboneAPIView):
     @json_send
     def dispatch(self, request, *args, **kwargs):
         if request.method=='POST':
+            # FIXME what if corrupted?
             form = loads(request.raw_post_data)
-            courseInfo = CourseInfo.objects.create(prev=CourseInfo.objects.get(pk=form['id']), user=request.user.get_profile(), infos=dumps(form['infos']))
-            Course.objects.filter(pk=form['courseId']).update(infos=courseInfo)
+            info = get_object_or_404(CourseInfo, pk=form['id'])
+            newinfo = CourseInfo.objects.create(prev=info, 
+                                                user=request.user.get_profile(), 
+                                                infos=dumps(form['infos']))
+            # WTF!?!?!? 
+            Course.objects.filter(pk=form['courseId']).update(infos=newinfo)
+            # 2° WTF?? a function whom return json or text?? 
             return 'OK'
         elif request.method=='GET':    
             return super(wiki_bone, self).dispatch(request, *args, **kwargs)
-
