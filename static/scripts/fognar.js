@@ -5,6 +5,14 @@ var models = {};
 var collections = {};
 var cache = {};
 
+Handlebars.registerHelper('get_name', function(item, options) {
+    console.log(item);
+    if (item.app == 'course')
+        return cache.course.get_or_fetch(item.id).get('name');
+    else
+        return item.app + ' #' + item.id;
+});
+
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
         $(this.el).prepend(templates['tpl-navbar']({
