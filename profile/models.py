@@ -19,12 +19,7 @@ class Profile(models.Model):
 
     def get_courses(self):
         from course.models import Course
-        try:
-            config = loads(self.desktop_config)
-        except Exception as e:
-            print str(e)
-            raise Exception("mouh")
-        print str(config)
+        config = loads(self.desktop_config)
         return [ Course.objects.get(pk=s['id'])
                  for s in config['shortcuts']
                  if s['app'] == 'course' ]
