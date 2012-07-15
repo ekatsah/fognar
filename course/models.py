@@ -10,6 +10,7 @@ class Course(models.Model):
     description = models.TextField(null=True)
     infos = models.ForeignKey('CourseInfo', null=True)
 
+
 class CourseInfo(models.Model):
     user = models.ForeignKey(Profile)
     infos = models.TextField()
