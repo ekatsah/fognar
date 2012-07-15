@@ -86,7 +86,7 @@ applications.wiki = Backbone.View.extend({
         this.infos.fetch();
         this.render();
     },
-    
+
     update_after_add: function(key){
         $("#"+key+"_container").html(templates['tpl-wiki-form']({form: this.wiki.get_form(key)}));
     },
@@ -94,27 +94,35 @@ applications.wiki = Backbone.View.extend({
     events: {
         'click .edit': function(e) {
         	this.keyEditing = $(e.target).attr('data-target');
-        	$("#"+this.keyEditing+"_container").html(templates['tpl-wiki-form']({form: this.infos.get_form(this.keyEditing)}));
+        	$("#" + this.keyEditing + "_container").html(
+        	   templates['tpl-wiki-form']({
+        	       form: this.infos.get_form(this.keyEditing)
+        	   })
+        	);
         	$(".edit").hide();
         	$(".signal").hide();
         },
-        
+
         'click .signal': function(e) {
         	alert($(e.target).attr('data-target'));
         },
-        
+
         'click #form_add_field': function() {
         	$("#current_edition").append(templates['wiki-form-add']());
         	$("#form_add_field").hide();
         },
-        
+
         'click #wiki_form_add_submit': function() {
-        	var name = $('#wiki_form_add_key').val();
+            var name = $('#wiki_form_add_key').val();
         	var value = $('#wiki_form_add_value').val();
         	this.infos.form_push(name,value);
-			$("#"+this.keyEditing+"_container").html(templates['tpl-wiki-form']({form: this.infos.get_form(this.keyEditing)}));
+			$("#" + this.keyEditing + "_container").html(
+			    templates['tpl-wiki-form']({
+			        form: this.infos.get_form(this.keyEditing)
+			    })
+			);
         },
-        
+
         'click #form_confirm': function() {
         	this.infos.id = null;
         	this.infos.updateInfo()
