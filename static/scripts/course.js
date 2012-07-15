@@ -94,7 +94,7 @@ models.Wiki = Backbone.Model.extend({
     close: function(){},
 });
 
-applications.wiki = Backbone.View.extend({
+applications.wikicourse = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.type = params.type;
