@@ -22,6 +22,7 @@ for url in urls:
 urls = {
     'application': 'zoidberg',
     'auth_entry': function(a) { return 'auth/' + a; },
+    'course_bone': 'course/',
     'course_bone_id': function(a) { return 'course/' + a; },
     'document_bone': 'document/d/',
     'document_bone_id': function(a) { return 'document/d/' + a; },
