@@ -25,7 +25,7 @@ class wiki_bone(BackboneAPIView):
                                                 infos=dumps(form['infos']))
             # WTF!?!?!? 
             Course.objects.filter(pk=form['courseId']).update(infos=newinfo)
-            # 2° WTF?? a function whom return json or text?? 
+            # 2eme WTF?? a function whom return json or text?? 
             return 'OK'
         elif request.method=='GET':    
             return super(wiki_bone, self).dispatch(request, *args, **kwargs)
