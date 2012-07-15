@@ -728,3 +728,14 @@ hr {
 .wiki-content:hover .wiki-edit {
     display: inline;
 }
+
+#wiki-save {
+    background-image: url("/static/image/publish-icon.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin: 10px 0px 10px 0px;
+    padding-left: 30px;
+    padding-right: 10px;
+    display: none;
+    width: 95px;
+}

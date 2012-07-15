@@ -114,9 +114,21 @@ applications.wikicourse = Backbone.View.extend({
             var parent = e.target.parentElement;
             var text = $(parent).children('.wiki-text');
             var input = document.createElement('input');
-            $(input).val($(text).html());
+            $(input).addClass('wiki-input').val($(text).html());
             $(text).remove();
             $(parent).prepend(input);
+        },
+
+        'keypress .wiki-input': function(e) {
+            if ((e.keyCode ? e.keyCode : e.which) == 13) {
+                var text = $(e.target).val();
+                var parent = e.target.parentElement;
+                var div = document.createElement('div');
+                $(div).addClass('wiki-text').html(text);
+                $(e.target).remove();
+                $(parent).prepend(div);
+                $('#wiki-save').css('display', 'block');
+            }
         },
     },
 
