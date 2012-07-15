@@ -3,7 +3,6 @@
 from config.json import json_send
 from djangbone.views import BackboneAPIView
 from course.models import Course, CourseInfo
-from course.forms import courseF,courseInfosF
 from json import loads,dumps
 
 class course_bone(BackboneAPIView):
