@@ -2,7 +2,7 @@
 
 from django.conf.urls.defaults import patterns, url
 from config.authentification import stop_anon
-from course.views import course_bone,wiki_bone
+from course.views import course_bone, wiki_bone
 
 urlpatterns = patterns('',
     url(r'^(?P<id>\d+)$', 
