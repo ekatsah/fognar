@@ -36,10 +36,35 @@ applications.course = Backbone.View.extend({
             return false;
         },
     },
-    
-    render: function() {
-        $(this.el).html(templates['tpl-desk-course']({slug: this.slug}));
+
+    render: function(mode, refresh) {
+        // FIXME check if mode is valid
+        if (this.first || refresh) {
+            this.first = false;
+            console.log("reprint course, => " + dump(this.course.toJSON()));
+            if (this.sub_app != null) {
+                this.sub_app.undelegateEvents();
+                // FIXME remove app toussa
+            }
+            $(this.el).html(templates['tpl-course']({course: this.course.toJSON()}));
+        }
+        console.log('this.mode = "' + this.mode + '" && mode = "' + mode + '" && refresh = ' + refresh);
+        if (this.mode != mode || refresh) {
+            $('a[data-app="' + this.mode + '"]').removeClass('nav-active');
+            $('a[data-app="' + mode + '"]').addClass('nav-active');
+            this.mode = mode;
+            if (this.sub_app != null) {
+                this.sub_app.undelegateEvents();
+                // FIXME remove app toussa
+            }
+            console.log(' -> reprint');
+            this.sub_app = new applications[this.mode]({el: $('#course-content'),
+                router: this.router, context: this.course, type: 'course'});
+        }
+        return this;
     },
+
+    close: function() {},
 });
 
 models.Wiki = Backbone.Model.extend({
