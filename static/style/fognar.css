@@ -656,3 +656,44 @@ i.type-icon {
     margin-top: 10px;
 }
 
+#wiki {
+    margin-top: 20px;
+}
+
+#wiki h2 {
+    height: 20px;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: #ddd;
+    margin: 0;
+}
+
+#wiki article {
+    margin-bottom: 40px;
+}
+
+#wiki article ul li {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.wiki-label {
+    width: 140px;
+    margin-right: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    min-height: 20px;
+    color: #333;
+}
+
+.wiki-content {
+    width: 500px;
+    float: left;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+}

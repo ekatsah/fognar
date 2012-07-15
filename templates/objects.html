@@ -270,19 +270,23 @@
 </script>
 
 <script id="tpl-wiki" type="text/x-handlebars-template">
-		<div id="wiki_container">
-			{{#each wiki.infos}}
-				<br/>
-				<h2 ><b>{{this.name}}</b></h2>
-				<div class="edit" data-target="{{this.name}}">Edit</div><div class="signal" data-target="{{this.name}}">Signal</div><hr/>
-				<ul id="{{this.name}}_container">
-				{{#each this.values}}
-					<li class="{{this.name}}"><b>{{this.name}}:</b> {{this.value}}<br/></li>
-				{{/each}}
-				</ul>
-			{{/each}}
-		</div>
-		last edit by {{wiki.user__name}}
+<div id="wiki">
+    {{#each wiki.infos}}
+    <article>
+        <h2>{{this.name}}</h2>
+        <hr/>
+        <ul>
+            {{#each this.values}}
+            <li>
+                <div class="wiki-label">{{this.name}}</div>
+                <div class="wiki-content">{{this.value}}</div>
+            </li>
+            {{/each}}
+        </ul>
+    </article>
+    {{/each}}
+    last edit by {{wiki.user__name}}
+</div>
 </script>
 
 <script id="tpl-wiki-form" type="text/x-handlebars-template">
