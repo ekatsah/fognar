@@ -67,47 +67,19 @@ applications.course = Backbone.View.extend({
     close: function() {},
 });
 
-models.Wiki = Backbone.Model.extend({
-	initialize: function(id) {
-		console.log('init model wiki');
-		console.log(id)
-    },
-    
-    get_form: function(key){
-        for(i=0; (i<this.attributes.infos.length)&&(this.attributes.infos[i]['name']!=key); i++);
-        this.currentEditing = i;
-        return this.attributes.infos[i]['values'];
-    },
-    
-    form_push: function(fname,fvalue){
-    	this.attributes.infos[this.currentEditing]['values'].push({name: fname, value: fvalue});
-    },
-    
-    
-    updateInfo: function(){
-    	var current = this.attributes.infos[this.currentEditing]['values'];
-    	for(i=0; i<current.length; i++)
-    		current[i]['value'] = $('#current_edition .form_'+current[i]['name']).val();
-    	this.attributes.infos[this.currentEditing]['values'] = current;
-    },
-    
-    close: function(){},
-});
-
 applications.wikicourse = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.type = params.type;
         this.context = params.context;
-        this.infos = new models.Wiki({id: 24});
-        this.infos.url = urls['wiki_bone_id'](24);
-        this.infos.attributes.courseId = 1;
+        this.infos = new Backbone.Model();
+        this.infos.set({id: this.context.get('infos')});
+        this.infos.url = urls['wiki_bone_id'];
         this.infos.parse = function(d) {
             d.infos = eval('(' + d.infos + ')');
             return d;
         };
         this.infos.on("change", this.render);
-        console.log(this);
         this.infos.fetch();
         this.render();
     },
@@ -155,7 +127,8 @@ applications.wikicourse = Backbone.View.extend({
         	$(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
         },
     },
-    render: function(mode, refresh) {
+
+    render: function() {
         $(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
 		return this;
     },
