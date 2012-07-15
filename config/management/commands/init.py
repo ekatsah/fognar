@@ -88,14 +88,14 @@ class Command(BaseCommand):
                                   description='Youplaboom')
 
         profile.desktop_config = """ {
-            shortcuts: [ 
-                {app: 'course', id: %d},
-                {app: 'course', id: %d},
-                {app: 'course', id: %d},
-                {app: 'course', id: %d},
-                {app: 'group', id: %d},
-                {app: 'group', id: %d},
-            ],
+            "shortcuts": [ 
+                {"app": "course", "id": %d},
+                {"app": "course", "id": %d},
+                {"app": "course", "id": %d},
+                {"app": "course", "id": %d},
+                {"app": "group", "id": %d},
+                {"app": "group", "id": %d}
+            ]
         }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id)
         profile.save()
 

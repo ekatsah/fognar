@@ -38,6 +38,15 @@
             });
 
             cache.users.add(window.profile);
+
+            {% for course in user.get_profile.get_courses %}
+            cache.course.add(new models.course({
+                id: {{ course.id }},
+                slug: '{{ course.slug }}',
+                name: '{{ course.name }}',
+                description: '{{ course.description }}',
+            }));
+            {% endfor %}
         </script>
     </head>
 
