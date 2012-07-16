@@ -111,7 +111,7 @@ applications.wikicourse = Backbone.View.extend({
 
     events: {
         'click .wiki-edit': function(e) {
-            var parent = e.target.parentElement;
+            var parent = e.target.parentNode;
             var text = $(parent).children('.wiki-text');
             var input = document.createElement('input');
             $(input).addClass('wiki-input').val($(text).html());
@@ -122,7 +122,7 @@ applications.wikicourse = Backbone.View.extend({
         'keypress .wiki-input': function(e) {
             if ((e.keyCode ? e.keyCode : e.which) == 13) {
                 var text = $(e.target).val();
-                var parent = e.target.parentElement;
+                var parent = e.target.parentNode;
                 var div = document.createElement('div');
                 $(div).addClass('wiki-text').html(text);
                 $(e.target).remove();
