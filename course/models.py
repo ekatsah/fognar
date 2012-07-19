@@ -3,7 +3,6 @@
 from django.db import models
 from profile.models import Profile
 
-
 class Course(models.Model):
     slug = models.SlugField()
     name = models.CharField(max_length=100)

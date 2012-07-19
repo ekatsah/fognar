@@ -130,9 +130,28 @@ applications.wikicourse = Backbone.View.extend({
                 $('#wiki-save').css('display', 'block');
             }
         },
+
+        'click #wiki-save': function(e) {
+            var new_info = Array();
+            $('#wiki article').each(function(idx, elt) {
+                var values = Array();
+                $(elt).children('ul').children('li').each(function(idx, elt) {
+                    values.push({
+                        name: $(elt).children('.wiki-label').html(),
+                        value: $(elt).children('.wiki-content').children('.wiki-text').html()
+                    });
+                });
+                new_info.push({
+                    name: $(elt).children('h2').html(),
+                    values: values,
+                });
+            });
+            this.infos.save({infos: new_info});
+        },
     },
 
     render: function() {
+        this.context.set({infos: this.infos.get('id')}, {silent: true});
         $(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
 		return this;
     },
