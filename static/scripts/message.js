@@ -6,11 +6,11 @@ models.thread = Backbone.Model.extend({
 //        this.context = params.context;
     },
 
-    url: urls['thread_bone_id'],
+    url: urls['thread_bone'],
 });
 
 models.message = Backbone.Model.extend({
-    url: urls['message_bone_id'],
+    urlRoot: urls['message_bone'],
 });
 
 applications.thread = Backbone.View.extend({
@@ -30,7 +30,7 @@ applications.thread = Backbone.View.extend({
             var self = this;
             var thread = new models.thread({
                 subject: 'wazup?',
-                body: 'lorem ispum',
+                text: 'lorem ispum',
                 type: self.type,
                 context: self.context.get('id'),
             });

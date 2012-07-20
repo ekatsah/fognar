@@ -1,6 +1,5 @@
 # Copyright 2012, Cercle Informatique. All rights reserved.
 
-from django.utils.html import escape
 from django.shortcuts import get_object_or_404
 from message.models import Thread, Message
 from django.contrib.contenttypes.models import ContentType
@@ -17,11 +16,12 @@ def get_context(ctype, context):
         # Force 404
         return get_object_or_404(Group, id="-1")
 
+from message.forms import NewThreadForm
 
 class thread_bone(BackboneAPIView):
     base_queryset = Thread.objects.all()
     serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content')
-
+    add_form_class = NewThreadForm
 
 class thread_typeid(BackboneAPIView):
     base_queryset = Thread.objects.all()
