@@ -243,7 +243,7 @@ h3 strong {
 }
 
 .button {
-	background-color: #b22;
+	background-color: #999;
 	color: #fff;
 	display: block;
 	padding: 8px 0;
@@ -251,14 +251,13 @@ h3 strong {
 	font-weight: bold;
 	line-height: 12px;
 	text-align: center;
-	border: 1px solid #a81f1f;
 	border-radius: 2px;
-	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, .15);
+	border: none;
 	cursor: pointer;
 }
 
 .button:hover {
-	background-color: #d22;
+	background-color: #b22;
 	color: #fff;
 }
 
@@ -303,6 +302,10 @@ i.discuss-icon {
 	width: 475px;
 	margin-left: 15px;
 	line-height: 18px;
+}
+
+.comment-box-large ul li > div:nth-child(2) {
+	width: 595px;
 }
 
 .comment-box h4 {
@@ -530,4 +533,79 @@ hr {
 	font-size: 14px;
 	line-height: 20px;
 	color: #666;
+}
+
+.wiki-actions {
+	float: right;
+	font-size: 12px;
+}
+
+.wiki-actions a {
+	margin-right: 10px;
+}
+
+
+.wiki-actions a:last-child {
+	margin-right: 0;
+}
+
+i.edit-icon {
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	background: url("../img/edit-icon.png");
+	vertical-align: top;
+}
+
+i.danger-icon {
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	background: url("../img/danger-icon.png");
+	vertical-align: top;
+}
+
+/* ------------ Module Associations ---------------- */
+#news-feed {
+	margin-top: 20px;
+}
+
+#news-feed > div {
+	margin: 20px 0;
+}
+
+#news-feed p {
+	margin-top: 10px;
+	font-size: 13px;
+	line-height: 18px;
+}
+
+#news-feed article {
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 20px;
+	padding-bottom: 10px; 
+}
+
+.inline-separator {
+	display: inline-block;
+	color: #b22;
+	margin: 0 4px;
+}
+
+#members {
+	margin-top: 20px;
+}
+
+#members li {
+	float: left;
+	margin-right: 30px;
+	width: 100px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#members li img {
+	display: block;
+	margin-bottom: 5px;
 }
