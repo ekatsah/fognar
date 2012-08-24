@@ -616,3 +616,11 @@ i.danger-icon {
 	font-style: normal;
 	font-weight: normal;
 }
+
+#contact-form {
+	margin-top: 15px;
+}
+
+#contact-form p {
+	margin: 10px 0;
+}
