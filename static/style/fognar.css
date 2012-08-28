@@ -91,7 +91,7 @@ header {
     height: 20px;
     margin-top: 10px;
     border-radius: 2px;
-    background: #fff url("../img/search-icon.png") left no-repeat;
+    background: #fff url("../image/search-icon.png") left no-repeat;
     padding-left: 20px;
 }
 
@@ -105,20 +105,20 @@ header {
 }
 
 i.person-icon {
-    background: url("../img/person-icon.png");
+    background: url("../image/person-icon.png");
     width: 11px; height: 11px;
     display: inline-block;
     margin-right: 4px;
 }
 
 i.ticker-icon {
-    background: url("../img/ticker-icon.png");
+    background: url("../image/ticker-icon.png");
     width: 9px; height: 6px;
     display: inline-block;
 }
 
 i.course-icon-large {
-    background: url("../img/course-icon-large.png");
+    background: url("../image/course-icon-large.png");
     display: inline-block;
     width: 22px; height: 20px;
     margin-right: 2px;
@@ -237,7 +237,7 @@ h3 strong {
 }
 
 .tag-wrapper {
-    background: #b22 url("../img/tag-icon.png") left center no-repeat;
+    background: #b22 url("../image/tag-icon.png") left center no-repeat;
     border-radius: 2px;
     color: #fff;
     font-size: 12px;
@@ -291,7 +291,7 @@ h3 strong {
 }
 
 i.discuss-icon {
-    background: url("../img/discuss-icon.png") no-repeat;
+    background: url("../image/discuss-icon.png") no-repeat;
     display: inline-block;
     width: 15px;
     height: 13px;
@@ -385,7 +385,7 @@ textarea {
 .publish-comment {
     padding-right: 10px;
     padding-left: 30px;
-    background-image: url("../img/publish-icon.png");
+    background-image: url("../image/publish-icon.png");
     background-repeat: no-repeat;
     background-position: left center;
     float: right;
@@ -406,7 +406,7 @@ textarea {
 }
 
 .ui-select {
-    background: url("../img/select.png") no-repeat top right #fff;
+    background: url("../image/select.png") no-repeat top right #fff;
     overflow: hidden;
     height: 30px;
     color: #666;
@@ -429,7 +429,7 @@ textarea {
 
 /* -- Documents Page -- */
 i.upload-icon {
-    background: url("../img/upload-icon.png");
+    background: url("../image/upload-icon.png");
     width: 13px; height: 13px;
     margin-right: 5px;
     display: inline-block;
@@ -487,19 +487,19 @@ i.upload-icon {
 }
 
 i.star-icon {
-    background: url("../img/star-icon.png") no-repeat;
+    background: url("../image/star-icon.png") no-repeat;
     width: 12px; height: 12px;
     display: inline-block;
 }
 
 i.star-icon-gray {
-    background: url("../img/star-icon-gray.png") no-repeat;
+    background: url("../image/star-icon-gray.png") no-repeat;
     width: 12px; height: 12px;
     display: inline-block;
 }
 
 i.type-icon {
-    background: url("../img/type-icon.png") no-repeat;
+    background: url("../image/type-icon.png") no-repeat;
     width: 12px; height: 12px;
     display: inline-block;
 }
@@ -578,7 +578,7 @@ i.edit-icon {
     width: 12px;
     height: 12px;
     display: inline-block;
-    background: url("../img/edit-icon.png");
+    background: url("../image/edit-icon.png");
     vertical-align: top;
 }
 
@@ -586,7 +586,7 @@ i.danger-icon {
     width: 12px;
     height: 12px;
     display: inline-block;
-    background: url("../img/danger-icon.png");
+    background: url("../image/danger-icon.png");
     vertical-align: top;
 }
 
