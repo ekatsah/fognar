@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Select POC</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+function set_select() {
+	var title = $(this).attr('title');
+	if($('option:selected', this).val() != ''  )
+		title = $('option:selected',this).text();
+	$(this).css({'z-index':10,'opacity':0,'-khtml-appearance':'none'});
+	$(this).after('<span class="select">' + title + '</span>');
+	$(this).change(function() {
+		val = $('option:selected',this).text();
+		$(this).next().text(val);
+	})
+}
+
+$(document).ready(function(){	
+	if (!$.browser.opera)
+		$('select.select').each(set_select);
+});
+</script>
+
+<style>
+	form div {
+		position:relative;
+	} 
+
+	select.select {
+		position: relative;
+		z-index: 10;
+		width: 166px;
+		height: 26px;
+		line-height: 26px;
+	}
+
+	span.select {
+		position: absolute;
+		bottom: 0;
+		float: left;
+		left: 0;
+		width: 166px;
+		height: 26px;
+		line-height: 26px;
+		text-indent: 10px;
+		background: url("bg_select.gif") no-repeat 0 0;
+		cursor: default;
+		z-index: 1;
+	}
+</style>
+</head>
+
+<body>
+    <form method="post" action="">  
+        <div>
+            <select class="select" title="Select one">
+            	<option></option>
+                <option>Blue</option>
+                <option>Red</option>
+                <option>Green</option>
+                <option>Yellow</option>
+                <option>Brown</option>
+            </select>
+	</div>
+    </form>
+</body>
+</html>
