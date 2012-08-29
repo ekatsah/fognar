@@ -15,7 +15,7 @@ Handlebars.registerHelper('stars', function(context, options) {
         ret = ret+'<i class="star-icon"></i>';
     for (var i=star; i<5; i++)
         ret = ret+'<i class="star-icon-gray"></i>';
-    return ret+context.rating_number+'</span>';
+    return ret+' '+context.rating_number+'</span>';
 });
 
 Handlebars.registerHelper('date', function(date, options) {
