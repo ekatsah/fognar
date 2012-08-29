@@ -189,7 +189,151 @@ h2 {
 }
 
 #filter-toolbar {
-    margin: 10px 0;
+    margin: 10px 0px;
+}
+
+#dashboard {
+    margin-top: 20px;
+}
+
+#dashboard li {
+    font-size: 16px;
+    font-weight: bold;
+    background: #eee;
+    width: 130px;
+    height: 100px;
+    display: block;
+    padding: 10px;
+    box-shadow: inset 0px 0px 0px 1px #d6d6d6;
+    border-radius: 2px;
+    margin: 20px 0 0 20px;
+    position: relative;
+    float: left;
+    cursor: pointer;
+}
+
+#dashboard li p {
+    position: absolute;
+    bottom: 10px;
+}
+
+#dashboard li:nth-child(4n+1) {
+    margin-left: 0;
+}
+
+#dashboard li.dashboard-course {
+    background: #eee url("/static/image/course-icon.png") top left no-repeat;
+}
+
+#dashboard li.dashboard-folder {
+    background: #eee url("/static/image/folder-icon.png") top left no-repeat;
+}
+
+#dashboard li.dashboard-preference {
+    background: #eee url("/static/image/prefs-icon.png") top left no-repeat;
+}
+
+#dashboard li.dashboard-add {
+    background: #eee url("/static/image/add-icon.png") top left no-repeat;
+}
+
+.dashboard-notif {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    border-radius: 10px;
+    background: #b22;
+    padding: 2px 6px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+#upload_frame {
+    width: 0px;
+    height: 0px;
+    border: none;
+    display: none;
+}
+
+.side-toolbar {
+    width: 400px;
+    background: #fff;
+    -webkit-box-shadow:  -3px 0px 0px 0px rgba(0, 0, 0, .2);
+        box-shadow:  -3px 0px 0px 0px rgba(0, 0, 0, .2);
+    height: 100%;
+    position: absolute;
+    top: 0; left: 100%;
+    -webkit-transition: margin-left 300ms ease-in-out;
+    -moz-transition: margin-left 300ms ease-in-out;
+    -ms-transition: margin-left 300ms ease-in-out;
+    -o-transition: margin-left 300ms ease-in-out;
+    transition: margin-left 300ms ease-in-out;
+    margin-left: 3px;
+    z-index: 2;
+}
+
+#sidebar-inner {
+    margin: 10px;
+}
+
+#sidebar-inner hr {
+    border: none;
+    background-color: #ddd;
+    height: 1px;
+    margin: 14px -10px 14px -10px;
+}
+
+#sidebar-inner td {
+    vertical-align: middle;
+    padding: 4px;
+}
+
+#sidebar-inner h1 {
+    font-size: 14px;
+    margin: 5px 3px 10px 3px;
+}
+
+#sidebar-inner input,textarea {
+    border: 1px solid #d88;
+    border-radius: 3px;
+    min-width: 200px;
+    padding: 2px;
+    box-shadow:  1px 1px 1px #ddd;
+}
+
+#sidebar-inner input[type='submit'], input[type='button'] {
+    background-color: #f3eeee;
+    min-width: 0px;
+    padding: 4px 7px 3px 7px;
+    margin: 4px;
+}
+
+#upload_message {
+    font-weight: bold;
+    font-style: italic;
+    margin: 5px 0px 5px 0px;
+}
+.side-toolbar-opened {
+    margin-left: -400px;
+}
+
+.backdrop {
+    width: 100%; height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1;
+    -webkit-transition: opacity 300ms ease-in-out;
+    -moz-transition: opacity 300ms ease-in-out;
+    -ms-transition: opacity 300ms ease-in-out;
+    -o-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+}
+
+.backdrop-hidden {
+    opacity: 0;
+>>>>>>> origin/radical
 }
 
 /* --- Conversation Feed --- */
