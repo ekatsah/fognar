@@ -12,6 +12,7 @@ class NewThreadForm(ModelForm):
 
     def save(self):
         # we need a better mecanism
+        print "save"
         thing = get_context(self.data['type'], self.data['context'])
         thread = Thread.objects.create(subject=escape(self.data['subject']),
                                        user=self.user, referer=thing)
@@ -21,6 +22,6 @@ class NewThreadForm(ModelForm):
 
     def is_valid(self):
         for f in ['text', 'subject', 'type', 'context']:
-            if len(self.data.get(f, '')) == 0:
+            if len(str(self.data.get(f, ''))) == 0:
                 return False
         return True

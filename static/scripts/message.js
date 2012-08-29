@@ -20,7 +20,7 @@ applications.thread = Backbone.View.extend({
         this.context = params.context;
         this.threads = new Backbone.Collection({model: models.thread});
         this.threads.url = urls['thread_bone_type_id'](this.type, this.context.get('id'));
-        this.threads.bind('all', this.render);
+        this.threads.bind('add', this.render);
         this.threads.fetch();
         this.render();
     },
@@ -34,17 +34,17 @@ applications.thread = Backbone.View.extend({
                 type: self.type,
                 context: self.context.get('id'),
             });
-            console.log(thread.isNew());
-            thread.save();
-            //this.threads.add(thread);
+            //thread.save();
+            this.threads.add(thread);
             return false;
         },
     },
 
     render: function() {
-        console.log("thread render");
+        console.log("thread render " + dump(this.threads.toJSON()[0]));
         $(this.el).html(templates['tpl-course-thread']({
             context: this.context.toJSON(),
+            threads: this.threads.toJSON(),
         }));
         return this;
     },

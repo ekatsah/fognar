@@ -20,12 +20,12 @@ from message.forms import NewThreadForm
 
 class thread_bone(BackboneAPIView):
     base_queryset = Thread.objects.all()
-    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content')
+    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message_set')
     add_form_class = NewThreadForm
 
 class thread_typeid(BackboneAPIView):
     base_queryset = Thread.objects.all()
-    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content')
+    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message_set')
 
     def dispatch(self, request, *args, **kwargs):
         thing = get_context(kwargs.get('type', None), kwargs.get('xid', -1))
