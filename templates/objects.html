@@ -318,3 +318,136 @@
 
 <script id="tpl-desk-course" type="text/x-handlebars-template">
 </script>
+
+<script id="tpl-associations-contact" type="text/x-handlebars-template">
+    <div id="main-sided-wrapper">
+        <h1>
+            {{ assoc.name }}
+        </h1>
+        <div id="contact-form">
+            <p>
+                Le formulaire ci-dessous vous permet de contacter les responsables :
+            </p>
+            <form action="#" method="post">
+                <textarea placeholder="Votre message ..."></textarea>
+                <input class="button publish-comment" type="submit" value="Envoyer le message" />
+            </form>
+        </div>
+    </div>
+    <div id="large-sidebar-wrapper">
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-active">Actualités</a>
+            <a href="#">Page Statique</a>
+            <a href="#">Page Statique</a>
+            <a href="#">Membres</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+</script>
+
+<script id="tpl-associations-membres" type="text/x-handlebars-template">
+    <div id="main-sided-wrapper">
+        <h1>
+            {{ assoc.name }}
+        </h1>
+        <ul id="members">
+            {{#each member}}
+                <li>
+                    <img src="{{ this.avatar }}" alt="" />
+                    {{ this.name }}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div id="large-sidebar-wrapper">
+        <nav class="sidebar-nav">
+            <a href="#">Actualités</a>
+            <a href="#">Page Statique</a>
+            <a href="#">Page Statique</a>
+            <a href="#" class="nav-active">Membres</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+</script>
+
+<script id="tpl-associations-filactu" type="text/x-handlebars-template">
+    <div id="main-sided-wrapper">
+        <h1>
+            {{ assoc.name }}
+        </h1>
+        <div id="news-feed">
+            {{#each article}}
+                <article>
+                    <h3>
+                        <strong>
+                            <a href="#">{{ this.title }}</a> 
+                        </strong>
+                        <span class="title-date">{{date this.date }}</span>
+                    </h3>
+                    <div>
+                        {{ this.content }}
+                    </div>
+
+                    <div class="doc-feed-actions">
+                        <a href="#">J'aime</a>
+                        <span class="inline-counter">{{ this.likes }}</span>
+                        <span class="inline-separator">-</span>
+                        <a href="#">Partager</a>
+                    </div>
+
+                    <div class="comment-box comment-box-large">
+                            <a href="#" class="button">
+                                <i class="discuss-icon"></i>
+                                Afficher tous les commentaires
+                            </a>
+
+                            <ul>
+                                {{#each this.comment}}
+                                    <li>
+                                        <div>
+                                            <a href="#">
+                                                <img src="{{ this.avatar }}" alt="" />
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <h4>
+                                                <a href="#">{{ this.user.name }}</a>
+                                                <span class="title-date">{{date this.date }}</a>
+                                            </h4>
+                                            {{ this.content }}
+                                            <p class="comment-actions">
+                                                <a href="#">J'aime</a>
+                                                <span class="inline-counter">{{ this.likes }}</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                {{/each}}
+                                <li>
+                                    <div>
+                                        <a href="#">
+                                            <img src="{{ avatar }}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <form action="#">
+                                            <textarea class="comment-textarea" placeholder="Réagissez ..."></textarea>
+                                            <input type="submit" value="Publier" class="button publish-comment"></input>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                </article>
+            {{/each}}
+        </div>
+    </div>
+    <div id="large-sidebar-wrapper">
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-active">Actualités</a>
+            <a href="#">Page Statique</a>
+            <a href="#">Page Statique</a>
+            <a href="#">Membres</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+</script>
