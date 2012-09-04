@@ -20,7 +20,7 @@ from message.forms import NewThreadForm
 
 class thread_bone(BackboneAPIView):
     base_queryset = Thread.objects.all()
-    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message_set')
+    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message')
     add_form_class = NewThreadForm
 
 class thread_typeid(BackboneAPIView):
