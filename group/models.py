@@ -3,8 +3,14 @@
 from profile.models import Profile
 from django.db import models
 
-META_ROLE = ['Leader', 'Accounting', 'Administrator', 'Party', 'Academique', 
+
+META_ROLE = ['Leader',
+             'Accounting',
+             'Administrator',
+             'Party',
+             'Academique',
              'Other'] # todo
+
 
 class Group(models.Model):
     name = models.CharField(max_length=100)
@@ -12,10 +18,12 @@ class Group(models.Model):
     description = models.TextField(null=True)
     info = models.TextField(null=True)
 
+
 class GroupMember(models.Model):
     user = models.ForeignKey(Profile)
     title = models.TextField()
     role = models.TextField()
+
 
 class Publication(models.Model):
     group = models.ForeignKey(Group)

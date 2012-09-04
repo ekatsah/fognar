@@ -8,6 +8,7 @@ from re import sub
 from math import sqrt
 from document.stat import getT
 
+
 class Document(models.Model):
     name = models.TextField()
     description = models.TextField()
@@ -21,7 +22,7 @@ class Document(models.Model):
     words = models.PositiveIntegerField(null=True, default=0)
     pages = models.PositiveIntegerField(null=True, default=0)
     date = models.DateTimeField(auto_now=False, null=False)
-    
+
     rating_1 = models.PositiveIntegerField(null=True, default=0)
     rating_2 = models.PositiveIntegerField(null=True, default=0)
     rating_3 = models.PositiveIntegerField(null=True, default=0)
@@ -57,6 +58,7 @@ class Document(models.Model):
             lower_bound = self.rating_average - getT(self.rating_number-1)/\
                           sqrt(self.rating_number)*s;
             self.rating_lower_bound = lower_bound;
+
 
 class Page(models.Model):
     num = models.IntegerField()

@@ -12,6 +12,7 @@ from group.models import Group
 from datetime import datetime
 from re import match
 
+
 def get_context(ctype, context):
     if ctype == 'course':
         return get_object_or_404(Course, id=context)
@@ -46,7 +47,7 @@ class document_typeid(BackboneAPIView):
 class page_bone(BackboneAPIView):
     base_queryset = Page.objects.all()
     serialize_fields = ('id', 'num', 'height_120', 'height_600', 'height_900')
-    
+
     def dispatch(self, request, *args, **kwargs):
         try:
             doc = Document.objects.get(id=kwargs['did'])
@@ -54,6 +55,7 @@ class page_bone(BackboneAPIView):
         except:
             self.base_queryset = document_bone.base_queryset.none();
         return super(page_bone, self).dispatch(request,*args, **kwargs)
+
 
 @json_send
 def upload_file(request):
@@ -76,6 +78,7 @@ def upload_file(request):
     else:
         return '{"message": "invalid form"}'
 
+
 @json_send
 def upload_http(request):
     form = UploadHttpForm(request.POST)
@@ -91,6 +94,7 @@ def upload_http(request):
         return '{"message": "ok"}'
     else:
         return '{"message": "invalid form"}'
+
 
 @json_send
 def rate(request):
@@ -117,6 +121,3 @@ def rate(request):
         return '{"message": "rate succesful"}'
     else:
         return '{"message": "invalid form"}'
-
-
-    
