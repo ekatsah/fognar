@@ -1,23 +1,11 @@
 # Copyright 2012, Cercle Informatique. All rights reserved.
 
-from django.shortcuts import get_object_or_404
 from message.models import Thread, Message
 from django.contrib.contenttypes.models import ContentType
 from djangbone.views import BackboneAPIView
-from course.models import Course
-from group.models import Group
 
 from message.forms import NewThreadForm
-
-
-def get_context(ctype, context):
-    if ctype == 'course':
-        return get_object_or_404(Course, id=context)
-    elif ctype == 'group':
-        return get_object_or_404(Group, id=context)
-    else:
-        # Force 404
-        return get_object_or_404(Group, id="-1")
+from message.utils import get_context
 
 
 class thread_bone(BackboneAPIView):
