@@ -2,11 +2,11 @@
 
 from django.conf.urls.defaults import patterns, url
 from config.authentification import stop_anon
-from profile.views import profile_bone
+from profile.views import ProfileBone
 
 
 urlpatterns = patterns('',
     url(r'^(?P<id>\d+)',
-        stop_anon(profile_bone.as_view()),
+        stop_anon(ProfileBone.as_view()),
         name="profile_bone_id"),
 )

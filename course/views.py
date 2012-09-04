@@ -5,12 +5,12 @@ from course.models import Course, CourseInfo
 from course.forms import EditWikiForm
 
 
-class course_bone(BackboneAPIView):
+class CourseBone(BackboneAPIView):
     base_queryset = Course.objects.all()
     serialize_fields = ('id', 'slug', 'name', 'description', 'infos')
 
 
-class wiki_bone(BackboneAPIView):
+class WikiBone(BackboneAPIView):
     base_queryset = CourseInfo.objects.all()
     serialize_fields = ('id', 'user', 'infos', 'date', 'prev')
     edit_form_class = EditWikiForm
