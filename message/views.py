@@ -7,6 +7,9 @@ from djangbone.views import BackboneAPIView
 from course.models import Course
 from group.models import Group
 
+from message.forms import NewThreadForm
+
+
 def get_context(ctype, context):
     if ctype == 'course':
         return get_object_or_404(Course, id=context)
@@ -16,12 +19,12 @@ def get_context(ctype, context):
         # Force 404
         return get_object_or_404(Group, id="-1")
 
-from message.forms import NewThreadForm
 
 class thread_bone(BackboneAPIView):
     base_queryset = Thread.objects.all()
     serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message')
     add_form_class = NewThreadForm
+
 
 class thread_typeid(BackboneAPIView):
     base_queryset = Thread.objects.all()
