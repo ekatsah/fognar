@@ -1,5 +1,5 @@
 {% load fragments %}
-{% verbatim %}
+
 <div id="publish-conversation">
     <form action="#" id="new_thread">
         <textarea class="publish-conversation" placeholder="On vous écoute ..."></textarea>
@@ -21,6 +21,7 @@
     </select>
 </div>
 
+{% verbatim %}
 {{#each threads}}
 <article>
     <div>
