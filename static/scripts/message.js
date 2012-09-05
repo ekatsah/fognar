@@ -26,8 +26,12 @@ applications.thread = Backbone.View.extend({
         this.threads.model = models.thread;
         this.threads.url = urls['thread_bone_type_id'](this.type, this.context.get('id'));
         this.threads.bind('add', this.render);
-        this.threads.fetch();
-        this.render();
+        var self = this;
+        this.threads.fetch({
+            success: function() {
+                self.render();
+            },
+        });
     },
 
     post_new_thread: function() {
