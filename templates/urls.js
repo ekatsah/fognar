@@ -22,7 +22,7 @@ for url in urls:
 urls = {
     _check_arguments: function(name) {
         for (i in arguments) {
-            if (arguments[i] == undefined)
+            if (typeof arguments[i] == 'undefined')
             throw "Error: didn't get enough arguments to construct the url";
         }
     },
