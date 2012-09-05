@@ -92,6 +92,7 @@ applications.course = Backbone.View.extend({
                 // FIXME remove app toussa
             }
 
+            console.log("Create new application for mode '" + mode + "' of type 'course'");
             this.sub_app = new applications[this.mode]({el: $('#course-content'),
                 router: this.router, context: this.course, type: 'course'});
         }
