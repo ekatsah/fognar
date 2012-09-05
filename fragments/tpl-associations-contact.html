@@ -1,0 +1,27 @@
+{% load fragments %}
+
+{% verbatim %}
+<div id="main-sided-wrapper">
+    <h1>
+        {{ assoc.name }}
+    </h1>
+    <div id="contact-form">
+        <p>
+            Le formulaire ci-dessous vous permet de contacter les responsables :
+        </p>
+        <form action="#" method="post">
+            <textarea placeholder="Votre message ..."></textarea>
+            <input class="button publish-comment" type="submit" value="Envoyer le message" />
+        </form>
+    </div>
+</div>
+<div id="large-sidebar-wrapper">
+    <nav class="sidebar-nav">
+        <a href="#" class="nav-active">Actualités</a>
+        <a href="#">Page Statique</a>
+        <a href="#">Page Statique</a>
+        <a href="#">Membres</a>
+        <a href="#">Contact</a>
+    </nav>
+</div>
+{% endverbatim %}

@@ -118,9 +118,9 @@ var ZoidRouter = Backbone.Router.extend({
 $(document).ready(function() {
     // template compilation
     templates = {};
-    _($('*[type="text/x-handlebars-template"]')).each(function(t) {
-        templates[t.id] = Handlebars.compile($(t).html());
-        Handlebars.registerPartial(t.id, $(t).html());
+    _.each(fragments, function (content, key) {
+        templates[key] = Handlebars.compile(content);
+        Handlebars.registerPartial(key, content);
     });
 
     // start application

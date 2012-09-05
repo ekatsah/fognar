@@ -1,0 +1,30 @@
+{% load fragments %}
+{% verbatim %}
+<section id="content-wrapper">
+    <div id="main-sided-wrapper">
+        <h1>
+            <i class="course-icon-large"></i>
+            {{ course.name }}
+        </h1>
+        <div id="course-content"></div>
+    </div>
+    <div id="large-sidebar-wrapper">
+        <h2>Général</h2>
+        <nav class="sidebar-nav">
+            <a href="#course/{{ course.id }}/thread" data-app="thread"
+               class="x_action">Fils de discussion</a>
+            <a href="#course/{{ course.id }}/wikicourse"
+               data-app="wikicourse" class="x_action">Wiki</a>
+            <a href="#course/{{ course.id }}/document" data-app="document"
+               class="x_action">Documents</a>
+            <a href="#">Podcasts</a>
+            <a href="#">Contacter un prof</a>
+        </nav>
+        <h2>TP</h2>
+        <nav class="sidebar-nav">
+            <a href="#">Fils de discussion</a>
+            <a href="#">Documents</a>
+        </nav>
+    </div>
+</section>
+{% endverbatim %}

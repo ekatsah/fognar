@@ -1,0 +1,95 @@
+{% load fragments %}
+{% verbatim %}
+<div id="publish-conversation">
+    <form action="#" id="new_thread">
+        <textarea class="publish-conversation" placeholder="On vous écoute ..."></textarea>
+        <input type="submit" value="Publier" class="button publish-comment">
+        </input>
+        <select class="ui-select conversation-tag-select">
+            <option>Question concernant le cours</option>
+            <option>Question d'examen</option>
+            <option>Info pratique</option>
+        </select>
+        <div class="cf"></div>
+    </form>
+</div>
+<div class="toolbar">
+    <label for="sort-by">Trier par : </label>
+    <select id="sort-by">
+        <option>Date de publication</option>
+        <option>Classement</option>
+    </select>
+</div>
+
+{{#each threads}}
+<article>
+    <div>
+        <a href="#"> <img src="static/image/sample-avatar.png" alt="" /> </a>
+    </div>
+    <div>
+        <h3><strong> <a href="#">Nom</a> </strong><span class="title-date">il y a 13 minutes</span><span class="tag-wrapper"> Question sur la matière </span></h3>
+        <p>{{ this.text }}</p>
+        <p class="conversation-feed-actions">
+            <a href="#">J'aime</a>
+            <span class="inline-counter">12</span>
+        </p>
+        <div class="comment-box">
+            <a href="#" class="button"> <i class="discuss-icon"></i> Afficher tous les commentaires </a>
+            <ul>
+                <li>
+                    <div>
+                        <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
+                    </div>
+                    <div>
+                        <h4><a href="#">Valentin Jadot</a><span class="title-date">Il y a 1 minute</a> </h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p class="comment-actions">
+                            <a href="#">J'aime</a>
+                            <span class="inline-counter">23</span>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
+                    </div>
+                    <div>
+                        <h4><a href="#">Valentin Jadot</a><span class="title-date">Il y a 1 minute</a> </h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat.
+                        </p>
+                        <p class="comment-actions">
+                            <a href="#">J'aime</a>
+                            <span class="inline-counter">23</span>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
+                    </div>
+                    <div>
+                        <form action="#">
+                            <textarea class="comment-textarea" placeholder="Réagissez ..."></textarea>
+                            <input type="submit" value="Publier" class="button publish-comment">
+                            </input>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="cf"></div>
+</article>
+{{/each}}
+{% endverbatim %}

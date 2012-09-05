@@ -48,4 +48,7 @@ urlpatterns = patterns('',
     url(r'^logout$',
         logout, {'next_page': '/'},
         name="logout"),
+
+    # fragments
+    url(r'^', include('fragments.urls')),
 )
