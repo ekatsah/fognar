@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from message.models import Thread, Message
 from django.utils.html import escape
-from message.utils import get_context
+from config.utils import get_context
 
 
 class NewThreadForm(ModelForm):

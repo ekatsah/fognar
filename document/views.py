@@ -2,25 +2,14 @@
 
 from config.json import json_send
 from django.utils.html import escape
-from django.shortcuts import get_object_or_404
 from document.models import Document, PendingDocument, Page
 from document.forms import UploadHttpForm, UploadFileForm, RateDocumentForm
 from django.contrib.contenttypes.models import ContentType
 from djangbone.views import BackboneAPIView
-from course.models import Course
-from group.models import Group
 from datetime import datetime
 from re import match
 
-
-def get_context(ctype, context):
-    if ctype == 'course':
-        return get_object_or_404(Course, id=context)
-    elif ctype == 'group':
-        return get_object_or_404(Group, id=context)
-    else:
-        # Force 404
-        return get_object_or_404(Group, id="-1")
+from config.utils import get_context
 
 
 class DocumentBone(BackboneAPIView):

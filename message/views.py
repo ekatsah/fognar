@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from djangbone.views import BackboneAPIView
 
 from message.forms import NewThreadForm
-from message.utils import get_context
+from config.utils import get_context
 
 
 class ThreadBone(BackboneAPIView):
