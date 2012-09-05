@@ -1,11 +1,14 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
 models.course = Backbone.Model.extend({
-    initialize: function(params) {},
+    initialize: function(params) {
+        console.log("Initialize course model");
+    },
 });
 
 collections.course = Backbone.Collection.extend({
     initialize: function() {
+        console.log("Init course collection");
         _.bindAll(this, 'get_or_fetch');
     },
 
@@ -31,6 +34,7 @@ cache.course = new collections.course();
 
 applications.course = Backbone.View.extend({
     initialize: function(params) {
+        console.log("Initialize course view");
         _.bindAll(this, 'render');
         var self = this;
         // FIXME check if init_mode is valid
@@ -95,6 +99,7 @@ applications.course = Backbone.View.extend({
 
 applications.wikicourse = Backbone.View.extend({
     initialize: function(params) {
+        console.log("Initialize wikicourse view");
         _.bindAll(this, 'render');
         this.type = params.type;
         this.context = params.context;

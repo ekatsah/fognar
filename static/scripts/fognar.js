@@ -14,6 +14,7 @@ Handlebars.registerHelper('get_name', function(item, options) {
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
+        console.log("initialize navbar view");
         $(this.el).prepend(templates['tpl-navbar']({
             name: window.profile.get('name')
         }));
@@ -31,6 +32,7 @@ applications.navbar = Backbone.View.extend({
 
 applications.sidebar = Backbone.View.extend({
     initialize: function(params) {
+        console.log("Initialize sidebar view");
         var self = this;
         _.bindAll(this, 'render', 'close', 'toggle', 'mask', 'show');
         this.router = params.router;
