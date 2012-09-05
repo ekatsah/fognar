@@ -188,4 +188,5 @@ class BackboneAPIView(View):
         can override this method is you want to use a specific error response format.
         By default, the output is a simple text response.
         """
-        return HttpResponse('ERROR: validation failed')
+        print form_errors
+        return HttpResponse('ERROR: validation failed', statuse=400)
