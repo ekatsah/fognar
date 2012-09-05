@@ -66,7 +66,7 @@
                 <a href="#course/{{ course.id }}/document" data-app="document"
                    class="x_action">Documents</a>
                 <a href="#">Podcasts</a>
-                <a href="#">Contacter un prof</a>   
+                <a href="#">Contacter un prof</a>
             </nav>
             <h2>TP</h2>
             <nav class="sidebar-nav">
@@ -219,7 +219,7 @@
 <script id="tpl-document-upload" type="text/x-handlebars-template">
     <h1>Upload document</h1>
     <div id="upload_message"></div>
-    <form id="upload_form" target="upload_frame" method="post" 
+    <form id="upload_form" target="upload_frame" method="post"
             encoding="multipart/form-data" enctype="multipart/form-data">
         <table>
             <tr><td>Filename : </td>
@@ -287,18 +287,18 @@
 </script>
 
 <script id="tpl-wiki-form" type="text/x-handlebars-template">
-		<ul id="current_edition"> 
-			{{#each form}}
-				<li>{{this.name}}:<textarea name="{{this.name}}" class="form_{{this.name}}">{{this.value}}</textarea></li>
-			{{/each}}
-		</ul>
-		<button id="form_confirm">Confirmer</button>
-		<button id="form_cancel">Annuler</button>
-		<div id="form_add_field">+</div>
+        <ul id="current_edition">
+            {{#each form}}
+                <li>{{this.name}}:<textarea name="{{this.name}}" class="form_{{this.name}}">{{this.value}}</textarea></li>
+            {{/each}}
+        </ul>
+        <button id="form_confirm">Confirmer</button>
+        <button id="form_cancel">Annuler</button>
+        <div id="form_add_field">+</div>
 </script>
 
 <script id="wiki-form-add" type="text/x-handlebars-template">
-	<li><input type="text" value="" name="add_key" id="wiki_form_add_key"><textarea value="" name="add_value" id="wiki_form_add_value"/><div id="wiki_form_add_submit">OK</div></li>
+    <li><input type="text" value="" name="add_key" id="wiki_form_add_key"><textarea value="" name="add_value" id="wiki_form_add_value"/><div id="wiki_form_add_submit">OK</div></li>
 </script>
 
 <script id="tpl-sidebar" type="text/x-handlebars-template">
@@ -373,7 +373,7 @@
                 <article>
                     <h3>
                         <strong>
-                            <a href="#">{{ this.title }}</a> 
+                            <a href="#">{{ this.title }}</a>
                         </strong>
                         <span class="title-date">{{date this.date }}</span>
                     </h3>
