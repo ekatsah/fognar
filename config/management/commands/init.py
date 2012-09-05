@@ -8,7 +8,7 @@ from category.models import Category, CategoryItem
 from group.models import Group
 from course.models import Course, CourseInfo
 from optparse import make_option
-from message.models import Thread
+from message.models import Thread, Message
 
 
 class Command(BaseCommand):
@@ -117,4 +117,5 @@ class Command(BaseCommand):
         CategoryItem.objects.create(category=cat0, thing=g2, priority=1)
         CategoryItem.objects.create(category=cat2, thing=c3, priority=1)
 
-        Thread.objects.create(user=User.objects.all()[0].profile, refer_content=ContentType.objects.get_for_model(Course), refer_oid=c1.id)
+        thread = Thread.objects.create(user=User.objects.all()[0].profile, refer_content=ContentType.objects.get_for_model(Course), refer_oid=c1.id, subject="A JSON stringifier goes in the opposite direction, converting JavaScript data structures into JSON text. JSON does not support cyclic data structures, so be careful to not give cyclical structures to the JSON stringifier. http://www.json.org/js.html")
+        Message.objects.create(user=user.get_profile(), thread=thread, text='Type "copyright", "credits" or "license" for more information.')
