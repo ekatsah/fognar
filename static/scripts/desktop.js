@@ -1,6 +1,11 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
 applications.desktop = Backbone.View.extend({
+    events: {
+        'click .dashboard-add': 'go_to_market',
+        'click .dashboard-course': 'go_to_course',
+    },
+
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.router = params.router;
@@ -8,11 +13,6 @@ applications.desktop = Backbone.View.extend({
         this.popup = null;
         this.render();
         console.log('Initialize desktop');
-    },
-
-    events: {
-        'click .dashboard-add': 'go_to_market',
-        'click .dashboard-course': 'go_to_course',
     },
 
     go_to_market: function() {
