@@ -33,6 +33,11 @@ cache.course = new collections.course();
 
 
 applications.course = Backbone.View.extend({
+    el: $("content-wrapper"),
+    events: {
+        'click .x_action': 'handle_sidebar',
+    },
+
     initialize: function(params) {
         console.log("Initialize course view");
         _.bindAll(this, 'render');
@@ -57,14 +62,12 @@ applications.course = Backbone.View.extend({
         this.render(init_mode);
     },
 
-    events: {
-        'click .x_action': function(e) {
-            var app = $(e.target).attr("data-app");
-            this.router.navigate('/course/' + this.cid + '/' + app,
-                                 {trigger: false});
-            this.render(app);
-            return false;
-        },
+    handle_sidebar: function(e) {
+        var app = $(e.target).attr("data-app");
+        this.router.navigate('/course/' + this.cid + '/' + app,
+                             {trigger: false});
+        this.render(app);
+        return false;
     },
 
     render: function(mode, refresh) {
