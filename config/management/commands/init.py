@@ -2,11 +2,13 @@
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
 from course.models import Course, CourseInfo
 from optparse import make_option
+from message.models import Thread
 
 
 class Command(BaseCommand):
@@ -114,3 +116,5 @@ class Command(BaseCommand):
         CategoryItem.objects.create(category=cat3, thing=g1, priority=3)
         CategoryItem.objects.create(category=cat0, thing=g2, priority=1)
         CategoryItem.objects.create(category=cat2, thing=c3, priority=1)
+
+        Thread.objects.create(user=User.objects.all()[0].profile, refer_content=ContentType.objects.get_for_model(Course), refer_oid=c1.id)
