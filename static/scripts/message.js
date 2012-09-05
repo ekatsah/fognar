@@ -14,6 +14,10 @@ models.message = Backbone.Model.extend({
 });
 
 applications.thread = Backbone.View.extend({
+    events: {
+        'submit #new_thread': 'post_new_thread',
+    },
+
     initialize: function(params) {
         _.bindAll(this, 'render');
         this.type = params.type;
@@ -25,19 +29,17 @@ applications.thread = Backbone.View.extend({
         this.render();
     },
 
-    events: {
-        'submit #new_thread': function() {
-            var self = this;
-            var thread = new models.thread({
-                subject: 'wazup?',
-                text: 'lorem ispum',
-                type: self.type,
-                context: self.context.get('id'),
-            });
-            //thread.save();
-            this.threads.add(thread);
-            return false;
-        },
+    post_new_thread: function() {
+        var self = this;
+        var thread = new models.thread({
+            subject: 'wazup?',
+            text: 'lorem ispum',
+            type: self.type,
+            context: self.context.get('id'),
+        });
+        //thread.save();
+        this.threads.add(thread);
+        return false;
     },
 
     render: function() {
