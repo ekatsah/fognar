@@ -189,4 +189,4 @@ class BackboneAPIView(View):
         By default, the output is a simple text response.
         """
         print form_errors
-        return HttpResponse('ERROR: validation failed', statuse=400)
+        return HttpResponse('ERROR: validation failed\n' + str(form_errors), status=400)
