@@ -11,15 +11,19 @@ applications.desktop = Backbone.View.extend({
     },
 
     events: {
-        'click .dashboard-add': function() {
-            this.router.navigate('/market', {trigger: true});
-            return false;
-        },
-        'click .dashboard-course': function(e) {
-            this.router.navigate('/course/' + $(e.target).attr('data-target'),
-                                 {trigger: true});
-            return false;
-        },
+        'click .dashboard-add': 'go_to_market',
+        'click .dashboard-course': 'go_to_course',
+    },
+
+    go_to_market: function() {
+        this.router.navigate('/market', {trigger: true});
+        return false;
+    },
+
+    go_to_course: function(e) {
+        this.router.navigate('/course/' + $(e.target).attr('data-target'),
+                             {trigger: true});
+        return false;
     },
 
     render: function() {
