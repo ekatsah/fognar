@@ -12,17 +12,17 @@ collections.course = Backbone.Collection.extend({
     model: models.course,
     url: urls['course_bone'],
 
-    get_or_fetch: function(cid) {
-        var ret = this.get(cid);
+    get_or_fetch: function(course_id) {
+        var result = this.get(course_id);
         var self = this;
-        if (ret == undefined) {
-            this.add({id: cid});
-            this.get(cid).fetch({success: function() {
+        if (result == undefined) {
+            this.add({id: course_id});
+            this.get(course_id).fetch({success: function() {
                 self.trigger('fetched');
             }});
             return this.get(0);
         }
-        return ret;
+        return result;
     }
 });
 
