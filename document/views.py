@@ -2,34 +2,24 @@
 
 from config.json import json_send
 from django.utils.html import escape
-from django.shortcuts import get_object_or_404
 from document.models import Document, PendingDocument, Page
 from document.forms import UploadHttpForm, UploadFileForm, RateDocumentForm
 from django.contrib.contenttypes.models import ContentType
 from djangbone.views import BackboneAPIView
-from course.models import Course
-from group.models import Group
 from datetime import datetime
 from re import match
 
-def get_context(ctype, context):
-    if ctype == 'course':
-        return get_object_or_404(Course, id=context)
-    elif ctype == 'group':
-        return get_object_or_404(Group, id=context)
-    else:
-        # Force 404
-        return get_object_or_404(Group, id="-1")
+from config.utils import get_context
 
 
-class document_bone(BackboneAPIView):
+class DocumentBone(BackboneAPIView):
     base_queryset = Document.objects.all()
     serialize_fields = ('id', 'name', 'description', 'uploader', "date",
                         'rating_average', 'rating_lower_bound', 'view_number',
                         'download_number')
 
 
-class document_typeid(BackboneAPIView):
+class DocumentBoneTypeId(BackboneAPIView):
     base_queryset = Document.objects.all()
     serialize_fields = ('id', 'name', 'description', 'uploader', "date",
                         'rating_average', 'rating_lower_bound', 'rating_number',
@@ -38,22 +28,23 @@ class document_typeid(BackboneAPIView):
     def dispatch(self, request, *args, **kwargs):
         thing = get_context(kwargs.get('type', None), kwargs.get('cid', None))
         c = ContentType.objects.get_for_model(thing)
-        qs = document_typeid.base_queryset
+        qs = DocumentBoneTypeId.base_queryset
         self.base_queryset = qs.filter(refer_oid=thing.id, refer_content=c)
-        return super(document_typeid, self).dispatch(request,*args, **kwargs)
+        return super(DocumentBoneTypeId, self).dispatch(request,*args, **kwargs)
 
 
-class page_bone(BackboneAPIView):
+class PageBone(BackboneAPIView):
     base_queryset = Page.objects.all()
     serialize_fields = ('id', 'num', 'height_120', 'height_600', 'height_900')
-    
+
     def dispatch(self, request, *args, **kwargs):
         try:
             doc = Document.objects.get(id=kwargs['did'])
-            self.base_queryset = page_bone.base_queryset.filter(doc=doc)
+            self.base_queryset = PageBone.base_queryset.filter(doc=doc)
         except:
-            self.base_queryset = document_bone.base_queryset.none();
-        return super(page_bone, self).dispatch(request,*args, **kwargs)
+            self.base_queryset = DocumentBone.base_queryset.none();
+        return super(PageBone, self).dispatch(request,*args, **kwargs)
+
 
 @json_send
 def upload_file(request):
@@ -76,6 +67,7 @@ def upload_file(request):
     else:
         return '{"message": "invalid form"}'
 
+
 @json_send
 def upload_http(request):
     form = UploadHttpForm(request.POST)
@@ -91,6 +83,7 @@ def upload_http(request):
         return '{"message": "ok"}'
     else:
         return '{"message": "invalid form"}'
+
 
 @json_send
 def rate(request):
@@ -117,6 +110,3 @@ def rate(request):
         return '{"message": "rate succesful"}'
     else:
         return '{"message": "invalid form"}'
-
-
-    

@@ -89,9 +89,9 @@ def json_select(request, queryset, fields, **kwargs):
     for k, v in kwargs.iteritems():
         queryset = queryset.filter(**{k: v})
 
-    if (len(queryset)) == 0:
+    if len(queryset) == 0:
         return '{}'
-    elif (len(queryset)) == 1:
+    elif len(queryset) == 1:
         return json_object(request, queryset[0], fields)
     else:
         return json_sublist(request, queryset, fields)

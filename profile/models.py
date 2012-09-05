@@ -6,6 +6,7 @@ from django.db import models
 from utils import dont_create_a_superuser
 from json import loads
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=80)
@@ -23,7 +24,8 @@ class Profile(models.Model):
         return [ Course.objects.get(pk=s['id'])
                  for s in config['shortcuts']
                  if s['app'] == 'course' ]
-                
+
+
 class Inscription(models.Model):
     user = models.ForeignKey(Profile)
     section = models.CharField(max_length=80, null=True)

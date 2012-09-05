@@ -37,7 +37,7 @@ applications.sidebar = Backbone.View.extend({
         this.visible = false;
         this.calling = null;
         window.sidebar = this;
-/*        // TODO resolving bug /on descktop : 
+/*        // TODO resolving bug /on descktop :
         // Uncaught TypeError: Object #<Object> has no method 'tpl-sidebar'
         $(this.el).append(templates['tpl-sidebar']());
         $('#sidebar-backdrop').css("visibility", "hidden");
@@ -59,13 +59,13 @@ applications.sidebar = Backbone.View.extend({
         this.delegateEvents(caller.events);
         this.calling = caller;
     },
-    
+
     mask: function() {
         if (this.visible) {
             $('#sidebar').removeClass("side-toolbar-opened");
             $('#sidebar-backdrop').addClass("backdrop-hidden");
             setTimeout(function() {
-                $('#sidebar-backdrop').css("visibility", "hidden"); 
+                $('#sidebar-backdrop').css("visibility", "hidden");
             }, 300);
             this.visible = false;
         }
@@ -73,7 +73,7 @@ applications.sidebar = Backbone.View.extend({
             this.undelegateEvents(this.calling.events);
         this.calling = null;
     },
-    
+
     toggle: function(caller) {
         if (this.visible)
             this.mask();

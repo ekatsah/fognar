@@ -6,23 +6,23 @@ models.course = Backbone.Model.extend({
 
 collections.course = Backbone.Collection.extend({
     initialize: function() {
-    	_.bindAll(this, 'get_or_fetch');
+        _.bindAll(this, 'get_or_fetch');
     },
 
     model: models.course,
     url: urls['course_bone'],
 
-    get_or_fetch: function(cid) {
-        var ret = this.get(cid);
+    get_or_fetch: function(course_id) {
+        var result = this.get(course_id);
         var self = this;
-        if (ret == undefined) {
-            this.add({id: cid});
-            this.get(cid).fetch({success: function() {
+        if (result == undefined) {
+            this.add({id: course_id});
+            this.get(course_id).fetch({success: function() {
                 self.trigger('fetched');
             }});
             return this.get(0);
         }
-        return ret;
+        return result;
     }
 });
 
@@ -43,7 +43,7 @@ applications.course = Backbone.View.extend({
         this.sub_app = null;
         this.cid = params.args[1];
         this.router = params.router;
-        this.router.navigate('/course/' + this.cid + '/' + init_mode, 
+        this.router.navigate('/course/' + this.cid + '/' + init_mode,
                              {trigger: false, replace: true});
         this.course = cache.course.get_or_fetch(this.cid);
         //new models.course({id: this.cid});
@@ -56,7 +56,7 @@ applications.course = Backbone.View.extend({
     events: {
         'click .x_action': function(e) {
             var app = $(e.target).attr("data-app");
-            this.router.navigate('/course/' + this.cid + '/' + app, 
+            this.router.navigate('/course/' + this.cid + '/' + app,
                                  {trigger: false});
             this.render(app);
             return false;
@@ -153,7 +153,7 @@ applications.wikicourse = Backbone.View.extend({
     render: function() {
         this.context.set({infos: this.infos.get('id')}, {silent: true});
         $(this.el).html(templates['tpl-wiki']({wiki: this.infos.toJSON()}));
-		return this;
+        return this;
     },
 
     close: function() {},

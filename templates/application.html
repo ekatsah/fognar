@@ -3,9 +3,11 @@
 {% load i18n %}
 {% load ssi from future %}
 
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="/static/style/fognar.css" rel="stylesheet" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -16,7 +18,7 @@
         <script src="/static/third_party/handlebars-1.0.0.beta.6.js"></script>
         <script type="text/javascript">
             {% include "urls.js" %}
-            
+
             autostart = {{ user.get_profile.autostart }};
         </script>
         {% ssi objects %}

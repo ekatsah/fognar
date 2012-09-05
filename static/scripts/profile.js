@@ -33,7 +33,7 @@ applications.profile = Backbone.View.extend({
 
     events: {
     },
-    
+
     render: function() {
     },
 

@@ -4,6 +4,7 @@ from course.models import CourseInfo
 from django.utils.html import escape
 from json import dumps
 
+
 class EditWikiForm(ModelForm):
     class Meta:
         model = Course
@@ -13,7 +14,7 @@ class EditWikiForm(ModelForm):
         self.request = request
 
     def save(self):
-        newinfo = CourseInfo.objects.create(prev=self.instance, user=self.user, 
+        newinfo = CourseInfo.objects.create(prev=self.instance, user=self.user,
                                             infos=self.infos)
 
         for course in self.instance.course_set.all():
