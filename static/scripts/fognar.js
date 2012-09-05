@@ -100,18 +100,16 @@ var ZoidRouter = Backbone.Router.extend({
 
     parser: function(url) {
         url = url.split('/');
-        if (typeof applications[url[0]] == "undefined") {
-            this.navigate('/desktop', {trigger: true});
-        }
-        else {
-            if (this.current_app != null) {
-                this.current_app.undelegateEvents();
-                this.current_app.close();
-            }
+        if (typeof applications[url[0]] == "undefined")
+            return this.navigate('/desktop', {trigger: true});
 
-            this.current_app = new applications[url[0]]({el: $('#content-wrapper'),
-                router: this, args: url});
+        if (this.current_app != null) {
+            this.current_app.undelegateEvents();
+            this.current_app.close();
         }
+
+        this.current_app = new applications[url[0]]({el: $('#content-wrapper'),
+            router: this, args: url});
     },
 });
 
