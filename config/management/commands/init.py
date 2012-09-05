@@ -42,7 +42,7 @@ class Command(BaseCommand):
         profile.name = first_name + " " + last_name
         profile.email = '42@urlab.be'
         profile.save()
-        
+
         self.stdout.write('Adding base data ...\n')
         c1 = Course.objects.create(slug='info-f-666', name='Hell Informatique',
                                    description='Hell Computer Science course')
@@ -52,8 +52,8 @@ class Command(BaseCommand):
                                    description='Les simplex dans tout leurs etats')
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
-        
-        i1 = CourseInfo.objects.create(user=profile, 
+
+        i1 = CourseInfo.objects.create(user=profile,
                                        infos = """[
             {    name: "general", values: [
                                         {name: 'Professeur', value:'B. Lecharlier'},
@@ -63,7 +63,7 @@ class Command(BaseCommand):
                                     ],
             },
         ]""")
-        
+
         i2 = CourseInfo.objects.create(user = profile,
                                        prev=i1,
                                        infos = """[
@@ -78,17 +78,17 @@ class Command(BaseCommand):
                                       {name: 'Difficultes', values:'Language noyaux'},
                                      ],
             },
-        ]""")     
+        ]""")
         c1.infos = i2
         c1.save()
-        
+
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
                                   description='Youplaboom')
 
         profile.desktop_config = """ {
-            "shortcuts": [ 
+            "shortcuts": [
                 {"app": "course", "id": %d},
                 {"app": "course", "id": %d},
                 {"app": "course", "id": %d},
