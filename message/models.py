@@ -8,7 +8,7 @@ from django.db import models
 
 
 class Thread(models.Model):
-    subject = models.TextField();
+    subject = models.TextField()
     user = models.ForeignKey(Profile)
     refer_oid = models.PositiveIntegerField()
     refer_content = models.ForeignKey(ContentType)
