@@ -83,6 +83,7 @@ applications.course = Backbone.View.extend({
         }
 
         if (this.mode != mode || refresh) {
+            // put current tab in red in right sidebar
             $('a[data-app="' + this.mode + '"]').removeClass('nav-active');
             $('a[data-app="' + mode + '"]').addClass('nav-active');
             this.mode = mode;
