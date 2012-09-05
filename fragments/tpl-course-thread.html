@@ -28,7 +28,7 @@
         <a href="#"> <img src="static/image/sample-avatar.png" alt="" /> </a>
     </div>
     <div>
-        <h3><strong> <a href="#">Nom</a> </strong><span class="title-date">il y a 13 minutes</span><span class="tag-wrapper"> Question sur la matière </span></h3>
+        <h3><strong> <a href="#">{{ this.user.name }}</a> </strong><span class="title-date">Il y a {{ this.created }}</span><span class="tag-wrapper"> Question sur la matière </span></h3>
         <p>{{ this.subject }}</p>
         <p class="conversation-feed-actions">
             <a href="#">J'aime</a>
@@ -37,44 +37,21 @@
         <div class="comment-box">
             <a href="#" class="button"> <i class="discuss-icon"></i> Afficher tous les commentaires </a>
             <ul>
+                {{#each this.messages}}
                 <li>
                     <div>
                         <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
                     </div>
                     <div>
-                        <h4><a href="#">Valentin Jadot</a><span class="title-date">Il y a 1 minute</a> </h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                        <h4><a href="#">{{ this.user.name }}</a><span class="title-date">Il y a {{this.created}}</span> </h4>
+                        <p>{{this.text}}</p>
                         <p class="comment-actions">
                             <a href="#">J'aime</a>
                             <span class="inline-counter">23</span>
                         </p>
                     </div>
                 </li>
-                <li>
-                    <div>
-                        <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
-                    </div>
-                    <div>
-                        <h4><a href="#">Valentin Jadot</a><span class="title-date">Il y a 1 minute</a> </h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat.
-                        </p>
-                        <p class="comment-actions">
-                            <a href="#">J'aime</a>
-                            <span class="inline-counter">23</span>
-                        </p>
-                    </div>
-                </li>
+                {{/each}}
                 <li>
                     <div>
                         <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
