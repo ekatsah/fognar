@@ -143,7 +143,7 @@ applications.thread = Backbone.View.extend({
     },
 
     render: function() {
-        console.log("thread render " + JSON.stringify(this.threads.toJSON()));
+        //console.log("thread render " + JSON.stringify(this.threads.toJSON()));
         this.$el.html(templates['tpl-course-thread']({
             context: this.context.toJSON(),
             threads: this.threads.toJSON(),
