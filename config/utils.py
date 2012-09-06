@@ -1,6 +1,7 @@
 from course.models import Course
 from group.models import Group
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 
 def get_context(content_type, context):
@@ -9,5 +10,4 @@ def get_context(content_type, context):
     elif content_type == 'group':
         return get_object_or_404(Group, id=context)
     else:
-        # Force 404
-        return get_object_or_404(Group, id="-1")
+        raise Http404
