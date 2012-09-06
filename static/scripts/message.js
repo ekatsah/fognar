@@ -109,6 +109,7 @@ applications.thread_view = Backbone.View.extend({
 applications.thread = Backbone.View.extend({
     events: {
         'submit #new_thread': 'post_new_thread',
+        'click a.button': 'block_href'
     },
 
     initialize: function(params) {
@@ -125,6 +126,11 @@ applications.thread = Backbone.View.extend({
                 self.render();
             },
         });
+    },
+
+    block_href: function(event) {
+        // we'll do something usefull later
+        event.preventDefault();
     },
 
     post_new_thread: function(event) {
