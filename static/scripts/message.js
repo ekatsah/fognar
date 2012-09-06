@@ -127,17 +127,19 @@ applications.thread = Backbone.View.extend({
         });
     },
 
-    post_new_thread: function() {
+    post_new_thread: function(event) {
+        event.preventDefault();
+        var category = this.$el.find("select").val();
+        var subject = this.$el.find("textarea").val();
         var self = this;
-        var thread = new models.thread({
-            subject: 'wazup?',
-            text: 'lorem ispum',
-            type: self.type,
-            context: self.context.get('id'),
-        });
-        //thread.save();
-        this.threads.add(thread);
-        return false;
+        var new_thread = new models.thread({
+            subject: subject,
+            category: category,
+            user: window.profile.id,
+            course: self.context.get('id'),
+        })
+        new_thread.save();
+        this.threads.add(new_thread);
     },
 
     render: function() {
