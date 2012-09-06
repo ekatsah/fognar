@@ -4,7 +4,7 @@ from message.models import Thread, Message
 from django.contrib.contenttypes.models import ContentType
 from djangbone.views import BackboneAPIView
 
-from message.forms import NewThreadForm
+from message.forms import NewThreadForm, NewMessageForm
 from config.utils import get_context
 from profile.models import Profile
 
@@ -40,13 +40,6 @@ class ThreadBoneTypeId(BackboneAPIView):
 
 
 class MessageBone(BackboneAPIView):
-    base_queryset = Message.objects.order_by('-date')
-    serialize_fields = ('id', 'user', 'thread', 'text', 'date')
-
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            thread = Thread.objects.get(id=kwargs['tid'])
-            self.base_queryset = MessageBone.base_queryset.filter(thread=thread)
-        except:
-            self.base_queryset = MessageBone.base_queryset.none();
-        return super(MessageBone, self).dispatch(request,*args, **kwargs)
+    base_queryset = Message.objects.order_by('-created')
+    serialize_fields = ('id', 'user', 'thread', 'text', 'reference')
+    add_form_class = NewMessageForm
