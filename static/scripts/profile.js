@@ -1,7 +1,9 @@
  // Copyright 2012, Cercle Informatique. All rights reserved.
 
-models.user = Backbone.Model.extend({
-    initialize: function(params) {},
+models.user = Backbone.RelationalModel.extend({
+    initialize: function(params) {
+        console.log("New user model with id " + params.id);
+    },
 });
 
 collections.users = Backbone.Collection.extend({
