@@ -1,10 +1,10 @@
-from django.forms import ModelForm
+from django import forms
 from message.models import Thread, Message
 from django.utils.html import escape
 from config.utils import get_context
 
 
-class NewThreadForm(ModelForm):
+class NewThreadForm(forms.ModelForm):
     class Meta:
         model = Thread
 
@@ -28,7 +28,7 @@ class NewThreadForm(ModelForm):
         return True
 
 
-class NewMessageForm(ModelForm):
+class NewMessageForm(forms.ModelForm):
     class Meta:
         model = Message
         exclude = ('reference',)
