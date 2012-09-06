@@ -28,14 +28,16 @@ class ThreadBoneTypeId(BackboneAPIView):
 
     def serialize_qs(self, queryset, single_object=False):
         # for simplicy, I assume that this we will always return only one thread
-        value = queryset.values(*self.serialize_fields)[0]
-        messages_queryset = Message.objects.filter(thread=queryset[0].id)
-        messages_dict = dict(((x["id"], x) for x in messages_queryset.values()))
-        for message in messages_queryset:
-            messages_dict[message.id]["user"] = Profile.objects.filter(id=message.user.id).values()[0]
-        value["messages"] = sorted(messages_dict.values(), key=lambda x: x["id"])
-        value["user"] = Profile.objects.filter(id=queryset[0].user.id).values()[0]
-        json_output = self.json_encoder.encode(value)
+        output = []
+        for thread in queryset.values(*self.serialize_fields):
+            messages_queryset = Message.objects.filter(thread=thread["id"])
+            messages_dict = dict(((x["id"], x) for x in messages_queryset.values()))
+            for message in messages_queryset:
+                messages_dict[message.id]["user"] = Profile.objects.filter(id=message.user.id).values()[0]
+            thread["messages"] = sorted(messages_dict.values(), key=lambda x: x["id"])
+            thread["user"] = Profile.objects.filter(id=queryset[0].user.id).values()[0]
+            output.append(thread)
+        json_output = self.json_encoder.encode(output)
         return json_output
 
 
