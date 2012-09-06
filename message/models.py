@@ -22,6 +22,9 @@ class Thread(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     category = models.CharField(max_length=15, choices=CATEGORIES)
 
+    def __unicode__(self):
+        return u"'%s' by %s on %s" % (self.subject[:50] + u"..." if len(self.subject) > 49 else self.subject, self.user, self.referer)
+
 
 class Message(models.Model):
     user = models.ForeignKey(Profile)
@@ -29,3 +32,6 @@ class Message(models.Model):
     text = models.TextField()
     reference = models.ForeignKey("self", null=True, default=None)
     created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    def __unicode__(self):
+        return u"'%s' by %s on %s" % (self.text[:50] + u"..." if len(self.text) > 49 else self.text, self.user, self.thread)
