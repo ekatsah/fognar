@@ -1,6 +1,10 @@
 from django import forms
-from message.models import Thread, Message
+from message.models import Thread, Message, CATEGORIES
 from django.utils.html import escape
+from django.shortcuts import get_object_or_404
+
+from profile.models import Profile
+from course.models import Course
 from config.utils import get_context
 
 
@@ -26,6 +30,22 @@ class NewThreadForm(forms.ModelForm):
             if len(str(self.data.get(f, ''))) == 0:
                 return False
         return True
+
+
+class NewCourseThreadForm(forms.Form):
+    subject = forms.CharField()
+    user = forms.IntegerField()
+    category = forms.ChoiceField(CATEGORIES)
+    course = forms.IntegerField()
+
+    def save(self):
+        # djangbone will do a is_valid check for us
+        return Thread.objects.create(
+            subject=self.cleaned_data["subject"],
+            user=get_object_or_404(Profile, id=self.cleaned_data["user"]),
+            referer=get_object_or_404(Course, id=self.cleaned_data["course"]),
+            category=self.cleaned_data["category"],
+        )
 
 
 class NewMessageForm(forms.ModelForm):
