@@ -25,6 +25,9 @@ class Thread(models.Model):
     def __unicode__(self):
         return u"'%s' by %s on %s" % (self.subject[:50] + u"..." if len(self.subject) > 49 else self.subject, self.user, self.referer)
 
+    class Meta:
+        ordering = ['-created']
+
 
 class Message(models.Model):
     user = models.ForeignKey(Profile)
