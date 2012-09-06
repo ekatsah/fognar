@@ -26,3 +26,9 @@ class NewThreadForm(ModelForm):
             if len(str(self.data.get(f, ''))) == 0:
                 return False
         return True
+
+
+class NewMessageForm(ModelForm):
+    class Meta:
+        model = Message
+        exclude = ('reference',)
