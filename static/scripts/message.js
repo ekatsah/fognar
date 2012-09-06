@@ -139,7 +139,7 @@ applications.thread = Backbone.View.extend({
             course: self.context.get('id'),
         })
         new_thread.save();
-        this.threads.add(new_thread);
+        this.threads.unshift(new_thread);
     },
 
     render: function() {
