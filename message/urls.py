@@ -18,6 +18,10 @@ urlpatterns = patterns('',
         stop_anon(ThreadBoneTypeId.as_view()),
         name="thread_bone_type_id"),
 
+    url(r'^m/$',
+        stop_anon(MessageBone.as_view()),
+        name="message_bone_all"),
+
     url(r'^m/(?P<tid>\d+)/$',
         stop_anon(MessageBone.as_view()),
         name="message_bone"),
