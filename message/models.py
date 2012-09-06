@@ -6,6 +6,13 @@ from profile.models import Profile
 from django.db import models
 
 
+CATEGORIES = (
+    (u'question cours', u'Question concernant le cours'),
+    (u'question exam', u'Question d\'examen'),
+    (u'info pratique', u'Info pratique'),
+)
+
+
 class Thread(models.Model):
     subject = models.TextField()
     user = models.ForeignKey(Profile)
@@ -13,6 +20,7 @@ class Thread(models.Model):
     refer_content = models.ForeignKey(ContentType)
     referer = GenericForeignKey('refer_content', 'refer_oid')
     created = models.DateTimeField(auto_now_add=True, editable=False)
+    category = models.CharField(max_length=15, choices=CATEGORIES)
 
 
 class Message(models.Model):
