@@ -4,7 +4,7 @@ from message.models import Thread, Message
 from django.contrib.contenttypes.models import ContentType
 from djangbone.views import BackboneAPIView
 
-from message.forms import NewThreadForm, NewMessageForm
+from message.forms import NewMessageForm, NewCourseThreadForm
 from config.utils import get_context
 from profile.models import Profile
 
@@ -12,7 +12,7 @@ from profile.models import Profile
 class ThreadBone(BackboneAPIView):
     base_queryset = Thread.objects.all()
     serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message')
-    add_form_class = NewThreadForm
+    add_form_class = NewCourseThreadForm
 
 
 class ThreadBoneTypeId(BackboneAPIView):
