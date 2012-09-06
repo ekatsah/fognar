@@ -14,6 +14,18 @@ models.thread = Backbone.RelationalModel.extend({
     }],
     initialize: function(params) {
         console.log("New thread model with id " + params.id);
+        this.wrap_save_for_djangbone();
+    },
+    // FIXME code duplication
+    wrap_save_for_djangbone: function() {
+        this._save = this.save;
+        this.save = function() {
+            this.relations[0].includeInJSON = Backbone.Model.prototype.idAttribute;
+            this.relations[1].includeInJSON = Backbone.Model.prototype.idAttribute;
+            this._save();
+            this.relations[0].includeInJSON = true;
+            this.relations[1].includeInJSON = true;
+        }
     },
 });
 
@@ -30,6 +42,7 @@ models.message = Backbone.RelationalModel.extend({
         console.log(this.url);
         this.wrap_save_for_djangbone();
     },
+    // FIXME code duplication
     wrap_save_for_djangbone: function() {
         this._save = this.save;
         this.save = function() {
