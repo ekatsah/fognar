@@ -58,6 +58,10 @@ applications.submit_new_message = Backbone.View.extend({
         var text = this.$el.find("textarea").val();
         console.log("add a new message with text: " + text);
         event.preventDefault();
+        if (text.length == 0) {
+            console.log("No text, don't create a new message");
+            return;
+        }
         this.$el.find("textarea").val("");
         var new_message = new models.message({
             text: text,
