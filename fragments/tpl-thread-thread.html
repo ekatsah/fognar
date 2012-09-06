@@ -5,7 +5,7 @@
     <a href="#"> <img src="static/image/sample-avatar.png" alt="" /> </a>
 </div>
 <div>
-    <h3><strong> <a href="#">{{ thread.user.name }}</a> </strong><span class="title-date">Il y a {{ thread.created }}</span><span class="tag-wrapper"> Question sur la matière </span></h3>
+    <h3><strong> <a href="#">{{ thread.user.name }}</a> </strong><span class="title-date">Il y a {{ thread.created }}</span><span class="tag-wrapper">{{ thread.category }}</span></h3>
     <p>{{ thread.subject }}</p>
     <p class="conversation-feed-actions">
         <a href="#">J'aime</a>

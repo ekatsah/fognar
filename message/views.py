@@ -17,7 +17,7 @@ class ThreadBone(BackboneAPIView):
 
 class ThreadBoneTypeId(BackboneAPIView):
     base_queryset = Thread.objects.all()
-    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message', 'created')
+    serialize_fields = ('id', 'subject', 'user', 'refer_oid', 'refer_content', 'message', 'created', 'category')
 
     def dispatch(self, request, *args, **kwargs):
         thing = get_context(kwargs.get('type', None), kwargs.get('xid', -1))
