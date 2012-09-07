@@ -102,8 +102,10 @@ var ZoidRouter = Backbone.Router.extend({
 
     parser: function(url) {
         url = url.split('/');
-        if (typeof applications[url[0]] == "undefined")
+        if (typeof applications[url[0]] == "undefined") {
+            console.log("No urls, go to desktop");
             return this.navigate('/desktop', {trigger: true});
+        }
 
         if (this.current_app != null) {
             this.current_app.undelegateEvents();
