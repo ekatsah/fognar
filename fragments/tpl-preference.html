@@ -6,7 +6,7 @@
 {% verbatim %}
 <ul>
 {{#each shortcuts}}
-<li>{{this.app}}: {{this.data.name}}</li>
+<li id="shortcut_{{this.id}}">{{this.app}}: {{this.data.name}} <a href="#" class="remove">remove</a></li>
 {{/each}}
 </ul>
 {% endverbatim %}
