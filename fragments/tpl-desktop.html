@@ -5,9 +5,9 @@
     <ul id="dashboard">
         {{#each shortcuts}}
         <li class="dashboard-{{ this.app }}" data-type="{{this.app}}"
-                                             data-target="{{this.id}}">
+                                             data-target="{{this.app_id}}">
             <div class="dashboard-notif">X</div>
-            <p>{{get_name this }}</p>
+            <p>{{this.name}}</p>
         </li>
         {{/each}}
         <li class="dashboard-preference">

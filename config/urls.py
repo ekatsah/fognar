@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^document/', include('document.urls'), name='document'),
     url(r'^course/', include('course.urls'), name='course'),
     url(r'^msg/', include('message.urls'), name='message'),
+    url(r'^desktop/', include('desktop.urls'), name='desktop'),
 
     # The product/client entry points
     url(r'^$',

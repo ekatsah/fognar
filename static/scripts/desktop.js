@@ -7,12 +7,16 @@ applications.desktop = Backbone.View.extend({
     },
 
     initialize: function(params) {
+        console.log('Initialize desktop');
         _.bindAll(this, 'render');
         this.router = params.router;
-        this.config = window.profile.get('desktop_config');
         this.popup = null;
-        this.render();
-        console.log('Initialize desktop');
+        this.collection = new Backbone.Collection;
+        this.collection.model = Backbone.Model;
+        this.collection.url = "/desktop/";
+        this.collection.fetch({
+            success: this.render
+        })
     },
 
     go_to_market: function() {
@@ -27,8 +31,10 @@ applications.desktop = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html(templates['tpl-desktop']({shortcuts: this.config.shortcuts}));
-        return this;
+        console.log(this.collection.toJSON());
+        this.$el.html(templates['tpl-desktop']({
+            shortcuts: this.collection.toJSON(),
+        }));
     },
 
     close: function() {},
