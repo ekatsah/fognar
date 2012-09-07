@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'config',
     'django_extensions',
     'fragments',
+    'preference',
 )
 
 SECRET_KEY = 'v_g654gxfo#38*ju5*@bqbxg60a95dw*vpc+t&^(q*tjzazx1%'

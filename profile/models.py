@@ -16,7 +16,6 @@ class Profile(models.Model):
     comment = models.TextField(null=True)
     photo = models.CharField(max_length=80, null=True)
     autostart = models.TextField(default="{sidebar: {}, navbar: {},}")
-    desktop_config = models.TextField(default="")
 
     def get_courses(self):
         from course.models import Course

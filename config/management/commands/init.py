@@ -9,6 +9,7 @@ from group.models import Group
 from course.models import Course, CourseInfo
 from optparse import make_option
 from message.models import Thread, Message
+from preference.models import Shortcut
 
 
 class Command(BaseCommand):
@@ -89,17 +90,12 @@ class Command(BaseCommand):
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
                                   description='Youplaboom')
 
-        profile.desktop_config = """ {
-            "shortcuts": [
-                {"app": "course", "id": %d},
-                {"app": "course", "id": %d},
-                {"app": "course", "id": %d},
-                {"app": "course", "id": %d},
-                {"app": "group", "id": %d},
-                {"app": "group", "id": %d}
-            ]
-        }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id)
-        profile.save()
+        Shortcut.objects.create(user=profile, position=1, app="course", app_id=c1.id)
+        Shortcut.objects.create(user=profile, position=2, app="course", app_id=c2.id)
+        Shortcut.objects.create(user=profile, position=3, app="course", app_id=c3.id)
+        Shortcut.objects.create(user=profile, position=4, app="course", app_id=c4.id)
+        Shortcut.objects.create(user=profile, position=5, app="group", app_id=g1.id)
+        Shortcut.objects.create(user=profile, position=6, app="group", app_id=g2.id)
 
         cat0 = Category.objects.create(name='Faculty', description='Root node w/ category')
         cat1 = Category.objects.create(name='Sciences', description='Fac de sciences')

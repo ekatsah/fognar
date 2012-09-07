@@ -38,7 +38,6 @@
             window.profile = new models.user({
                 id: {{ user.get_profile.id}},
                 name: '{{ user.get_profile.name}}',
-                desktop_config: eval("({{ user.get_profile.desktop_config|escapejs }})"),
             });
 
             cache.users.add(window.profile);
