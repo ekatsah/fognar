@@ -112,8 +112,10 @@ var ZoidRouter = Backbone.Router.extend({
             this.current_app.close();
         }
 
-        this.current_app = new applications[url[0]]({el: $('#content-wrapper'),
-            router: this, args: url});
+        this.current_app = new applications[url[0]]({
+            el: $('#content-wrapper'),
+            router: this, args: url,
+        });
     },
 });
 
