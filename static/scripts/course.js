@@ -7,30 +7,9 @@ models.course = Backbone.Model.extend({
 });
 
 collections.course = Backbone.Collection.extend({
-    initialize: function() {
-        console.log("Init course collection");
-        _.bindAll(this, 'get_or_fetch');
-    },
-
     model: models.course,
     url: urls['course_bone'],
-
-    get_or_fetch: function(course_id) {
-        var result = this.get(course_id);
-        var self = this;
-        if (result == undefined) {
-            this.add({id: course_id});
-            this.get(course_id).fetch({success: function() {
-                self.trigger('fetched');
-            }});
-            return this.get(0);
-        }
-        return result;
-    }
 });
-
-cache.course = new collections.course();
-
 
 applications.course = Backbone.View.extend({
     el: $("content-wrapper"),
