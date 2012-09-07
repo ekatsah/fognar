@@ -1,1 +1,12 @@
+{% load fragments %}
+
 <h1>Market</h1>
+
+<h2>Rajouter un cours</h2>
+{% verbatim %}
+<ul>
+    {{#each course}}
+    <li id="course_{{this.id}}">{{ this.name }} <a href="#" class="add-course">rajouter</a></li>
+    {{/each}}
+</ul>
+{% endverbatim %}
