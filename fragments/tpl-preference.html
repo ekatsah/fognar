@@ -1,1 +1,12 @@
+{% load fragments %}
+
 <h1>Préférences</h1>
+
+<h2>Applications affichées sur le bureau</h2>
+{% verbatim %}
+<ul>
+{{#each shortcuts}}
+<li>{{this.app}}: {{this.data.name}}</li>
+{{/each}}
+</ul>
+{% endverbatim %}
