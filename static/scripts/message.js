@@ -19,10 +19,10 @@ models.thread = Backbone.RelationalModel.extend({
     // FIXME code duplication
     wrap_save_for_djangbone: function() {
         this._save = this.save;
-        this.save = function() {
+        this.save = function(params) {
             this.relations[0].includeInJSON = Backbone.Model.prototype.idAttribute;
             this.relations[1].includeInJSON = Backbone.Model.prototype.idAttribute;
-            this._save();
+            this._save(params);
             this.relations[0].includeInJSON = true;
             this.relations[1].includeInJSON = true;
         }
@@ -45,9 +45,9 @@ models.message = Backbone.RelationalModel.extend({
     // FIXME code duplication
     wrap_save_for_djangbone: function() {
         this._save = this.save;
-        this.save = function() {
+        this.save = function(params) {
             this.relations[0].includeInJSON = Backbone.Model.prototype.idAttribute;
-            this._save();
+            this._save(params);
             this.relations[0].includeInJSON = true;
         }
     },
