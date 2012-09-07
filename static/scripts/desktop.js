@@ -2,6 +2,7 @@
 
 applications.desktop = Backbone.View.extend({
     events: {
+        'click .dashboard-preference': 'go_to_preference',
         'click .dashboard-market': 'go_to_market',
         'click .dashboard-course': 'go_to_course',
     },
@@ -21,6 +22,11 @@ applications.desktop = Backbone.View.extend({
 
     go_to_market: function() {
         this.router.navigate('/market', {trigger: true});
+        return false;
+    },
+
+    go_to_preference: function() {
+        this.router.navigate('/preference', {trigger: true});
         return false;
     },
 
