@@ -54,12 +54,18 @@ applications.course = Backbone.View.extend({
         this.router = params.router;
         this.router.navigate('/course/' + this.cid + '/' + init_mode,
                              {trigger: false, replace: true});
-        this.course = cache.course.get_or_fetch(this.cid);
-        //new models.course({id: this.cid});
-        //this.course.url = urls['course_bone_id'](this.cid);
-        //this.course.on("change", function() { self.render(self.mode, true); });
-        //this.course.fetch();
-        this.render(init_mode);
+        this.course = new Backbone.Model({
+            id: this.cid,
+        });
+        this.course.model = models.course;
+        this.course.url = "/course/" + this.cid;
+        var self = this;
+        this.course.fetch({
+            success: function() {
+                console.log("zob");
+                self.render(init_mode);
+            },
+        })
     },
 
     handle_sidebar: function(e) {
