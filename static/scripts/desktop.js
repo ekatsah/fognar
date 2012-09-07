@@ -2,7 +2,7 @@
 
 applications.desktop = Backbone.View.extend({
     events: {
-        'click .dashboard-add': 'go_to_market',
+        'click .dashboard-market': 'go_to_market',
         'click .dashboard-course': 'go_to_course',
     },
 
