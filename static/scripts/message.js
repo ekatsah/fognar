@@ -79,7 +79,7 @@ applications.submit_new_message = Backbone.View.extend({
         var new_message = new models.message({
             text: text,
             thread: this.model.id,
-            user: window.profile.id,
+            user: window.profile.id, // FIXME stupid, should detect user on django side
             reference: null,
         });
         this.model.attributes.messages.add(new_message);
@@ -141,7 +141,7 @@ applications.thread = Backbone.View.extend({
         var new_thread = new models.thread({
             subject: subject,
             category: category,
-            user: window.profile.id,
+            user: window.profile.id, // FIXME stupid, should detect user on django side
             course: self.context.get('id'),
         })
         new_thread.save();
