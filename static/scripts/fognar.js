@@ -14,6 +14,7 @@ Handlebars.registerHelper('get_name', function(item, options) {
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
+        console.log("initialize navbar view");
         $(this.el).prepend(templates['tpl-navbar']({
             name: window.profile.get('name')
         }));
@@ -31,6 +32,7 @@ applications.navbar = Backbone.View.extend({
 
 applications.sidebar = Backbone.View.extend({
     initialize: function(params) {
+        console.log("Initialize sidebar view");
         var self = this;
         _.bindAll(this, 'render', 'close', 'toggle', 'mask', 'show');
         this.router = params.router;
@@ -101,26 +103,29 @@ var ZoidRouter = Backbone.Router.extend({
     parser: function(url) {
         url = url.split('/');
         if (typeof applications[url[0]] == "undefined") {
-            this.navigate('/desktop', {trigger: true});
+            console.log("No urls, go to desktop");
+            return this.navigate('/desktop', {trigger: true});
         }
-        else {
-            if (this.current_app != null) {
-                this.current_app.undelegateEvents();
-                this.current_app.close();
-            }
 
-            this.current_app = new applications[url[0]]({el: $('#content-wrapper'),
-                router: this, args: url});
+        if (this.current_app != null) {
+            this.current_app.undelegateEvents();
+            this.current_app.close();
         }
+
+        console.log(applications);
+        this.current_app = new applications[url[0]]({
+            el: $('#content-wrapper'),
+            router: this, args: url,
+        });
     },
 });
 
 $(document).ready(function() {
     // template compilation
     templates = {};
-    _($('*[type="text/x-handlebars-template"]')).each(function(t) {
-        templates[t.id] = Handlebars.compile($(t).html());
-        Handlebars.registerPartial(t.id, $(t).html());
+    _.each(fragments, function (content, key) {
+        templates[key] = Handlebars.compile(content);
+        Handlebars.registerPartial(key, content);
     });
 
     // start application

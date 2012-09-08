@@ -1,0 +1,24 @@
+{% load fragments %}
+{% verbatim %}
+<div id="wiki">
+    <div id="wiki-save" class="button">Mettre à jour</div>
+    {{#each wiki.infos}}
+    <article>
+        <h2>{{this.name}}</h2>
+        <hr/>
+        <ul>
+            {{#each this.values}}
+            <li>
+                <div class="wiki-label">{{this.name}}</div>
+                <div class="wiki-content">
+                    <div class="wiki-text">{{this.value}}</div>
+                    <div class="wiki-edit"/>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </article>
+    {{/each}}
+    last edit by {{wiki.user__name}} <!-- Rien d'affiché, erreur de frappe ? ? -->
+</div>
+{% endverbatim %}

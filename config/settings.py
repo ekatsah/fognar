@@ -63,6 +63,8 @@ STATICFILES_DIRS = ('%s/static/' % PROJECT_PATH,)
 ALLOWED_INCLUDE_ROOTS = ('%s/templates' % PROJECT_PATH,)
 TEMPLATE_DIRS = ( '%s/templates' % PROJECT_PATH,)
 
+FRAGMENTS_DIR = path.join(PROJECT_PATH, "fragments")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -92,6 +94,8 @@ INSTALLED_APPS = (
     'profile',
     'config',
     'django_extensions',
+    'fragments',
+    'preference',
 )
 
 SECRET_KEY = 'v_g654gxfo#38*ju5*@bqbxg60a95dw*vpc+t&^(q*tjzazx1%'

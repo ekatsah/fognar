@@ -23,6 +23,8 @@ urlpatterns = patterns('',
     url(r'^document/', include('document.urls'), name='document'),
     url(r'^course/', include('course.urls'), name='course'),
     url(r'^msg/', include('message.urls'), name='message'),
+    url(r'^desktop/', include('desktop.urls'), name='desktop'),
+    url(r'^preference/', include('preference.urls'), name='preference'),
 
     # The product/client entry points
     url(r'^$',
@@ -48,4 +50,7 @@ urlpatterns = patterns('',
     url(r'^logout$',
         logout, {'next_page': '/'},
         name="logout"),
+
+    # fragments
+    url(r'^', include('fragments.urls')),
 )

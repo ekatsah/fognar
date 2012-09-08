@@ -1,0 +1,25 @@
+{% load fragments %}
+{% verbatim %}
+<div id="main-sided-wrapper">
+    <h1>
+        {{ assoc.name }}
+    </h1>
+    <ul id="members">
+        {{#each member}}
+            <li>
+                <img src="{{ this.avatar }}" alt="" />
+                {{ this.name }}
+            </li>
+        {{/each}}
+    </ul>
+</div>
+<div id="large-sidebar-wrapper">
+    <nav class="sidebar-nav">
+        <a href="#">Actualités</a>
+        <a href="#">Page Statique</a>
+        <a href="#">Page Statique</a>
+        <a href="#" class="nav-active">Membres</a>
+        <a href="#">Contact</a>
+    </nav>
+</div>
+{% endverbatim %}

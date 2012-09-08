@@ -1,0 +1,48 @@
+{% load fragments %}
+
+{% verbatim %}
+<div>
+    <a href="#"> <img src="static/image/sample-avatar.png" alt="" /> </a>
+</div>
+<div>
+    <h3><strong> <a href="#">{{ thread.user.name }}</a> </strong><span class="title-date">Il y a {{ thread.created }}</span><span class="tag-wrapper">{{ thread.category }}</span></h3>
+    <p>{{ thread.subject }}</p>
+    <p class="conversation-feed-actions">
+        <a href="#">J'aime</a>
+        <span class="inline-counter">12</span>
+    </p>
+    <div class="comment-box">
+        <a href="#" class="button"> <i class="discuss-icon"></i> Afficher tous les commentaires </a>
+        <ul>
+            {{#each thread.messages}}
+            <li >
+                <div>
+                    <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
+                </div>
+                <div>
+                    <h4><a href="#">{{ this.user.name }}</a><span class="title-date">Il y a {{this.created}}</span> </h4>
+                    <p>{{this.text}}</p>
+                    <p class="comment-actions">
+                        <a href="#">J'aime</a>
+                        <span class="inline-counter">23</span>
+                    </p>
+                </div>
+            </li>
+            {{/each}}
+            <li>
+                <div>
+                    <a href="#"> <img src="static/image/sample-avatar-small.png" alt="" /> </a>
+                </div>
+                <div>
+                    <form action="#" id="submit_new_message_{{ thread.id }}">
+                        <textarea class="comment-textarea" placeholder="Réagissez ..."></textarea>
+                        <input type="submit" value="Publier" class="button publish-comment">
+                        </input>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="cf"></div>
+{% endverbatim %}

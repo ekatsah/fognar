@@ -1,0 +1,22 @@
+{% load fragments %}
+{% verbatim %}
+<div id="main-sided-wrapper">
+    <h1><i class="dashboard-icon"></i>Mon Bureau</h1>
+    <ul id="dashboard">
+        {{#each shortcuts}}
+        <li class="dashboard-{{ this.app }}" data-type="{{this.app}}"
+                                             data-target="{{this.app_id}}">
+            <div class="dashboard-notif">X</div>
+            <p>{{this.name}}</p>
+        </li>
+        {{/each}}
+        <li class="dashboard-preference">
+            <p>Préférences</p>
+        </li>
+        <li class="dashboard-market">
+            <p>Ajouter une App</p>
+        </li>
+    </ul>
+</div>
+<div id="large-sidebar-wrapper"></div>
+{% endverbatim %}

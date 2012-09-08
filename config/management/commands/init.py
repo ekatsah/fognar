@@ -2,11 +2,14 @@
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from getpass import getpass, getuser
 from category.models import Category, CategoryItem
 from group.models import Group
 from course.models import Course, CourseInfo
 from optparse import make_option
+from message.models import Thread, Message
+from preference.models import Shortcut
 
 
 class Command(BaseCommand):
@@ -42,7 +45,7 @@ class Command(BaseCommand):
         profile.name = first_name + " " + last_name
         profile.email = '42@urlab.be'
         profile.save()
-        
+
         self.stdout.write('Adding base data ...\n')
         c1 = Course.objects.create(slug='info-f-666', name='Hell Informatique',
                                    description='Hell Computer Science course')
@@ -52,8 +55,8 @@ class Command(BaseCommand):
                                    description='Les simplex dans tout leurs etats')
         c4 = Course.objects.create(slug='info-f-999', name='Support Vector Machines',
                                    description='Neural Networks are outdated, use SVM!')
-        
-        i1 = CourseInfo.objects.create(user=profile, 
+
+        i1 = CourseInfo.objects.create(user=profile,
                                        infos = """[
             {    name: "general", values: [
                                         {name: 'Professeur', value:'B. Lecharlier'},
@@ -63,7 +66,7 @@ class Command(BaseCommand):
                                     ],
             },
         ]""")
-        
+
         i2 = CourseInfo.objects.create(user = profile,
                                        prev=i1,
                                        infos = """[
@@ -78,26 +81,21 @@ class Command(BaseCommand):
                                       {name: 'Difficultes', values:'Language noyaux'},
                                      ],
             },
-        ]""")     
+        ]""")
         c1.infos = i2
         c1.save()
-        
+
         g1 = Group.objects.create(slug='CI', name='Cercle Informatique',
                                   description='Cercle des etudiants en info \o/')
         g2 = Group.objects.create(slug='ACE', name='Association des Cercles Etudiants',
                                   description='Youplaboom')
 
-        profile.desktop_config = """ {
-            "shortcuts": [ 
-                {"app": "course", "id": %d},
-                {"app": "course", "id": %d},
-                {"app": "course", "id": %d},
-                {"app": "course", "id": %d},
-                {"app": "group", "id": %d},
-                {"app": "group", "id": %d}
-            ]
-        }""" % (c1.id, c2.id, c3.id, c4.id, g1.id, g2.id)
-        profile.save()
+        Shortcut.objects.create(user=profile, position=1, app="course", app_id=c1.id)
+        Shortcut.objects.create(user=profile, position=2, app="course", app_id=c2.id)
+        Shortcut.objects.create(user=profile, position=3, app="course", app_id=c3.id)
+        Shortcut.objects.create(user=profile, position=4, app="course", app_id=c4.id)
+        Shortcut.objects.create(user=profile, position=5, app="group", app_id=g1.id)
+        Shortcut.objects.create(user=profile, position=6, app="group", app_id=g2.id)
 
         cat0 = Category.objects.create(name='Faculty', description='Root node w/ category')
         cat1 = Category.objects.create(name='Sciences', description='Fac de sciences')
@@ -114,3 +112,6 @@ class Command(BaseCommand):
         CategoryItem.objects.create(category=cat3, thing=g1, priority=3)
         CategoryItem.objects.create(category=cat0, thing=g2, priority=1)
         CategoryItem.objects.create(category=cat2, thing=c3, priority=1)
+
+        thread = Thread.objects.create(user=User.objects.all()[0].profile, refer_content=ContentType.objects.get_for_model(Course), refer_oid=c1.id, subject="A JSON stringifier goes in the opposite direction, converting JavaScript data structures into JSON text. JSON does not support cyclic data structures, so be careful to not give cyclical structures to the JSON stringifier. http://www.json.org/js.html", category="info pratique")
+        Message.objects.create(user=user.get_profile(), thread=thread, text='Type "copyright", "credits" or "license" for more information.')

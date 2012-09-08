@@ -2,21 +2,31 @@
 
 applications.desktop = Backbone.View.extend({
     events: {
-        'click .dashboard-add': 'go_to_market',
+        'click .dashboard-preference': 'go_to_preference',
+        'click .dashboard-market': 'go_to_market',
         'click .dashboard-course': 'go_to_course',
     },
 
     initialize: function(params) {
+        console.log('Initialize desktop');
         _.bindAll(this, 'render');
         this.router = params.router;
-        this.config = window.profile.get('desktop_config');
         this.popup = null;
-        this.render();
-        console.log('Initialize desktop');
+        this.collection = new Backbone.Collection;
+        this.collection.model = Backbone.Model;
+        this.collection.url = "/desktop/";
+        this.collection.fetch({
+            success: this.render
+        })
     },
 
     go_to_market: function() {
         this.router.navigate('/market', {trigger: true});
+        return false;
+    },
+
+    go_to_preference: function() {
+        this.router.navigate('/preference', {trigger: true});
         return false;
     },
 
@@ -27,8 +37,9 @@ applications.desktop = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html(templates['tpl-desktop']({shortcuts: this.config.shortcuts}));
-        return this;
+        this.$el.html(templates['tpl-desktop']({
+            shortcuts: this.collection.toJSON(),
+        }));
     },
 
     close: function() {},

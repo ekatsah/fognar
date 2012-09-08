@@ -15,17 +15,19 @@
         <script src="/static/third_party/jquery-1.7.min.js"></script>
         <script src="/static/third_party/underscore-min.js"></script>
         <script src="/static/third_party/backbone-min.js"></script>
+        <script src="/static/third_party/backbone-relational.js"></script>
         <script src="/static/third_party/handlebars-1.0.0.beta.6.js"></script>
         <script type="text/javascript">
             {% include "urls.js" %}
 
             autostart = {{ user.get_profile.autostart }};
         </script>
-        {% ssi objects %}
+        <script src="{% url fragments %}" type="text/javascript"></script>
         <script src="/static/scripts/fognar.js" type="text/javascript"></script>
         <script src="/static/scripts/profile.js" type="text/javascript"></script>
         <script src="/static/scripts/document.js" type="text/javascript"></script>
         <script src="/static/scripts/desktop.js" type="text/javascript"></script>
+        <script src="/static/scripts/preference.js" type="text/javascript"></script>
         <script src="/static/scripts/group.js" type="text/javascript"></script>
         <script src="/static/scripts/course.js" type="text/javascript"></script>
         <script src="/static/scripts/market.js" type="text/javascript"></script>
@@ -36,20 +38,9 @@
             window.profile = new models.user({
                 id: {{ user.get_profile.id}},
                 name: '{{ user.get_profile.name}}',
-                desktop_config: eval("({{ user.get_profile.desktop_config|escapejs }})"),
             });
 
             cache.users.add(window.profile);
-
-            {% for course in user.get_profile.get_courses %}
-            cache.course.add(new models.course({
-                id: {{ course.id }},
-                slug: '{{ course.slug }}',
-                name: '{{ course.name }}',
-                description: '{{ course.description }}',
-                infos: {% if course.infos %}{{ course.infos.id }}{% else %}0{% endif %},
-            }));
-            {% endfor %}
         </script>
     </head>
 

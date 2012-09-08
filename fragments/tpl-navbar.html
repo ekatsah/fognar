@@ -1,0 +1,17 @@
+{% load fragments %}
+{% verbatim %}
+<header>
+    <section id="navbar">
+        <a id="logo" href="#">Respublicae</a>
+        <div id="search-wrapper">
+            <form action="#">
+                <input type="text" name="search" />
+            </form>
+        </div>
+        <div id="account-wrapper">
+            <i class="person-icon"></i>
+            {{ name }} <i class="ticker-icon"></i>
+        </div>
+    </section>
+</header>
+{% endverbatim %}
