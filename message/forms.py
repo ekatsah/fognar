@@ -3,7 +3,6 @@ from message.models import Thread, Message, CATEGORIES
 from django.utils.html import escape
 from django.shortcuts import get_object_or_404
 
-from profile.models import Profile
 from course.models import Course
 from config.utils import get_context
 
@@ -34,21 +33,33 @@ class NewThreadForm(forms.ModelForm):
 
 class NewCourseThreadForm(forms.Form):
     subject = forms.CharField()
-    user = forms.IntegerField()
     category = forms.ChoiceField(CATEGORIES)
     course = forms.IntegerField()
+
+    def set_request(self, request):
+        self.request = request
 
     def save(self):
         # djangbone will do a is_valid check for us
         return Thread.objects.create(
             subject=self.cleaned_data["subject"],
-            user=get_object_or_404(Profile, id=self.cleaned_data["user"]),
+            user=self.request.user.profile,
             referer=get_object_or_404(Course, id=self.cleaned_data["course"]),
             category=self.cleaned_data["category"],
         )
 
 
-class NewMessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        exclude = ('reference',)
+class NewMessageForm(forms.Form):
+    text = forms.CharField()
+    thread = forms.IntegerField()
+
+    def set_request(self, request):
+        self.request = request
+
+    def save(self):
+        # djangbone will do a is_valid check for us
+        return Message.objects.create(
+            text=self.cleaned_data["text"],
+            user=self.request.user.profile,
+            thread=get_object_or_404(Thread, id=self.cleaned_data["thread"]),
+        )
