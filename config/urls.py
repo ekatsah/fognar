@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^msg/', include('message.urls'), name='message'),
     url(r'^desktop/', include('desktop.urls'), name='desktop'),
     url(r'^preference/', include('preference.urls'), name='preference'),
+    url(r'^restx/', include('restx.urls'), name='restx'),
 
     # The product/client entry points
     url(r'^$',
