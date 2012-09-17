@@ -1,6 +1,7 @@
-from django.db import models
+# Copyright 2012, UrLab. All rights reserved.
 
-from profile.models import Profile
+from django.db import models
+from profile import Profile
 
 class Shortcut(models.Model):
     user = models.ForeignKey(Profile)

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.utils.html import escape
 from xml.dom.minidom import parseString
-from profile.models import Inscription
+from objects.models import Inscription
 from string import printable
 from random import choice
 from settings import ULB_AUTH, ULB_LOGIN

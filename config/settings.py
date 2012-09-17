@@ -20,7 +20,7 @@ MANAGERS = ADMINS
 OBJECT_FILE = '%s/templates/objects.html' % PROJECT_PATH
 
 # User Profile Model
-AUTH_PROFILE_MODULE = 'profile.Profile'
+AUTH_PROFILE_MODULE = 'objects.Profile'
 
 # Page to show after a syslogin
 LOGIN_REDIRECT_URL = '/zoidberg#desktop'
@@ -33,7 +33,7 @@ FORCE_SCRIPT_NAME = ''
 
 # Upload settings
 UPLOAD_LOG = '/tmp/upload_log'
-UPLOAD_DIR = '%s/document/r' % PROJECT_PATH
+UPLOAD_DIR = '%s/static/documents' % PROJECT_PATH
 PARSING_WORKERS = 7
 
 # ULB login, need to add the url to redirect at the end
@@ -85,18 +85,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.markup',
     'south',
-    'djangbone',
-    'category',
-    'course',
-    'document',
-    'group',
-    'message',
-    'profile',
     'config',
     'django_extensions',
     'fragments',
-    'preference',
     'restx',
+    'objects',
 )
 
 SECRET_KEY = 'v_g654gxfo#38*ju5*@bqbxg60a95dw*vpc+t&^(q*tjzazx1%'

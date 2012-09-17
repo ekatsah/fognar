@@ -5,7 +5,7 @@ from time import sleep
 from signal import signal, SIGTERM
 from django.core.management.base import BaseCommand
 from config.settings import UPLOAD_DIR, UPLOAD_LOG, PARSING_WORKERS
-from document.models import Page, PendingDocument as Task
+from objects.models import Page, PendingDocument as Task
 from django.db import close_connection
 from os import system, path, makedirs
 from multiprocessing import Process
