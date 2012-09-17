@@ -2,7 +2,7 @@
 
 from django.conf.urls.defaults import patterns, url
 from config.authentification import stop_anon
-from restx.views import query
+from rest.views import query
 
 urlpatterns = patterns('',
     url(r'^(?P<model>[^/]+)(/((?P<field>[^:/]*):){0,1}(?P<ids>[^/]+)){0,1}(/)*',
