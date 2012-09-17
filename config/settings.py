@@ -40,7 +40,7 @@ PARSING_WORKERS = 7
 ULB_LOGIN = 'https://www.ulb.ac.be/commons/intranet?_prt=ulb:facultes:sciences:p402&_ssl=on&_prtm=redirect&_appl='
 
 # ULB authentificator, need 2 parameters : SID and UID
-ULB_AUTH = 'http://www.ulb.ac.be/commons/check?_type=normal&_sid=%s&_uid=%s'
+ULB_AUTH = 'https://www.ulb.ac.be/commons/check?_type=normal&_sid=%s&_uid=%s'
 
 TIME_ZONE = 'Europe/Paris'
 LANGUAGE_CODE = 'en-us'
