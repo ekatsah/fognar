@@ -19,7 +19,7 @@ def user_logged(function_in, function_out):
 
 urlpatterns = patterns('',
     # Plateforme URLS, here we include all the things outputing json
-    url(r'^restx/', include('restx.urls'), name='restx'),
+    url(r'^rest/', include('rest.urls'), name='rest'),
 
     # The product/client entry points
     url(r'^$',

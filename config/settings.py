@@ -88,7 +88,7 @@ INSTALLED_APPS = (
     'config',
     'django_extensions',
     'fragments',
-    'restx',
+    'rest',
     'objects',
 )
 
