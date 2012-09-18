@@ -9,3 +9,5 @@ class CourseInfo(models.Model):
     infos = models.TextField()
     date = models.DateTimeField(auto_now=True)
     course = models.ForeignKey(Course)
+
+    _public_fields = ['user', 'infos', 'date', 'course']

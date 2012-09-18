@@ -9,3 +9,6 @@ class Page(models.Model):
     height_120 = models.IntegerField()
     height_600 = models.IntegerField()
     height_900 = models.IntegerField()
+
+    _public_fields = ['document', 'numero', 'height_120', 'height_600', 
+                      'height_900']

@@ -9,7 +9,10 @@ class Thread(models.Model):
     referer_id = models.PositiveIntegerField()
     referer_content = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    category = models.CharField(max_length=100)
+    tags = models.CharField(max_length=100)
 
     class Meta:
         ordering = ['-created']
+
+    _public_fields = ['user', 'subject', 'referer_id', 'referer_content',
+                      'tags']

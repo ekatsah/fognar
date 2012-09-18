@@ -12,3 +12,5 @@ class Shortcut(models.Model):
     class Meta:
         unique_together = ('user', 'position')
         ordering = ['position']
+
+    _public_fields = []

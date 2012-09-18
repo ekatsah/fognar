@@ -8,3 +8,5 @@ class PendingDocument(models.Model):
     state = models.CharField(max_length=30)
     url = models.CharField(max_length=255)
     done = models.PositiveIntegerField(default=0)
+
+    _public_fields = ['document', 'state', 'done']

@@ -6,3 +6,5 @@ class Course(models.Model):
     slug = models.SlugField()
     name = models.CharField(max_length=100)
     description = models.TextField(null=True)
+
+    _public_fields = ['slug', 'name', 'description']

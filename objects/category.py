@@ -6,3 +6,5 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True)
     parent = models.ForeignKey('self', null=True)
+
+    _public_fields = ['name', 'description', 'parent']

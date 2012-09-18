@@ -9,3 +9,5 @@ class GroupMember(models.Model):
     group = models.ForeignKey(Group)
     title = models.TextField()
     role = models.TextField()
+
+    _public_fields = ['user', 'group', 'title', 'role']

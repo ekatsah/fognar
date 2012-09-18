@@ -17,3 +17,7 @@ class Document(models.Model):
 
     view = models.PositiveIntegerField(null=True, default=0)
     download = models.PositiveIntegerField(null=True, default=0)
+
+    _public_fields = ['name', 'description', 'user', 'referer_id', 
+                      'referer_content', 'size', 'words', 'pages', 'view', 
+                      'download']

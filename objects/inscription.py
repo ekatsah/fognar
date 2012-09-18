@@ -10,3 +10,5 @@ class Inscription(models.Model):
 
     class Meta:
         unique_together = ('user', 'section', 'year')
+
+    _public_fields = []
