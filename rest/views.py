@@ -1,9 +1,36 @@
 # Copyright 2012, UrLab. All rights reserved.
 
-from django.http import HttpResponse
+from json import dumps
+from django.http import HttpResponse, HttpResponseNotFound
+from django.db.models import Q
+from objects import models
+
+model_names = [ model for model in dir(models) if model[0] != '_' ]
+concat_q = lambda a, b: a | b
 
 def query(request, model, field, ids):
-    if field == None:
+    if model not in model_names:
+        return HttpResponseNotFound("%s don't seem to exist" % model)
+    model = getattr(models, model)
+
+    queryset = model.objects.all()
+    if not getattr(model, "_public_fields", False):
+        model._public_fields = []
+
+    if field == None or field not in model._public_fields:
         field = 'id'
-    return HttpResponse('<pre>model = %s\nfield = %s\nids = %s</pre>' % 
-                        (model, field, ids))
+
+    if ids:
+        ids = ids.split(',')
+        try:
+            queryset = queryset.filter(reduce(concat_q, 
+                                       [ Q(**{field: v}) for v in ids ]))
+        except Exception as e:
+            print "except " + str(e)
+            queryset = []
+    
+    results = list(queryset.values(*model._public_fields))
+    if len(results) == 1:
+        return HttpResponse(dumps(results[0]), mimetype='application/json')
+    else:
+        return HttpResponse(dumps(results), mimetype='application/json')
