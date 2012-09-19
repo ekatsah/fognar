@@ -30,66 +30,6 @@ applications.navbar = Backbone.View.extend({
     close: function() {},
 });
 
-applications.sidebar = Backbone.View.extend({
-    initialize: function(params) {
-        console.log("Initialize sidebar view");
-        var self = this;
-        _.bindAll(this, 'render', 'close', 'toggle', 'mask', 'show');
-        this.router = params.router;
-        this.visible = false;
-        this.calling = null;
-        window.sidebar = this;
-/*        // TODO resolving bug /on descktop :
-        // Uncaught TypeError: Object #<Object> has no method 'tpl-sidebar'
-        $(this.el).append(templates['tpl-sidebar']());
-        $('#sidebar-backdrop').css("visibility", "hidden");
-        $('#sidebar-backdrop').click(function() {
-            self.mask();
-        });
-        this.el = $('#sidebar');*/
-    },
-
-    show: function(caller) {
-        if (this.visible == false) {
-            $('#sidebar').addClass("side-toolbar-opened");
-            $('#sidebar-backdrop').removeClass("backdrop-hidden");
-            $('#sidebar-backdrop').css("visibility", "visible");
-            this.visible = true;
-        }
-        if (this.calling != null)
-            this.undelegateEvents(this.calling.events);
-        this.delegateEvents(caller.events);
-        this.calling = caller;
-    },
-
-    mask: function() {
-        if (this.visible) {
-            $('#sidebar').removeClass("side-toolbar-opened");
-            $('#sidebar-backdrop').addClass("backdrop-hidden");
-            setTimeout(function() {
-                $('#sidebar-backdrop').css("visibility", "hidden");
-            }, 300);
-            this.visible = false;
-        }
-        if (this.calling != null)
-            this.undelegateEvents(this.calling.events);
-        this.calling = null;
-    },
-
-    toggle: function(caller) {
-        if (this.visible)
-            this.mask();
-        else
-            this.show(caller);
-    },
-
-    render: function(content) {
-        $('#sidebar-inner').html(content);
-    },
-
-    close: function() {},
-});
-
 var ZoidRouter = Backbone.Router.extend({
     initialize: function() {
         _.bindAll(this, 'parser');
