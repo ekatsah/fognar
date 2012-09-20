@@ -14,3 +14,4 @@ class Shortcut(models.Model):
         ordering = ['position']
 
     _public_fields = []
+    _private_fields = ['user.id', 'app', 'app_id', 'position']
