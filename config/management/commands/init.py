@@ -105,5 +105,5 @@ class Command(BaseCommand):
         CategoryItem.objects.create(category=cat0, item_id=g2.id, item_content='Group', priority=1)
         CategoryItem.objects.create(category=cat2, item_id=c3.id, item_content='Course', priority=1)
 
-        thread = Thread.objects.create(user=User.objects.all()[0].profile, referer_content='Course', referer_id=c1.id, subject="A JSON stringifier goes in the opposite direction, converting JavaScript data structures into JSON text. JSON does not support cyclic data structures, so be careful to not give cyclical structures to the JSON stringifier. http://www.json.org/js.html", category="info pratique")
+        thread = Thread.objects.create(user=User.objects.all()[0].profile, referer_content='Course', referer_id=c1.id, subject="A JSON stringifier goes in the opposite direction, converting JavaScript data structures into JSON text. JSON does not support cyclic data structures, so be careful to not give cyclical structures to the JSON stringifier. http://www.json.org/js.html", tags='["info pratique"]')
         Message.objects.create(user=user.get_profile(), thread=thread, text='Type "copyright", "credits" or "license" for more information.')
