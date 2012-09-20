@@ -14,7 +14,7 @@ applications.desktop = Backbone.View.extend({
         this.popup = null;
         this.collection = new Backbone.Collection;
         this.collection.model = Backbone.Model;
-        this.collection.url = "/desktop/";
+        this.collection.url = "/rest/Shortcut/";
         this.collection.fetch({
             success: this.render
         })
