@@ -11,6 +11,6 @@ class Profile(models.Model):
     welcome = models.BooleanField(default=True)
     comment = models.TextField(null=True)
     photo = models.CharField(max_length=80, null=True)
-    autostart = models.TextField(default="{sidebar: {}, navbar: {},}")
+    autostart = models.TextField(default="{navbar: {},}")
 
     _public_fields = ['user', 'name', 'photo']
