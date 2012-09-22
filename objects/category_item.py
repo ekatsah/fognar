@@ -9,4 +9,4 @@ class CategoryItem(models.Model):
     item_content = models.CharField(max_length=100)
     priority = models.PositiveIntegerField()
 
-    _public_fields = ['category', 'item_id', 'item_content', 'priority']
+    _public_fields = ['category.id', 'item_id', 'item_content', 'priority']

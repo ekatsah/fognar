@@ -9,4 +9,4 @@ class PendingDocument(models.Model):
     url = models.CharField(max_length=255)
     done = models.PositiveIntegerField(default=0)
 
-    _public_fields = ['document', 'state', 'done']
+    _public_fields = ['document.id', 'state', 'done']

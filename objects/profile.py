@@ -13,4 +13,6 @@ class Profile(models.Model):
     photo = models.CharField(max_length=80, null=True)
     autostart = models.TextField(default="{navbar: {},}")
 
-    _public_fields = ['user', 'name', 'photo']
+    _public_fields = ['user.id', 'name', 'photo']
+    _private_fields = ['user.id', 'name', 'email', 'registration', 'welcome', 
+                       'photo', 'autostart']

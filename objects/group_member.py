@@ -10,4 +10,4 @@ class GroupMember(models.Model):
     title = models.TextField()
     role = models.TextField()
 
-    _public_fields = ['user', 'group', 'title', 'role']
+    _public_fields = ['user.id', 'group.id', 'title', 'role']

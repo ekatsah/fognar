@@ -14,5 +14,5 @@ class Thread(models.Model):
     class Meta:
         ordering = ['-created']
 
-    _public_fields = ['user', 'subject', 'referer_id', 'referer_content',
+    _public_fields = ['user.id', 'subject', 'referer_id', 'referer_content',
                       'tags']
