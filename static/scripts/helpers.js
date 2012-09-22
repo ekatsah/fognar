@@ -73,3 +73,9 @@ function recurloop(func, delay, times, count) {
         setTimeout(function() { recurloop(func, delay, times, count + 1); }, delay);
     }
 }
+
+function format_referer(model, content, id) {
+	return '/rest/refered/' + model + '/' +
+		this.type.charAt(0).toUpperCase() + this.type.slice(1) + '/' +
+		this.context.get('id');
+}
