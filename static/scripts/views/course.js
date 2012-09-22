@@ -8,7 +8,7 @@ models.course = Backbone.Model.extend({
 
 collections.course = Backbone.Collection.extend({
     model: models.course,
-    url: urls['course_bone'],
+    url: '/rest/Course/',
 });
 
 applications.course = Backbone.View.extend({
@@ -37,7 +37,7 @@ applications.course = Backbone.View.extend({
             id: this.cid,
         });
         this.course.model = models.course;
-        this.course.url = "/course/" + this.cid;
+        this.course.url = "/rest/Course/" + this.cid;
         var self = this;
         this.course.fetch({
             success: function() {

@@ -36,7 +36,7 @@ models.message = Backbone.RelationalModel.extend({
         relatedModel: 'models.user',
     }],
     //url: function() { this.attributes.id ? 'msg/m/' + this.attributes.id : '/msg/m/' },
-    url: '/msg/m/',
+    url: '/rest/Message/',
     initialize: function(params) {
         console.log("New message model with id " + params.id);
         console.log(this.url);
@@ -117,7 +117,8 @@ applications.thread = Backbone.View.extend({
         this.context = params.context;
         this.threads = new Backbone.Collection();
         this.threads.model = models.thread;
-        this.threads.url = urls['thread_bone_type_id'](this.type, this.context.get('id'));
+        this.threads.url = format_referer('Thread', this.type, 
+        				  this.context.get('id'));
         this.threads.bind('change', this.render);
         var self = this;
         this.threads.fetch({
