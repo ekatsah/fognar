@@ -10,4 +10,4 @@ class CourseInfo(models.Model):
     date = models.DateTimeField(auto_now=True)
     course = models.ForeignKey(Course)
 
-    _public_fields = ['user.id', 'infos', 'date', 'course.id']
+    _public_fields = ['id', 'user.id', 'infos', 'date', 'course.id']

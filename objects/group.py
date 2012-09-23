@@ -8,4 +8,4 @@ class Group(models.Model):
     description = models.TextField(null=True)
     info = models.TextField(null=True)
 
-    _public_fields = ['slug', 'name', 'description', 'info']
+    _public_fields = ['id', 'slug', 'name', 'description', 'info']

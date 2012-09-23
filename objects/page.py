@@ -10,5 +10,5 @@ class Page(models.Model):
     height_600 = models.IntegerField()
     height_900 = models.IntegerField()
 
-    _public_fields = ['document.id', 'numero', 'height_120', 'height_600', 
+    _public_fields = ['id', 'document.id', 'numero', 'height_120', 'height_600', 
                       'height_900']

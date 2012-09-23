@@ -7,4 +7,4 @@ class Category(models.Model):
     description = models.TextField(null=True)
     parent = models.ForeignKey('self', null=True)
 
-    _public_fields = ['name', 'description', 'parent.id']
+    _public_fields = ['id', 'name', 'description', 'parent.id']

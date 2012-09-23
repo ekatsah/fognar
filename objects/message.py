@@ -11,4 +11,4 @@ class Message(models.Model):
     previous = models.ForeignKey('self', null=True, default=None)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
-    _public_fields = ['user.id', 'thread.id', 'text', 'previous.id']
+    _public_fields = ['id', 'user.id', 'thread.id', 'text', 'previous.id']
