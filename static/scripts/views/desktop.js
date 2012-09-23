@@ -39,7 +39,7 @@ applications.desktop = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html(templates['tpl-desktop']({
+        this.$el.html(templates['desktop']({
             shortcuts: this.shortcuts.toJSON(),
         }));
     },
