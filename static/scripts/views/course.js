@@ -1,15 +1,4 @@
-// Copyright 2012, Cercle Informatique. All rights reserved.
-
-models.course = Backbone.Model.extend({
-    initialize: function(params) {
-        console.log("Initialize course model");
-    },
-});
-
-collections.course = Backbone.Collection.extend({
-    model: models.course,
-    url: '/rest/Course/',
-});
+// Copyright 2012, UrLab. All rights reserved.
 
 applications.course = Backbone.View.extend({
     el: $("content-wrapper"),
@@ -33,18 +22,9 @@ applications.course = Backbone.View.extend({
         this.router = params.router;
         this.router.navigate('/course/' + this.cid + '/' + init_mode,
                              {trigger: false, replace: true});
-        this.course = new Backbone.Model({
-            id: this.cid,
-        });
-        this.course.model = models.course;
-        this.course.url = "/rest/Course/" + this.cid;
-        var self = this;
-        this.course.fetch({
-            success: function() {
-                console.log("zob");
-                self.render(init_mode);
-            },
-        })
+        cache.course.bind("change add", this.render);
+        this.course = cache.course.get_or_fetch(this.cid);
+        console.log("course = " + this.course);
     },
 
     handle_sidebar: function(e) {
@@ -64,7 +44,7 @@ applications.course = Backbone.View.extend({
                 this.sub_app.undelegateEvents();
                 // FIXME remove app toussa
             }
-            this.$el.html(templates['tpl-course']({course: this.course.toJSON()}));
+            this.$el.html(templates['tpl-course']({course: cache.course.get_or_fetch(this.cid).toJSON()}));
         }
 
         if (this.mode != mode || refresh) {
