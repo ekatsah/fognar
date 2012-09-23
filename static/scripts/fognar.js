@@ -22,29 +22,34 @@ applications.navbar = Backbone.View.extend({
 
 var ZoidRouter = Backbone.Router.extend({
     initialize: function() {
-        _.bindAll(this, 'parser');
-        this.current_app = null;
+        _.bindAll(this, 'remove_views', 'desktop');
+        this.current_app = [];
     },
 
     routes: {
-        '*args': 'parser',
+        'desktop': 'desktop',
+        '*url': 'other',
     },
 
-    parser: function(url) {
-        url = url.split('/');
-        if (typeof applications[url[0]] == "undefined")
-            return this.navigate('/desktop', {trigger: true});
-
-        if (this.current_app != null) {
-            this.current_app.undelegateEvents();
-            this.current_app.close();
-        }
-
-        this.current_app = new applications[url[0]]({
-            el: $('#content-wrapper'),
-            router: this, args: url,
+    remove_views: function() {
+        _(this.current_app).each(function(view) {
+            view.undelegateEvents();
+            view.close();
         });
+        this.current_app = [];
     },
+    
+    desktop: function() {
+        this.remove_views();
+        this.current_app.push(new applications.desktop({
+            el: $('#content-wrapper'),
+            router: this,
+        }));
+    },
+
+    other: function(url) {
+        console.log("other matched on " + url);
+    }
 });
 
 $(document).ready(function() {
