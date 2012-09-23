@@ -1,16 +1,6 @@
-// Copyright 2012, Cercle Informatique. All rights reserved.
+// Copyright 2012, UrLab. All rights reserved.
 
 var applications = {};
-var models = {};
-var collections = {};
-var cache = {};
-
-Handlebars.registerHelper('get_name', function(item, options) {
-    if (item.app == 'course')
-        return cache.course.get_or_fetch(item.id).get('name');
-    else
-        return item.app + ' #' + item.id;
-});
 
 applications.navbar = Backbone.View.extend({
     initialize: function(params) {
