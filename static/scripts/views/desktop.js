@@ -1,4 +1,4 @@
-// Copyright 2012, Cercle Informatique. All rights reserved.
+// Copyright 2012, UrLab. All rights reserved.
 
 applications.desktop = Backbone.View.extend({
     events: {
@@ -8,16 +8,18 @@ applications.desktop = Backbone.View.extend({
     },
 
     initialize: function(params) {
-        console.log('Initialize desktop');
-        _.bindAll(this, 'render');
+        _.bindAll(this, 'render', 'go_to_market', 'go_to_preference',
+                  'go_to_course', 'close');
+
+        cache.course.bind("change add", this.render);
+        cache.group.bind("change add", this.render);
+
         this.router = params.router;
-        this.popup = null;
-        this.collection = new Backbone.Collection;
-        this.collection.model = Backbone.Model;
-        this.collection.url = "/rest/Shortcut/";
-        this.collection.fetch({
+        this.shortcuts = new Backbone.Collection;
+        this.shortcuts.url = "/rest/Shortcut/";
+        this.shortcuts.fetch({
             success: this.render
-        })
+        });
     },
 
     go_to_market: function() {
@@ -38,9 +40,12 @@ applications.desktop = Backbone.View.extend({
 
     render: function() {
         this.$el.html(templates['tpl-desktop']({
-            shortcuts: this.collection.toJSON(),
+            shortcuts: this.shortcuts.toJSON(),
         }));
     },
 
-    close: function() {},
+    close: function() {
+        cache.course.unbind("change add", this.render);
+        cache.group.unbind("change add", this.render);
+    },
 });
