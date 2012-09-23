@@ -7,7 +7,7 @@
         <li class="dashboard-{{ this.app }}" data-type="{{this.app}}"
                                              data-target="{{this.app_id}}">
             <div class="dashboard-notif">X</div>
-            <p>{{this.name}}</p>
+            <p>{{get_name this.app this.app_id}}</p>
         </li>
         {{/each}}
         <li class="dashboard-preference">
