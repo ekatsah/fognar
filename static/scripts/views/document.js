@@ -1,13 +1,5 @@
 // Copyright 2012, Cercle Informatique. All rights reserved.
 
-models.document = Backbone.Model.extend({urlRoot: '/document'});
-
-Handlebars.registerHelper('user_name', function(uploader, options) {
-    if (typeof uploader == 'undefined')
-        return;
-    return cache.users.get_or_fetch(uploader).get('name');
-});
-
 Handlebars.registerHelper('stars', function(context, options) {
     var star = Math.round(context.rating_average);
     var ret = '<span class="rating">';
@@ -28,20 +20,19 @@ Handlebars.registerHelper('date', function(date, options) {
     return 'le '+d;
 });
 
-
 applications.document = Backbone.View.extend({
     initialize: function(params) {
         _.bindAll(this, 'render');
-        this.type = params.type;
-        this.context = params.context;
+        this.upload = false;
+        this.upload_file = true;
+        this.upload_description = "Description du document";
+        this.referer_id = params.referer_id;
+        this.referer_content = params.referer_content;
         this.documents = new Backbone.Collection();
-        this.documents.url = urls['document_bone_type_id'](
-            this.type,
-            this.context.get('id')
-        );
+        this.documents.url = '/rest/refered/Document/' + this.referer_content + '/' + this.referer_id;
         this.documents.on("all", this.render);
         this.documents.fetch();
-        cache.users.on("fetched", this.render);
+        cache.user.bind("change add", this.render);
         this.sort_by = "name";
         this.documents.comparator = this.sort[this.sort_by];
         this.render();
@@ -49,12 +40,26 @@ applications.document = Backbone.View.extend({
 
     events: {
         'click #upload': function() {
-            sidebar.render(templates['tpl-document-upload']({
-                type: this.type,
-                context: this.context.get('id'),
-                token: get_cookie('csrftoken'),
-            }));
-            sidebar.show(this);
+            this.upload = true;
+            this.render();
+            return false;
+        },
+
+        'click #upload-http': function() {
+            this.upload_file = false;
+            this.render();
+            return false;
+        },
+        
+        'click #upload-file': function() {
+            this.upload_file = true;
+            this.render();
+            return false;
+        },
+
+        'click #upload-close': function() {
+            this.upload = false;
+            this.render();
             return false;
         },
 
@@ -107,16 +112,18 @@ applications.document = Backbone.View.extend({
     },
 
     render: function() {
-        console.log("document render");
-        $(this.el).html(templates['tpl-course-document']({
+        $(this.el).html(templates['document-list']({
             documents: this.documents.toJSON(),
+            upload: this.upload,
+            upload_file: this.upload_file,
+            upload_description: this.upload_description,
         }));
         $('#sort-by').val(this.sort_by);
         return this;
     },
 
     close: function() {
-        cache.users.off("fetched", this.render);
+        cache.users.off("change add", this.render);
     },
 
     sort: {

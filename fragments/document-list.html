@@ -1,0 +1,86 @@
+{% load fragments %}
+{% verbatim %}
+<div id="new-document-toolbar">
+    {{#if upload }}
+    <a id="upload-do" href="#" class="button">
+        <i class="upload-icon"></i>
+        Envoyer
+    </a>
+    {{#if upload_file}}
+    <a id="upload-http" href="#" class="button">
+        <i class="upload-icon"></i>
+        Envoyer une URL
+    </a>
+    {{else}}
+    <a id="upload-file" href="#" class="button">
+        <i class="upload-icon"></i>
+        Envoyer un fichier
+    </a>
+    {{/if}}
+    <a id="upload-close" href="#" class="button">
+        X<i class="upload-close"></i>
+    </a>
+    {{else}}
+    <a id="upload" href="#" class="button">
+        <i class="upload-icon"></i>
+        Envoyer un nouveau document
+    </a>
+    {{/if}}    
+    <select class="ui-select" id="sort-by">
+        <option value="name">Titre</option>
+        <option value="uploader">Auteur</option>
+        <option value="rating">Qualité</option>
+        <option value="statistical_rating">Qualité statistique</option>
+        <option value="popularity">Popularité</option>
+        <option value="date">Date de publication</option>
+    </select>
+    <label>Trier par:</label>
+</div>
+
+<div id="upload-toolbar">
+{{#if upload }}
+<div id="upload_message"></div>
+<form id="upload_form" target="upload_frame" method="post"
+        encoding="multipart/form-data" enctype="multipart/form-data">
+    <textarea name="description" id="upload-description">{{ upload_description }}</textarea><br>
+    Source : <input style="display: {{#if upload_file}}inline{{else}}none{{/if}}" 
+              id="upload-file-input" name="xfile" type="file">
+    <input style="display: {{#if upload_file}}none{{else}}inline{{/if}}"
+              id="upload-http-input" name="url" placeholder="URL" value="http://cerkinfo.be/~hastake/test.pdf">
+    <input name="ctype" type="hidden" value="{{ type }}"/>
+    <input name="context" type="hidden" value="{{ context }}"/>
+    <input id="upload-source" name="source" type="hidden" value=""/>
+    <input name='csrfmiddlewaretoken' type='hidden' id='csrf_token' value='{{ token }}' />
+    <iframe id="upload_frame" name="upload_frame" src=""></iframe>
+</form>
+<hr>
+{{/if}}
+</div>
+
+    {{#each documents}}
+    <div class="cf"></div>
+    <div id="document-feed">
+        <article>
+            <div>
+                <img src="static/image/sample-document-preview.png" alt="" />
+            </div>
+            <div>
+                <h3>
+                    <strong><a href="#">{{this.name}}</a></strong>
+                    <span class="title-date">Posté {{date this.date}}</span>
+                </h3>
+                <div>
+                    {{{stars this}}}
+                    <span class="doc-type">
+                        <i class="type-icon"></i>
+                        pdf
+                    </span>
+                </div>
+                <div class="doc-description">
+                    <p>{{this.description}}</p>
+                </div>
+            </div>
+        </article>
+    </div>
+    {{/each}}
+    {% endverbatim %}

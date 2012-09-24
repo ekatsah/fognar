@@ -586,6 +586,10 @@ i.upload-icon {
 
 #new-document-toolbar a {
     float: left;
+    margin-right: 10px;
+}
+#new-document-toolbar #upload {
+    float: left;
     width: 220px;
 }
 
@@ -601,6 +605,35 @@ i.upload-icon {
 
 #new-document-toolbar select {
     width: 160px;
+}
+
+#upload-toolbar {
+    margin-top: 80px;
+}
+
+#new-document-toolbar #upload-close {
+    width: 20px;
+}
+
+#new-document-toolbar #upload-do {
+    width: 100px;
+}
+
+#new-document-toolbar #upload-http {
+    width: 150px;
+}
+
+#new-document-toolbar #upload-file {
+    width: 160px;
+}
+
+#upload-description {
+    margin-bottom: 10px;
+}
+
+#upload-file-input, #upload-http-input {
+    margin-bottom: 7px;
+    width: 300px;
 }
 
 #document-feed {
