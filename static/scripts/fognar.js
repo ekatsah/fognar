@@ -28,6 +28,8 @@ var ZoidRouter = Backbone.Router.extend({
 
     routes: {
         'desktop': 'desktop',
+        'course/:id/document': 'document',
+        'course/:id': 'course',
         '*url': 'other',
     },
 
@@ -47,8 +49,37 @@ var ZoidRouter = Backbone.Router.extend({
         }));
     },
 
+    document: function(id) {
+        this.remove_views();
+        $('#content-wrapper').html(templates['two-columns']());
+        this.current_app.push(new applications.page_title({
+            el: $('#page-title'),
+            model_name: 'course',
+            object_id: id,
+        }));
+        this.current_app.push(new applications.document({
+            el: $('#main-sided-wrapper'),
+            referer_id: id,
+            referer_content: 'Course',
+        }));
+        this.current_app.push(new applications.course_sidebar({
+            el: $('#large-sidebar-wrapper'),
+            course_id: id,
+        }));
+    },
+
+    course: function(id) {
+        this.navigate('course/' + id + '/document', {
+            replace: true,
+            trigger: true,
+        });
+    },
+
     other: function(url) {
-        console.log("other matched on " + url);
+        this.remove_views();
+        $('#content-wrapper').html(templates['other']({
+            url: url,
+        }));
     }
 });
 

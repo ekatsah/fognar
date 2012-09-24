@@ -24,23 +24,30 @@
         </script>
         <script src="{% url fragments %}" type="text/javascript"></script>
         <script src="/static/scripts/fognar.js" type="text/javascript"></script>
-        <script src="/static/scripts/views/profile.js" type="text/javascript"></script>
-        <script src="/static/scripts/views/document.js" type="text/javascript"></script>
+        <script src="/static/scripts/helpers.js" type="text/javascript"></script>
+        <script src="/static/scripts/cache.js" type="text/javascript"></script>
+        <script src="/static/scripts/views/page_title.js" type="text/javascript"></script>
+        <script src="/static/scripts/views/course_sidebar.js" type="text/javascript"></script>
         <script src="/static/scripts/views/desktop.js" type="text/javascript"></script>
-        <script src="/static/scripts/views/preference.js" type="text/javascript"></script>
+        <script src="/static/scripts/views/document.js" type="text/javascript"></script>
+<!--        <script src="/static/scripts/views/preference.js" type="text/javascript"></script>
         <script src="/static/scripts/views/group.js" type="text/javascript"></script>
-        <script src="/static/scripts/views/course.js" type="text/javascript"></script>
         <script src="/static/scripts/views/market.js" type="text/javascript"></script>
         <script src="/static/scripts/views/viewer.js" type="text/javascript"></script>
-        <script src="/static/scripts/helpers.js" type="text/javascript"></script>
-        <script src="/static/scripts/views/message.js" type="text/javascript"></script>
+        <script src="/static/scripts/views/message.js" type="text/javascript"></script>-->
         <script type="text/javascript">
-            window.profile = new models.user({
-                id: {{ user.get_profile.id}},
-                name: '{{ user.get_profile.name}}',
+            window.profile = new Backbone.Model({
+                id: {{ user.get_profile.id }},
+                user_id: {{ user.id }},
+                name: '{{ user.get_profile.name }}',
+                email: '{{ user.get_profile.email }}',
+                registration: '{{ user.get_profile.registration }}',
+                welcome: {% if user.get_profile.welcome %}true{% else %}false{% endif %},
+                photo: '{{ user.get_profile.photo }}',
+                autostart: '{{ user.get_profile.autostart }}',
             });
 
-            cache.users.add(window.profile);
+            cache.user.add(window.profile);
         </script>
     </head>
 
